@@ -200,7 +200,7 @@ footer {
 <header>
   <div>
     <h1>Analytics — My Job Search</h1>
-    <p>Updated: 25 May 2026 at 17:10 UTC &nbsp;|&nbsp; Data from jobs.db — all scrape runs accumulated</p>
+    <p>Updated: 25 May 2026 at 17:39 UTC &nbsp;|&nbsp; Data from jobs.db — all scrape runs accumulated</p>
   </div>
   <div style="display:flex; gap:8px; flex-wrap:wrap;">
     <a class="nav-link" href="index.html">Live Job Board</a>
@@ -306,6 +306,13 @@ footer {
       </div>
     </div>
 
+    <div class="chart-card" id="chartDesiredCard" style="display:none;">
+      <h3>Desired matches per week (score &ge; desired threshold)</h3>
+      <div class="chart-wrap">
+        <canvas id="chartDesired"></canvas>
+      </div>
+    </div>
+
     <div class="chart-card">
       <h3>Match rate: accepted / (accepted + rejected) per week</h3>
       <div class="chart-wrap">
@@ -373,10 +380,11 @@ footer {
 
 <script>
 // ── Embedded analytics payload ────────────────────────────────────
-// DATA shape: { week_labels, all: {...}, control_theory: {...} }
-const DATA = {"week_labels": ["2026-W22"], "all": {"jobs_per_week": [15], "rejected_per_week": [63], "rolling_avg": [15.0], "avg_fit_per_week": [99.4], "target_per_week": [0], "cat_per_week": {"GNC/Aerospace": [3], "High-Tech/Precision": [3], "Robotics": [7], "General Control": [2], "Blacklisted-PLC": [13], "Blacklisted-Other": [0], "Rejected-Senior": [11], "Rejected-No-Gate": [39]}, "src_per_week": {"linkedin": [6], "indeed": [9], "other": [0]}, "top_companies": [{"company": "Intralox", "count": 2}, {"company": "Spektrum", "count": 2}, {"company": "Source.ag", "count": 1}, {"company": "Just Eat Takeaway.com", "count": 1}, {"company": "Epassi", "count": 1}, {"company": "NXP Semiconductors", "count": 1}, {"company": "Cosine UK", "count": 1}, {"company": "Aalberts advanced mechatronics", "count": 1}, {"company": "ASML", "count": 1}, {"company": "Trinamics", "count": 1}, {"company": "JBT Marel", "count": 1}, {"company": "APM Terminals", "count": 1}, {"company": "SMST Designers & Constructors", "count": 1}], "ratio_per_week": [{"week": "2026-W22", "accepted": 15, "rejected": 63, "total": 78, "accept_pct": 19.2}], "summary": {"total_seen": 78, "total_accepted": 15, "total_rejected": 63, "avg_fit": 99.4, "total_runs": 1, "last_run": "2026-05-25"}, "new_jobs_per_week": [15]}, "control_theory": {"jobs_per_week": [8], "rejected_per_week": [0], "rolling_avg": [8.0], "avg_fit_per_week": [30.25], "target_per_week": [0], "cat_per_week": {"GNC/Aerospace": [3], "High-Tech/Precision": [3], "Robotics": [0], "General Control": [2], "Blacklisted-PLC": [0], "Blacklisted-Other": [0], "Rejected-Senior": [0], "Rejected-No-Gate": [0]}, "src_per_week": {"linkedin": [3], "indeed": [5], "other": [0]}, "top_companies": [{"company": "Spektrum", "count": 2}, {"company": "NXP Semiconductors", "count": 1}, {"company": "Cosine UK", "count": 1}, {"company": "Aalberts advanced mechatronics", "count": 1}, {"company": "ASML", "count": 1}, {"company": "Trinamics", "count": 1}, {"company": "SMST Designers & Constructors", "count": 1}], "ratio_per_week": [{"week": "2026-W22", "accepted": 8, "rejected": 0, "total": 8, "accept_pct": 100.0}], "summary": {"total_seen": 8, "total_accepted": 8, "total_rejected": 0, "avg_fit": 30.25, "total_runs": 1, "last_run": "2026-05-25"}, "new_jobs_per_week": [8]}, "control_theory_categories": ["GNC/Aerospace", "General Control", "High-Tech/Precision"], "job_records": [{"wk": "2026-W22", "sc": 615.0, "cat": "Robotics", "tgt": 0, "src": "linkedin", "co": "Source.ag", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 307.0, "cat": "Robotics", "tgt": 0, "src": "indeed", "co": "Intralox", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 201.0, "cat": "Robotics", "tgt": 0, "src": "indeed", "co": "Just Eat Takeaway.com", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 106.0, "cat": "GNC/Aerospace", "tgt": 0, "src": "indeed", "co": "Spektrum", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 103.0, "cat": "Robotics", "tgt": 0, "src": "indeed", "co": "Epassi", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 102.0, "cat": "High-Tech/Precision", "tgt": 0, "src": "indeed", "co": "NXP Semiconductors", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 11.0, "cat": "Robotics", "tgt": 0, "src": "indeed", "co": "Intralox", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 8.0, "cat": "GNC/Aerospace", "tgt": 0, "src": "indeed", "co": "Cosine UK", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 7.0, "cat": "High-Tech/Precision", "tgt": 0, "src": "linkedin", "co": "Aalberts advanced mechatronics", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 6.0, "cat": "High-Tech/Precision", "tgt": 0, "src": "indeed", "co": "ASML", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 5.0, "cat": "GNC/Aerospace", "tgt": 0, "src": "indeed", "co": "Spektrum", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 4.0, "cat": "General Control", "tgt": 0, "src": "linkedin", "co": "Trinamics", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 6.0, "cat": "Robotics", "tgt": 0, "src": "linkedin", "co": "JBT Marel", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 6.0, "cat": "Robotics", "tgt": 0, "src": "linkedin", "co": "APM Terminals", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 4.0, "cat": "General Control", "tgt": 0, "src": "linkedin", "co": "SMST Designers & Constructors", "fsw": "2026-W22"}]};
+// DATA shape: { week_labels, all: {...}, control_theory: {...}, desired_score }
+const DATA = {"week_labels": ["2026-W22"], "all": {"jobs_per_week": [16], "rejected_per_week": [65], "rolling_avg": [16.0], "avg_fit_per_week": [99.62], "target_per_week": [0], "desired_per_week": [0], "cat_per_week": {"GNC/Aerospace": [4], "High-Tech/Precision": [3], "Robotics": [7], "General Control": [2], "Blacklisted-PLC": [13], "Blacklisted-Other": [0], "Rejected-Senior": [12], "Rejected-No-Gate": [40]}, "src_per_week": {"linkedin": [7], "indeed": [9], "other": [0]}, "top_companies": [{"company": "Intralox", "count": 2}, {"company": "Spektrum", "count": 2}, {"company": "Source.ag", "count": 1}, {"company": "Just Eat Takeaway.com", "count": 1}, {"company": "Epassi", "count": 1}, {"company": "NXP Semiconductors", "count": 1}, {"company": "Cosine UK", "count": 1}, {"company": "Aalberts advanced mechatronics", "count": 1}, {"company": "ASML", "count": 1}, {"company": "Trinamics", "count": 1}, {"company": "JBT Marel", "count": 1}, {"company": "APM Terminals", "count": 1}, {"company": "SMST Designers & Constructors", "count": 1}, {"company": "Anduril Industries", "count": 1}], "ratio_per_week": [{"week": "2026-W22", "accepted": 16, "rejected": 65, "total": 81, "accept_pct": 19.8}], "summary": {"total_seen": 81, "total_accepted": 16, "total_rejected": 65, "avg_fit": 99.62, "total_desired": 0, "total_runs": 1, "last_run": "2026-05-25"}, "new_jobs_per_week": [16]}, "control_theory": {"jobs_per_week": [9], "rejected_per_week": [0], "rolling_avg": [9.0], "avg_fit_per_week": [38.33], "target_per_week": [0], "desired_per_week": [0], "cat_per_week": {"GNC/Aerospace": [4], "High-Tech/Precision": [3], "Robotics": [0], "General Control": [2], "Blacklisted-PLC": [0], "Blacklisted-Other": [0], "Rejected-Senior": [0], "Rejected-No-Gate": [0]}, "src_per_week": {"linkedin": [4], "indeed": [5], "other": [0]}, "top_companies": [{"company": "Spektrum", "count": 2}, {"company": "NXP Semiconductors", "count": 1}, {"company": "Cosine UK", "count": 1}, {"company": "Aalberts advanced mechatronics", "count": 1}, {"company": "ASML", "count": 1}, {"company": "Trinamics", "count": 1}, {"company": "SMST Designers & Constructors", "count": 1}, {"company": "Anduril Industries", "count": 1}], "ratio_per_week": [{"week": "2026-W22", "accepted": 9, "rejected": 0, "total": 9, "accept_pct": 100.0}], "summary": {"total_seen": 9, "total_accepted": 9, "total_rejected": 0, "avg_fit": 38.33, "total_desired": 0, "total_runs": 1, "last_run": "2026-05-25"}, "new_jobs_per_week": [9]}, "control_theory_categories": ["GNC/Aerospace", "General Control", "High-Tech/Precision"], "job_records": [{"wk": "2026-W22", "sc": 615.0, "cat": "Robotics", "tgt": 0, "src": "linkedin", "co": "Source.ag", "fsw": "2026-W22", "ds": 0}, {"wk": "2026-W22", "sc": 307.0, "cat": "Robotics", "tgt": 0, "src": "indeed", "co": "Intralox", "fsw": "2026-W22", "ds": 0}, {"wk": "2026-W22", "sc": 201.0, "cat": "Robotics", "tgt": 0, "src": "indeed", "co": "Just Eat Takeaway.com", "fsw": "2026-W22", "ds": 0}, {"wk": "2026-W22", "sc": 106.0, "cat": "GNC/Aerospace", "tgt": 0, "src": "indeed", "co": "Spektrum", "fsw": "2026-W22", "ds": 0}, {"wk": "2026-W22", "sc": 103.0, "cat": "Robotics", "tgt": 0, "src": "indeed", "co": "Epassi", "fsw": "2026-W22", "ds": 0}, {"wk": "2026-W22", "sc": 102.0, "cat": "High-Tech/Precision", "tgt": 0, "src": "indeed", "co": "NXP Semiconductors", "fsw": "2026-W22", "ds": 0}, {"wk": "2026-W22", "sc": 11.0, "cat": "Robotics", "tgt": 0, "src": "indeed", "co": "Intralox", "fsw": "2026-W22", "ds": 0}, {"wk": "2026-W22", "sc": 8.0, "cat": "GNC/Aerospace", "tgt": 0, "src": "indeed", "co": "Cosine UK", "fsw": "2026-W22", "ds": 0}, {"wk": "2026-W22", "sc": 7.0, "cat": "High-Tech/Precision", "tgt": 0, "src": "linkedin", "co": "Aalberts advanced mechatronics", "fsw": "2026-W22", "ds": 0}, {"wk": "2026-W22", "sc": 6.0, "cat": "High-Tech/Precision", "tgt": 0, "src": "indeed", "co": "ASML", "fsw": "2026-W22", "ds": 0}, {"wk": "2026-W22", "sc": 5.0, "cat": "GNC/Aerospace", "tgt": 0, "src": "indeed", "co": "Spektrum", "fsw": "2026-W22", "ds": 0}, {"wk": "2026-W22", "sc": 4.0, "cat": "General Control", "tgt": 0, "src": "linkedin", "co": "Trinamics", "fsw": "2026-W22", "ds": 0}, {"wk": "2026-W22", "sc": 6.0, "cat": "Robotics", "tgt": 0, "src": "linkedin", "co": "JBT Marel", "fsw": "2026-W22", "ds": 0}, {"wk": "2026-W22", "sc": 6.0, "cat": "Robotics", "tgt": 0, "src": "linkedin", "co": "APM Terminals", "fsw": "2026-W22", "ds": 0}, {"wk": "2026-W22", "sc": 4.0, "cat": "General Control", "tgt": 0, "src": "linkedin", "co": "SMST Designers & Constructors", "fsw": "2026-W22", "ds": 0}, {"wk": "2026-W22", "sc": 103.0, "cat": "GNC/Aerospace", "tgt": 0, "src": "linkedin", "co": "Anduril Industries", "fsw": "2026-W22", "ds": 0}], "desired_score": 0};
 const CAT_COLORS = {"GNC/Aerospace": "#1a3a5c", "High-Tech/Precision": "#2e86ab", "Robotics": "#28a745", "General Control": "#6c757d", "Blacklisted-PLC": "#dc3545", "Blacklisted-Other": "#fd7e14", "Rejected-Senior": "#ffc107", "Rejected-No-Gate": "#adb5bd"};
 const SRC_COLORS = {"linkedin": "#0a66c2", "indeed": "#2e7d32", "other": "#888888"};
+const DESIRED_SCORE = (DATA && DATA.desired_score) ? DATA.desired_score : 0;
 
 // ── View state ────────────────────────────────────────────────────
 // VIEW = active aggregation (DATA.all or DATA.control_theory)
@@ -496,6 +504,9 @@ function renderStatCards() {
     else                trendHtml = `<span class="stat-trend flat">&#8212; no change</span>`;
   }
 
+  const slDesired = DESIRED_SCORE > 0 ? sl(VIEW.desired_per_week || []) : [];
+  const totalDesired = slDesired.reduce((a, b) => a + b, 0);
+
   const s = VIEW.summary;
   const rangeLabel = `${DATA.week_labels[RANGE[0]]} – ${DATA.week_labels[RANGE[1]]}`;
 
@@ -525,6 +536,11 @@ function renderStatCards() {
       <div class="stat-value">${totalTarget}</div>
       <div class="stat-label">Target company hits</div>
     </div>
+    ${DESIRED_SCORE > 0 ? `
+    <div class="stat-card">
+      <div class="stat-value" style="color:#c0392b;">${totalDesired}</div>
+      <div class="stat-label">Desired matches (score &ge; ${DESIRED_SCORE})</div>
+    </div>` : ''}
   `;
 }
 
@@ -769,6 +785,34 @@ function buildChartTarget() {
   });
 }
 
+// ── Chart: Desired matches per week ──────────────────────────────
+function buildChartDesired() {
+  const card = document.getElementById('chartDesiredCard');
+  if (!hasData || DESIRED_SCORE <= 0) {
+    if (card) card.style.display = 'none';
+    return;
+  }
+  if (card) card.style.display = '';
+  CHARTS.desired = new Chart(document.getElementById('chartDesired'), {
+    type: 'line',
+    data: {
+      labels: sl(DATA.week_labels),
+      datasets: [{
+        label: `Desired matches (score ≥ ${DESIRED_SCORE})`,
+        data: sl(VIEW.desired_per_week || []),
+        borderColor: '#c0392b',
+        backgroundColor: '#c0392b22',
+        borderWidth: 2, pointRadius: 3, fill: true, tension: 0.3,
+      }],
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { position: 'top' } },
+      scales: baseScales(false),
+    },
+  });
+}
+
 // ── Chart 7: Match rate line ──────────────────────────────────────
 function buildChartRatio() {
   if (!hasData) return;
@@ -950,6 +994,7 @@ function renderAll() {
   buildChartTrend();
   buildChartFit();
   buildChartTarget();
+  buildChartDesired();
   buildChartRatio();
   buildChartCompanies();
   buildCompanyTable();
@@ -974,13 +1019,14 @@ function _rebuildViewFromRecords(recs) {
   DATA.week_labels.forEach((wk, i) => wkIdx[wk] = i);
   const n = DATA.week_labels.length;
 
-  const jobsArr   = new Array(n).fill(0);
-  const fitSum    = new Array(n).fill(0);
-  const fitCnt    = new Array(n).fill(0);
-  const tgtArr    = new Array(n).fill(0);
-  const catArr    = Object.fromEntries(_ALL_CATS.map(c => [c, new Array(n).fill(0)]));
-  const srcArr    = Object.fromEntries(_SRCS.map(s => [s, new Array(n).fill(0)]));
-  const coCounts  = {};
+  const jobsArr     = new Array(n).fill(0);
+  const fitSum      = new Array(n).fill(0);
+  const fitCnt      = new Array(n).fill(0);
+  const tgtArr      = new Array(n).fill(0);
+  const desiredArr  = new Array(n).fill(0);
+  const catArr      = Object.fromEntries(_ALL_CATS.map(c => [c, new Array(n).fill(0)]));
+  const srcArr      = Object.fromEntries(_SRCS.map(s => [s, new Array(n).fill(0)]));
+  const coCounts    = {};
 
   for (const r of recs) {
     const i = wkIdx[r.wk];
@@ -989,6 +1035,7 @@ function _rebuildViewFromRecords(recs) {
     fitSum[i]  += r.sc;
     fitCnt[i]++;
     if (r.tgt) tgtArr[i]++;
+    if (DESIRED_SCORE > 0 && r.sc >= DESIRED_SCORE) desiredArr[i]++;
     const cat = _ALL_CATS.includes(r.cat) ? r.cat : "General Control";
     catArr[cat][i]++;
     const src = _SRCS.includes(r.src) ? r.src : "other";
@@ -1024,6 +1071,7 @@ function _rebuildViewFromRecords(recs) {
     rolling_avg:       rolling,
     avg_fit_per_week:  avgFitArr,
     target_per_week:   tgtArr,
+    desired_per_week:  desiredArr,
     cat_per_week:      catArr,
     src_per_week:      srcArr,
     top_companies:     topCo,
@@ -1034,6 +1082,7 @@ function _rebuildViewFromRecords(recs) {
       total_accepted: totalAcc,
       total_rejected: 0,
       avg_fit:        avgFitAll,
+      total_desired:  desiredArr.reduce((a, b) => a + b, 0),
       total_runs:     DATA.all?.summary?.total_runs || 0,
       last_run:       DATA.all?.summary?.last_run   || '',
     },
