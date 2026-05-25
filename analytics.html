@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Job Search Analytics — Control Systems NL</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: #f0f2f5; color: #2c3e50;
+}
+
+header {
+  background: #1a3a5c; color: white; padding: 22px 32px;
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 10px;
+}
+header h1 { font-size: 20px; font-weight: 600; }
+header p  { font-size: 12px; opacity: 0.65; margin-top: 4px; }
+.nav-link {
+  color: rgba(255,255,255,0.85); font-size: 13px; font-weight: 500;
+  text-decoration: none; border: 1px solid rgba(255,255,255,0.4);
+  padding: 6px 14px; border-radius: 6px;
+}
+.nav-link:hover { background: rgba(255,255,255,0.15); }
+
+.summary-bar {
+  background: white; border-bottom: 1px solid #e0e0e0;
+  padding: 14px 32px; display: flex; gap: 32px; flex-wrap: wrap;
+  font-size: 13px; color: #666;
+}
+.summary-bar strong { color: #1a3a5c; font-size: 22px; display: block; }
+
+.section {
+  padding: 24px 32px;
+}
+.section-title {
+  font-size: 15px; font-weight: 600; color: #1a3a5c;
+  margin-bottom: 16px; border-left: 3px solid #2e86ab;
+  padding-left: 10px;
+}
+
+.charts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(520px, 1fr));
+  gap: 20px;
+}
+
+.chart-card {
+  background: white; border-radius: 10px; padding: 20px 22px;
+  border: 1px solid #e8e8e8;
+}
+.chart-card h3 {
+  font-size: 13px; font-weight: 600; color: #555;
+  margin-bottom: 14px;
+}
+.chart-wrap {
+  position: relative; height: 260px;
+}
+.chart-wide { grid-column: 1 / -1; }
+.chart-wide .chart-wrap { height: 280px; }
+
+table {
+  width: 100%; border-collapse: collapse; font-size: 13px;
+}
+th {
+  background: #f8f9fa; text-align: left; padding: 8px 12px;
+  font-weight: 600; color: #555; border-bottom: 2px solid #e8e8e8;
+}
+td {
+  padding: 8px 12px; border-bottom: 1px solid #f0f0f0; color: #333;
+}
+tr:hover td { background: #fafafa; }
+
+.bar-cell { display: flex; align-items: center; gap: 8px; }
+.mini-bar {
+  height: 8px; background: #e8e8e8; border-radius: 4px;
+  flex: 1; min-width: 60px; max-width: 160px; overflow: hidden;
+}
+.mini-bar-fill {
+  height: 100%; background: #1a3a5c; border-radius: 4px;
+}
+
+.trend-badge {
+  display: inline-block; padding: 3px 9px; border-radius: 10px;
+  font-size: 11px; font-weight: 600;
+}
+.trend-up   { background: #d4edda; color: #155724; }
+.trend-down { background: #f8d7da; color: #721c24; }
+.trend-flat { background: #e2e3e5; color: #495057; }
+
+.no-data {
+  text-align: center; padding: 80px 0; color: #aaa; font-size: 15px;
+}
+
+footer {
+  text-align: center; padding: 24px; font-size: 11px; color: #bbb;
+}
+
+@media (max-width: 700px) {
+  .charts-grid { grid-template-columns: 1fr; }
+  .section { padding: 16px; }
+  header, .summary-bar { padding-left: 16px; padding-right: 16px; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>Job Search Analytics — Control Systems NL</h1>
+    <p>Updated: 25 May 2026 at 13:02 UTC &nbsp;|&nbsp; Data from jobs.db — all scrape runs accumulated</p>
+  </div>
+  <div style="display:flex; gap:8px; flex-wrap:wrap;">
+    <a class="nav-link" href="index.html">Live Job Board</a>
+    <a class="nav-link" href="settings.html">&#9881; Settings</a>
+  </div>
+</header>
+
+<div class="summary-bar" id="summaryBar">
+  <!-- Populated by JS -->
+  <div class="no-data">No data yet — run job_searcher.py --site to populate.</div>
+</div>
+
+<div class="section">
+  <div class="section-title">Market Volume Over Time</div>
+  <div class="charts-grid">
+
+    <div class="chart-card chart-wide">
+      <h3>Jobs found per week (matched vs rejected)</h3>
+      <div class="chart-wrap">
+        <canvas id="chartWeekly"></canvas>
+      </div>
+    </div>
+
+    <div class="chart-card">
+      <h3>Breakdown by job category per week</h3>
+      <div class="chart-wrap">
+        <canvas id="chartCategory"></canvas>
+      </div>
+    </div>
+
+    <div class="chart-card">
+      <h3>Source: LinkedIn vs Indeed per week</h3>
+      <div class="chart-wrap">
+        <canvas id="chartSource"></canvas>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-title">Quality &amp; Trend Signals</div>
+  <div class="charts-grid">
+
+    <div class="chart-card">
+      <h3>Rolling 4-week average (matched jobs) — is the market improving?</h3>
+      <div class="chart-wrap">
+        <canvas id="chartTrend"></canvas>
+      </div>
+    </div>
+
+    <div class="chart-card">
+      <h3>Average fit score per week</h3>
+      <div class="chart-wrap">
+        <canvas id="chartFit"></canvas>
+      </div>
+    </div>
+
+    <div class="chart-card">
+      <h3>Target company appearances per week</h3>
+      <div class="chart-wrap">
+        <canvas id="chartTarget"></canvas>
+      </div>
+    </div>
+
+    <div class="chart-card">
+      <h3>Match rate: accepted / (accepted + rejected) per week</h3>
+      <div class="chart-wrap">
+        <canvas id="chartRatio"></canvas>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-title">Top Companies in Results</div>
+  <div style="background:white; border-radius:10px; border:1px solid #e8e8e8; overflow:hidden;">
+    <table id="companyTable">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Company</th>
+          <th>Appearances</th>
+          <th>Share</th>
+        </tr>
+      </thead>
+      <tbody id="companyTbody">
+        <tr><td colspan="4" class="no-data">Loading...</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-title">Weekly Breakdown Table</div>
+  <div style="background:white; border-radius:10px; border:1px solid #e8e8e8; overflow:hidden; overflow-x:auto;">
+    <table id="weekTable">
+      <thead>
+        <tr>
+          <th>Week</th>
+          <th>Matched</th>
+          <th>Rejected</th>
+          <th>Match Rate</th>
+          <th>Avg Fit</th>
+          <th>Target Co.</th>
+          <th>Trend</th>
+        </tr>
+      </thead>
+      <tbody id="weekTbody">
+        <tr><td colspan="7" class="no-data">Loading...</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<footer>
+  Auto-generated by job_searcher.py &nbsp;&middot;&nbsp;
+  Charts: Chart.js (CDN) &nbsp;&middot;&nbsp;
+  Data: accumulated SQLite runs
+</footer>
+
+<script>
+// ── Embedded analytics payload ────────────────────────────────────
+const DATA = {"week_labels": ["2026-W22"], "jobs_per_week": [74], "rejected_per_week": [120], "rolling_avg": [74.0], "avg_fit_per_week": [5.63], "target_per_week": [11], "cat_per_week": {"GNC/Aerospace": [17], "High-Tech/Precision": [10], "Robotics": [32], "General Control": [15], "Blacklisted-PLC": [24], "Blacklisted-Other": [0], "Rejected-Senior": [25], "Rejected-No-Gate": [71]}, "src_per_week": {"linkedin": [53], "indeed": [21], "other": [0]}, "top_companies": [{"company": "Sioux Technologies", "count": 5}, {"company": "Looper Engineering", "count": 3}, {"company": "Damen", "count": 3}, {"company": "Trinamics", "count": 3}, {"company": "Intralox", "count": 2}, {"company": "Spektrum", "count": 2}, {"company": "Monumental", "count": 2}, {"company": "ALTEN Nederland", "count": 2}, {"company": "FORTNA", "count": 2}, {"company": "TNO", "count": 1}, {"company": "NXP Semiconductors", "count": 1}, {"company": "ASML", "count": 1}, {"company": "TMC", "count": 1}, {"company": "Lely", "count": 1}, {"company": "Fokker Services Group", "count": 1}, {"company": "Source.ag", "count": 1}, {"company": "KRUSH Labs B.V.", "count": 1}, {"company": "KRUSH Labs", "count": 1}, {"company": "IntoMachines B.V.", "count": 1}, {"company": "Innoseis Sensor Technologies", "count": 1}], "ratio_per_week": [{"week": "2026-W22", "accepted": 74, "rejected": 120, "total": 194, "accept_pct": 38.1}], "summary": {"total_runs": 1, "total_seen": 194, "total_accepted": 74, "total_rejected": 120, "avg_fit": 5.63, "last_run": "2026-05-25"}};
+
+// ── Guard: no data yet ────────────────────────────────────────────
+const hasData = DATA && DATA.week_labels && DATA.week_labels.length > 0;
+
+// ── Summary bar ───────────────────────────────────────────────────
+function renderSummary() {
+  if (!hasData) return;
+  const s   = DATA.summary;
+  const bar = document.getElementById('summaryBar');
+  bar.innerHTML = `
+    <div><strong>${s.total_runs}</strong> scrape runs</div>
+    <div><strong>${s.total_seen}</strong> total jobs seen</div>
+    <div><strong>${s.total_accepted}</strong> matched</div>
+    <div><strong>${s.total_rejected}</strong> rejected / blacklisted</div>
+    <div><strong>${s.avg_fit}</strong> avg fit score</div>
+    <div style="font-size:12px; color:#aaa; align-self:center;">Last run: ${s.last_run}</div>
+  `;
+}
+
+// ── Chart defaults ────────────────────────────────────────────────
+Chart.defaults.font.family = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+Chart.defaults.font.size   = 11;
+Chart.defaults.color       = '#666';
+const GRID_COLOR = 'rgba(0,0,0,0.06)';
+
+function baseScales(stacked) {
+  return {
+    x: {
+      stacked: stacked || false,
+      grid: { color: GRID_COLOR },
+      ticks: { maxRotation: 45 },
+    },
+    y: {
+      stacked: stacked || false,
+      grid: { color: GRID_COLOR },
+      beginAtZero: true,
+    },
+  };
+}
+
+// ── Chart 1: Weekly matched + rejected bar ───────────────────────
+function buildChartWeekly() {
+  if (!hasData) return;
+  new Chart(document.getElementById('chartWeekly'), {
+    type: 'bar',
+    data: {
+      labels: DATA.week_labels,
+      datasets: [
+        {
+          label: 'Matched',
+          data: DATA.jobs_per_week,
+          backgroundColor: '#2e86ab',
+        },
+        {
+          label: 'Rejected / Blacklisted',
+          data: DATA.rejected_per_week,
+          backgroundColor: '#dc3545aa',
+        },
+      ],
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { position: 'top' } },
+      scales: baseScales(false),
+    },
+  });
+}
+
+// ── Chart 2: Category stacked bar ────────────────────────────────
+function buildChartCategory() {
+  if (!hasData) return;
+  const datasets = [
+    {
+          label: "GNC/Aerospace",
+          data: DATA.cat_per_week["GNC/Aerospace"] || [],
+          backgroundColor: "#1a3a5c",
+          stack: 'categories'
+        },
+{
+          label: "High-Tech/Precision",
+          data: DATA.cat_per_week["High-Tech/Precision"] || [],
+          backgroundColor: "#2e86ab",
+          stack: 'categories'
+        },
+{
+          label: "Robotics",
+          data: DATA.cat_per_week["Robotics"] || [],
+          backgroundColor: "#28a745",
+          stack: 'categories'
+        },
+{
+          label: "General Control",
+          data: DATA.cat_per_week["General Control"] || [],
+          backgroundColor: "#6c757d",
+          stack: 'categories'
+        },
+{
+          label: "Blacklisted-PLC",
+          data: DATA.cat_per_week["Blacklisted-PLC"] || [],
+          backgroundColor: "#dc3545",
+          stack: 'categories'
+        },
+{
+          label: "Blacklisted-Other",
+          data: DATA.cat_per_week["Blacklisted-Other"] || [],
+          backgroundColor: "#fd7e14",
+          stack: 'categories'
+        },
+{
+          label: "Rejected-Senior",
+          data: DATA.cat_per_week["Rejected-Senior"] || [],
+          backgroundColor: "#ffc107",
+          stack: 'categories'
+        },
+{
+          label: "Rejected-No-Gate",
+          data: DATA.cat_per_week["Rejected-No-Gate"] || [],
+          backgroundColor: "#adb5bd",
+          stack: 'categories'
+        }
+  ];
+  new Chart(document.getElementById('chartCategory'), {
+    type: 'bar',
+    data: { labels: DATA.week_labels, datasets },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, font: { size: 10 } } } },
+      scales: baseScales(true),
+    },
+  });
+}
+
+// ── Chart 3: Source stacked bar ───────────────────────────────────
+function buildChartSource() {
+  if (!hasData) return;
+  const datasets = [
+    {
+          label: "Linkedin",
+          data: DATA.src_per_week["linkedin"] || [],
+          backgroundColor: "#0a66c2",
+          stack: 'sources'
+        },
+{
+          label: "Indeed",
+          data: DATA.src_per_week["indeed"] || [],
+          backgroundColor: "#2e7d32",
+          stack: 'sources'
+        },
+{
+          label: "Other",
+          data: DATA.src_per_week["other"] || [],
+          backgroundColor: "#888888",
+          stack: 'sources'
+        }
+  ];
+  new Chart(document.getElementById('chartSource'), {
+    type: 'bar',
+    data: { labels: DATA.week_labels, datasets },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { position: 'top' } },
+      scales: baseScales(true),
+    },
+  });
+}
+
+// ── Chart 4: Rolling trend line ───────────────────────────────────
+function buildChartTrend() {
+  if (!hasData) return;
+  new Chart(document.getElementById('chartTrend'), {
+    type: 'line',
+    data: {
+      labels: DATA.week_labels,
+      datasets: [
+        {
+          label: 'Weekly matched',
+          data: DATA.jobs_per_week,
+          borderColor: '#2e86ab44',
+          backgroundColor: '#2e86ab11',
+          borderWidth: 1,
+          pointRadius: 2,
+          fill: true,
+          tension: 0.3,
+        },
+        {
+          label: '4-week rolling avg',
+          data: DATA.rolling_avg,
+          borderColor: '#1a3a5c',
+          backgroundColor: 'transparent',
+          borderWidth: 2.5,
+          pointRadius: 3,
+          fill: false,
+          tension: 0.3,
+        },
+      ],
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { position: 'top' } },
+      scales: baseScales(false),
+    },
+  });
+}
+
+// ── Chart 5: Avg fit score line ───────────────────────────────────
+function buildChartFit() {
+  if (!hasData) return;
+  new Chart(document.getElementById('chartFit'), {
+    type: 'line',
+    data: {
+      labels: DATA.week_labels,
+      datasets: [{
+        label: 'Avg fit score (matched)',
+        data: DATA.avg_fit_per_week,
+        borderColor: '#28a745',
+        backgroundColor: '#28a74511',
+        borderWidth: 2,
+        pointRadius: 3,
+        fill: true,
+        tension: 0.3,
+      }],
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { position: 'top' } },
+      scales: {
+        ...baseScales(false),
+        y: { ...baseScales(false).y, min: 0, max: 10 },
+      },
+    },
+  });
+}
+
+// ── Chart 6: Target company count per week ───────────────────────
+function buildChartTarget() {
+  if (!hasData) return;
+  new Chart(document.getElementById('chartTarget'), {
+    type: 'bar',
+    data: {
+      labels: DATA.week_labels,
+      datasets: [{
+        label: 'Target company matches',
+        data: DATA.target_per_week,
+        backgroundColor: '#f39c12',
+      }],
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { position: 'top' } },
+      scales: baseScales(false),
+    },
+  });
+}
+
+// ── Chart 7: Match rate line ──────────────────────────────────────
+function buildChartRatio() {
+  if (!hasData) return;
+  const pcts = DATA.ratio_per_week.map(r => r.accept_pct);
+  new Chart(document.getElementById('chartRatio'), {
+    type: 'line',
+    data: {
+      labels: DATA.week_labels,
+      datasets: [{
+        label: 'Match rate (%)',
+        data: pcts,
+        borderColor: '#856404',
+        backgroundColor: '#ffc10711',
+        borderWidth: 2,
+        pointRadius: 3,
+        fill: true,
+        tension: 0.3,
+      }],
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { position: 'top' } },
+      scales: {
+        ...baseScales(false),
+        y: { ...baseScales(false).y, min: 0, max: 100,
+               ticks: { callback: v => v + '%' } },
+      },
+    },
+  });
+}
+
+// ── Top companies table ───────────────────────────────────────────
+function buildCompanyTable() {
+  if (!hasData || !DATA.top_companies.length) return;
+  const maxCount = DATA.top_companies[0].count;
+  const tbody    = document.getElementById('companyTbody');
+  tbody.innerHTML = DATA.top_companies.map((row, i) => {
+    const pct     = maxCount ? Math.round(row.count / maxCount * 100) : 0;
+    const totalAcc = DATA.summary.total_accepted;
+    const share   = totalAcc ? ((row.count / totalAcc) * 100).toFixed(1) + '%' : '—';
+    return `<tr>
+      <td>${i + 1}</td>
+      <td>${row.company}</td>
+      <td>
+        <div class="bar-cell">
+          <span>${row.count}</span>
+          <div class="mini-bar">
+            <div class="mini-bar-fill" style="width:${pct}%"></div>
+          </div>
+        </div>
+      </td>
+      <td>${share}</td>
+    </tr>`;
+  }).join('');
+}
+
+// ── Weekly breakdown table ────────────────────────────────────────
+function buildWeekTable() {
+  if (!hasData) return;
+  const tbody   = document.getElementById('weekTbody');
+  const n       = DATA.week_labels.length;
+  const rows    = [];
+  for (let i = n - 1; i >= 0; i--) {   // newest first
+    const matched  = DATA.jobs_per_week[i];
+    const rejected = DATA.rejected_per_week[i];
+    const total    = matched + rejected;
+    const matchPct = total ? ((matched / total) * 100).toFixed(0) + '%' : '—';
+    const avgFit   = DATA.avg_fit_per_week[i];
+    const target   = DATA.target_per_week[i];
+    const rolling  = DATA.rolling_avg[i];
+
+    // Trend: compare rolling avg to previous week's rolling avg
+    let trendBadge = '';
+    if (i > 0) {
+      const prev = DATA.rolling_avg[i - 1];
+      const delta = rolling - prev;
+      if (delta > 0.3)       trendBadge = '<span class="trend-badge trend-up">improving</span>';
+      else if (delta < -0.3) trendBadge = '<span class="trend-badge trend-down">declining</span>';
+      else                   trendBadge = '<span class="trend-badge trend-flat">stable</span>';
+    }
+
+    rows.push(`<tr>
+      <td>${DATA.week_labels[i]}</td>
+      <td>${matched}</td>
+      <td>${rejected}</td>
+      <td>${matchPct}</td>
+      <td>${avgFit || '—'}</td>
+      <td>${target}</td>
+      <td>${trendBadge}</td>
+    </tr>`);
+  }
+  tbody.innerHTML = rows.join('');
+}
+
+// ── Boot ──────────────────────────────────────────────────────────
+renderSummary();
+buildChartWeekly();
+buildChartCategory();
+buildChartSource();
+buildChartTrend();
+buildChartFit();
+buildChartTarget();
+buildChartRatio();
+buildCompanyTable();
+buildWeekTable();
+</script>
+</body>
+</html>
