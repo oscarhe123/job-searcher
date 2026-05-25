@@ -200,7 +200,7 @@ footer {
 <header>
   <div>
     <h1>Job Search Analytics — Control Systems NL</h1>
-    <p>Updated: 25 May 2026 at 15:06 UTC &nbsp;|&nbsp; Data from jobs.db — all scrape runs accumulated</p>
+    <p>Updated: 25 May 2026 at 15:38 UTC &nbsp;|&nbsp; Data from jobs.db — all scrape runs accumulated</p>
   </div>
   <div style="display:flex; gap:8px; flex-wrap:wrap;">
     <a class="nav-link" href="index.html">Live Job Board</a>
@@ -235,8 +235,21 @@ footer {
     <input type="checkbox" id="controlTheoryToggle" onchange="onViewToggle()">
     Show only control-theory jobs
   </label>
-  <span class="toggle-hint" id="toggleHint">
-    Filters all charts to matched jobs categorised as GNC/Aerospace, High-Tech/Precision, or General Control.
+  <span class="toggle-hint">
+    GNC/Aerospace, High-Tech/Precision, General Control only.
+  </span>
+  <span style="display:inline-flex; align-items:center; gap:8px; margin-left:16px;">
+    <label for="minScoreFilter" style="font-weight:500; color:#444; white-space:nowrap;">Min score:</label>
+    <input type="number" id="minScoreFilter" min="0" step="1" placeholder="any"
+           oninput="onScoreFilter()"
+           style="width:72px; padding:5px 8px; border:1px solid #ccc; border-radius:6px;
+                  font-size:13px; outline:none;">
+  </span>
+  <span style="display:inline-flex; align-items:center; gap:8px; margin-left:16px;">
+    <label style="font-weight:500; color:#444; white-space:nowrap;">New jobs score &ge;:</label>
+    <input type="number" id="newJobScoreFilter" min="0" step="1" placeholder="any"
+           oninput="onNewJobScoreFilter()"
+           style="width:72px; padding:5px 8px; border:1px solid #ccc; border-radius:6px; font-size:13px;">
   </span>
 </div>
 
@@ -248,6 +261,13 @@ footer {
       <h3>Jobs found per week (matched vs rejected)</h3>
       <div class="chart-wrap">
         <canvas id="chartWeekly"></canvas>
+      </div>
+    </div>
+
+    <div class="chart-card chart-wide">
+      <h3>New jobs discovered per week (first appearance)</h3>
+      <div class="chart-wrap">
+        <canvas id="chartNewJobs"></canvas>
       </div>
     </div>
 
@@ -361,7 +381,7 @@ footer {
 <script>
 // ── Embedded analytics payload ────────────────────────────────────
 // DATA shape: { week_labels, all: {...}, control_theory: {...} }
-const DATA = {"week_labels": ["2026-W22"], "all": {"jobs_per_week": [89], "rejected_per_week": [172], "rolling_avg": [89.0], "avg_fit_per_week": [5.63], "target_per_week": [11], "cat_per_week": {"GNC/Aerospace": [21], "High-Tech/Precision": [11], "Robotics": [36], "General Control": [21], "Blacklisted-PLC": [26], "Blacklisted-Other": [0], "Rejected-Senior": [28], "Rejected-No-Gate": [118]}, "src_per_week": {"linkedin": [67], "indeed": [22], "other": [0]}, "top_companies": [{"company": "Looper Engineering", "count": 7}, {"company": "Sioux Technologies", "count": 5}, {"company": "Damen", "count": 3}, {"company": "Trinamics", "count": 3}, {"company": "Monumental", "count": 3}, {"company": "Intralox", "count": 2}, {"company": "Spektrum", "count": 2}, {"company": "TWD", "count": 2}, {"company": "ALTEN Nederland", "count": 2}, {"company": "VIRO", "count": 2}, {"company": "FORTNA", "count": 2}, {"company": "TNO", "count": 1}, {"company": "NXP Semiconductors", "count": 1}, {"company": "ASML", "count": 1}, {"company": "TMC", "count": 1}, {"company": "Lely", "count": 1}, {"company": "Fokker Services Group", "count": 1}, {"company": "Source.ag", "count": 1}, {"company": "KRUSH Labs B.V.", "count": 1}, {"company": "KRUSH Labs", "count": 1}], "ratio_per_week": [{"week": "2026-W22", "accepted": 89, "rejected": 172, "total": 261, "accept_pct": 34.1}], "summary": {"total_seen": 261, "total_accepted": 89, "total_rejected": 172, "avg_fit": 5.63, "total_runs": 1, "last_run": "2026-05-25"}}, "control_theory": {"jobs_per_week": [53], "rejected_per_week": [0], "rolling_avg": [53.0], "avg_fit_per_week": [5.65], "target_per_week": [9], "cat_per_week": {"GNC/Aerospace": [21], "High-Tech/Precision": [11], "Robotics": [0], "General Control": [21], "Blacklisted-PLC": [0], "Blacklisted-Other": [0], "Rejected-Senior": [0], "Rejected-No-Gate": [0]}, "src_per_week": {"linkedin": [41], "indeed": [12], "other": [0]}, "top_companies": [{"company": "Looper Engineering", "count": 6}, {"company": "Sioux Technologies", "count": 5}, {"company": "Spektrum", "count": 2}, {"company": "Trinamics", "count": 2}, {"company": "TWD", "count": 2}, {"company": "ALTEN Nederland", "count": 2}, {"company": "VIRO", "count": 2}, {"company": "TNO", "count": 1}, {"company": "NXP Semiconductors", "count": 1}, {"company": "ASML", "count": 1}, {"company": "Fokker Services Group", "count": 1}, {"company": "KRUSH Labs B.V.", "count": 1}, {"company": "KRUSH Labs", "count": 1}, {"company": "Innoseis Sensor Technologies", "count": 1}, {"company": "Groupe SII", "count": 1}, {"company": "Signify", "count": 1}, {"company": "GardPass Consulting & Space", "count": 1}, {"company": "Cosine UK", "count": 1}, {"company": "Aalberts advanced mechatronics", "count": 1}, {"company": "SMST Designers & Constructors", "count": 1}], "ratio_per_week": [{"week": "2026-W22", "accepted": 53, "rejected": 0, "total": 53, "accept_pct": 100.0}], "summary": {"total_seen": 53, "total_accepted": 53, "total_rejected": 0, "avg_fit": 5.65, "total_runs": 1, "last_run": "2026-05-25"}}, "control_theory_categories": ["GNC/Aerospace", "General Control", "High-Tech/Precision"]};
+const DATA = {"week_labels": ["2026-W22"], "all": {"jobs_per_week": [89], "rejected_per_week": [172], "rolling_avg": [89.0], "avg_fit_per_week": [5.63], "target_per_week": [11], "cat_per_week": {"GNC/Aerospace": [21], "High-Tech/Precision": [11], "Robotics": [36], "General Control": [21], "Blacklisted-PLC": [26], "Blacklisted-Other": [0], "Rejected-Senior": [28], "Rejected-No-Gate": [118]}, "src_per_week": {"linkedin": [67], "indeed": [22], "other": [0]}, "top_companies": [{"company": "Looper Engineering", "count": 7}, {"company": "Sioux Technologies", "count": 5}, {"company": "Damen", "count": 3}, {"company": "Trinamics", "count": 3}, {"company": "Monumental", "count": 3}, {"company": "Intralox", "count": 2}, {"company": "Spektrum", "count": 2}, {"company": "TWD", "count": 2}, {"company": "ALTEN Nederland", "count": 2}, {"company": "VIRO", "count": 2}, {"company": "FORTNA", "count": 2}, {"company": "TNO", "count": 1}, {"company": "NXP Semiconductors", "count": 1}, {"company": "ASML", "count": 1}, {"company": "TMC", "count": 1}, {"company": "Lely", "count": 1}, {"company": "Fokker Services Group", "count": 1}, {"company": "Source.ag", "count": 1}, {"company": "KRUSH Labs B.V.", "count": 1}, {"company": "KRUSH Labs", "count": 1}], "ratio_per_week": [{"week": "2026-W22", "accepted": 89, "rejected": 172, "total": 261, "accept_pct": 34.1}], "summary": {"total_seen": 261, "total_accepted": 89, "total_rejected": 172, "avg_fit": 5.63, "total_runs": 1, "last_run": "2026-05-25"}, "new_jobs_per_week": [89]}, "control_theory": {"jobs_per_week": [53], "rejected_per_week": [0], "rolling_avg": [53.0], "avg_fit_per_week": [5.65], "target_per_week": [9], "cat_per_week": {"GNC/Aerospace": [21], "High-Tech/Precision": [11], "Robotics": [0], "General Control": [21], "Blacklisted-PLC": [0], "Blacklisted-Other": [0], "Rejected-Senior": [0], "Rejected-No-Gate": [0]}, "src_per_week": {"linkedin": [41], "indeed": [12], "other": [0]}, "top_companies": [{"company": "Looper Engineering", "count": 6}, {"company": "Sioux Technologies", "count": 5}, {"company": "Spektrum", "count": 2}, {"company": "Trinamics", "count": 2}, {"company": "TWD", "count": 2}, {"company": "ALTEN Nederland", "count": 2}, {"company": "VIRO", "count": 2}, {"company": "TNO", "count": 1}, {"company": "NXP Semiconductors", "count": 1}, {"company": "ASML", "count": 1}, {"company": "Fokker Services Group", "count": 1}, {"company": "KRUSH Labs B.V.", "count": 1}, {"company": "KRUSH Labs", "count": 1}, {"company": "Innoseis Sensor Technologies", "count": 1}, {"company": "Groupe SII", "count": 1}, {"company": "Signify", "count": 1}, {"company": "GardPass Consulting & Space", "count": 1}, {"company": "Cosine UK", "count": 1}, {"company": "Aalberts advanced mechatronics", "count": 1}, {"company": "SMST Designers & Constructors", "count": 1}], "ratio_per_week": [{"week": "2026-W22", "accepted": 53, "rejected": 0, "total": 53, "accept_pct": 100.0}], "summary": {"total_seen": 53, "total_accepted": 53, "total_rejected": 0, "avg_fit": 5.65, "total_runs": 1, "last_run": "2026-05-25"}, "new_jobs_per_week": [53]}, "control_theory_categories": ["GNC/Aerospace", "General Control", "High-Tech/Precision"], "job_records": [{"wk": "2026-W22", "sc": 10.0, "cat": "General Control", "tgt": 1, "src": "linkedin", "co": "TNO", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 6.7, "cat": "High-Tech/Precision", "tgt": 1, "src": "indeed", "co": "NXP Semiconductors", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 5.0, "cat": "High-Tech/Precision", "tgt": 1, "src": "indeed", "co": "ASML", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 5.0, "cat": "High-Tech/Precision", "tgt": 1, "src": "indeed", "co": "Sioux Technologies", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 5.0, "cat": "High-Tech/Precision", "tgt": 1, "src": "indeed", "co": "Sioux Technologies", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 5.0, "cat": "High-Tech/Precision", "tgt": 1, "src": "indeed", "co": "Sioux Technologies", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 5.0, "cat": "Robotics", "tgt": 1, "src": "linkedin", "co": "TMC", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 5.0, "cat": "Robotics", "tgt": 1, "src": "linkedin", "co": "Lely", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 5.0, "cat": "GNC/Aerospace", "tgt": 1, "src": "linkedin", "co": "Fokker Services Group", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 5.0, "cat": "High-Tech/Precision", "tgt": 1, "src": "linkedin", "co": "Sioux Technologies", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 5.0, "cat": "High-Tech/Precision", "tgt": 1, "src": "linkedin", "co": "Sioux Technologies", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 10.0, "cat": "Robotics", "tgt": 0, "src": "indeed", "co": "Intralox", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 10.0, "cat": "GNC/Aerospace", "tgt": 0, "src": "indeed", "co": "Spektrum", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 10.0, "cat": "Robotics", "tgt": 0, "src": "linkedin", "co": "Source.ag", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 10.0, "cat": "GNC/Aerospace", "tgt": 0, "src": "indeed", "co": "KRUSH Labs B.V.", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 10.0, "cat": "GNC/Aerospace", "tgt": 0, "src": "linkedin", "co": "KRUSH Labs", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 10.0, "cat": "Robotics", "tgt": 0, "src": "linkedin", "co": "IntoMachines B.V.", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 10.0, "cat": "General Control", "tgt": 0, "src": "linkedin", "co": "Looper Engineering", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 10.0, "cat": "Robotics", "tgt": 0, "src": "indeed", "co": "Damen", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 10.0, "cat": "GNC/Aerospace", "tgt": 0, "src": "linkedin", "co": "Innoseis Sensor Technologies", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 10.0, "cat": "GNC/Aerospace", "tgt": 0, "src": "linkedin", "co": "Groupe SII", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 8.3, "cat": "Robotics", "tgt": 0, "src": "linkedin", "co": "Vitestro", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 6.7, "cat": "General Control", "tgt": 0, "src": "indeed", "co": "Signify", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 6.7, "cat": "Robotics", "tgt": 0, "src": "indeed", "co": "Epassi", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 6.7, "cat": "Robotics", "tgt": 0, "src": "indeed", "co": "Just Eat Takeaway.com", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 6.7, "cat": "General Control", "tgt": 0, "src": "linkedin", "co": "GardPass Consulting & Space", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 5.0, "cat": "Robotics", "tgt": 0, "src": "indeed", "co": "Intralox", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 5.0, "cat": "GNC/Aerospace", "tgt": 0, "src": "indeed", "co": "Spektrum", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 5.0, "cat": "GNC/Aerospace", "tgt": 0, "src": "indeed", "co": "Cosine UK", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 5.0, "cat": "General Control", "tgt": 0, "src": "linkedin", "co": "Trinamics", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 5.0, "cat": "GNC/Aerospace", "tgt": 0, "src": "linkedin", "co": "TWD", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 5.0, "cat": "High-Tech/Precision", "tgt": 0, "src": "linkedin", "co": "Aalberts advanced mechatronics", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 5.0, "cat": "General Control", "tgt": 0, "src": "linkedin", "co": "SMST Designers & Constructors", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 5.0, "cat": "Robotics", "tgt": 0, "src": "linkedin", "co": "APM Terminals", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 5.0, "cat": "Robotics", "tgt": 0, "src": "linkedin", "co": "Damen", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 5.0, "cat": "Robotics", "tgt": 0, "src": "indeed", "co": "AC Analytical Controls", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 5.0, "cat": "Robotics", "tgt": 0, "src": "linkedin", "co": "A2Z-CM N.V.", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 5.0, "cat": "Robotics", "tgt": 0, "src": "linkedin", "co": "PAC", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 5.0, "cat": "Robotics", "tgt": 0, "src": "linkedin", "co": "Monumental", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 5.0, "cat": "GNC/Aerospace", "tgt": 0, "src": "linkedin", "co": "2M ENGINEERING", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 5.0, "cat": "GNC/Aerospace", "tgt": 0, "src": "linkedin", "co": "ALTEN Nederland", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 5.0, "cat": "Robotics", "tgt": 0, "src": "linkedin", "co": "Stoneridge", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 5.0, "cat": "Robotics", "tgt": 0, "src": "linkedin", "co": "Gazelle Global", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 5.0, "cat": "General Control", "tgt": 0, "src": "linkedin", "co": "Deen", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 5.0, "cat": "Robotics", "tgt": 0, "src": "linkedin", "co": "Arc", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 5.0, "cat": "Robotics", "tgt": 0, "src": "indeed", "co": "Thermo Fisher Scientific", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 5.0, "cat": "General Control", "tgt": 0, "src": "linkedin", "co": "PM", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 5.0, "cat": "Robotics", "tgt": 0, "src": "linkedin", "co": "Damen", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 5.0, "cat": "GNC/Aerospace", "tgt": 0, "src": "linkedin", "co": "GKN Aerospace", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 5.0, "cat": "GNC/Aerospace", "tgt": 0, "src": "linkedin", "co": "Eaton", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 5.0, "cat": "GNC/Aerospace", "tgt": 0, "src": "linkedin", "co": "ALTEN Nederland", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 5.0, "cat": "Robotics", "tgt": 0, "src": "linkedin", "co": "Monumental", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 5.0, "cat": "GNC/Aerospace", "tgt": 0, "src": "linkedin", "co": "S[&]T", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 5.0, "cat": "Robotics", "tgt": 0, "src": "linkedin", "co": "WITRON Group", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 5.0, "cat": "General Control", "tgt": 0, "src": "linkedin", "co": "Royal A-ware", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 5.0, "cat": "High-Tech/Precision", "tgt": 0, "src": "indeed", "co": "Eindhoven University of Technology", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 5.0, "cat": "Robotics", "tgt": 0, "src": "linkedin", "co": "Feel Group", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 5.0, "cat": "General Control", "tgt": 0, "src": "linkedin", "co": "VIRO", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 5.0, "cat": "GNC/Aerospace", "tgt": 0, "src": "linkedin", "co": "X Laboratory", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 5.0, "cat": "GNC/Aerospace", "tgt": 0, "src": "indeed", "co": "Sopra Steria", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 5.0, "cat": "Robotics", "tgt": 0, "src": "indeed", "co": "IMI Plc - Legacy Precision", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 5.0, "cat": "High-Tech/Precision", "tgt": 0, "src": "linkedin", "co": "Continu Professionals", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 3.3, "cat": "General Control", "tgt": 0, "src": "linkedin", "co": "Looper Engineering", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 3.3, "cat": "Robotics", "tgt": 0, "src": "linkedin", "co": "Doesburg Components", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 3.3, "cat": "Robotics", "tgt": 0, "src": "indeed", "co": "FORTNA", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 3.3, "cat": "Robotics", "tgt": 0, "src": "linkedin", "co": "Looper Engineering", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 3.3, "cat": "Robotics", "tgt": 0, "src": "linkedin", "co": "Trinamics", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 3.3, "cat": "General Control", "tgt": 0, "src": "linkedin", "co": "PDM | Industrial Excellence", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 3.3, "cat": "Robotics", "tgt": 0, "src": "linkedin", "co": "Royal Houdijk", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 3.3, "cat": "Robotics", "tgt": 0, "src": "linkedin", "co": "FORTNA", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 3.3, "cat": "Robotics", "tgt": 0, "src": "linkedin", "co": "Navico Group", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 3.3, "cat": "General Control", "tgt": 0, "src": "linkedin", "co": "Uptec", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 3.3, "cat": "General Control", "tgt": 0, "src": "linkedin", "co": "VDK Groep", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 3.3, "cat": "General Control", "tgt": 0, "src": "linkedin", "co": "Trinamics", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 10.0, "cat": "GNC/Aerospace", "tgt": 0, "src": "linkedin", "co": "TWD", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 10.0, "cat": "GNC/Aerospace", "tgt": 0, "src": "linkedin", "co": "NATO", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 6.7, "cat": "GNC/Aerospace", "tgt": 0, "src": "linkedin", "co": "Anduril Industries", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 5.0, "cat": "High-Tech/Precision", "tgt": 0, "src": "linkedin", "co": "Looper Engineering", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 5.0, "cat": "General Control", "tgt": 0, "src": "linkedin", "co": "Looper Engineering", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 5.0, "cat": "Robotics", "tgt": 0, "src": "linkedin", "co": "Airlift Systems", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 5.0, "cat": "General Control", "tgt": 0, "src": "linkedin", "co": "VIRO", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 5.0, "cat": "GNC/Aerospace", "tgt": 0, "src": "linkedin", "co": "Rotterdam University of Applied Sciences", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 5.0, "cat": "Robotics", "tgt": 0, "src": "linkedin", "co": "JBT Marel", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 3.3, "cat": "General Control", "tgt": 0, "src": "linkedin", "co": "Dormac CNC Solutions", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 13.0, "cat": "Robotics", "tgt": 0, "src": "linkedin", "co": "Monumental", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 4.0, "cat": "Robotics", "tgt": 0, "src": "indeed", "co": "TU Delft", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 4.0, "cat": "General Control", "tgt": 0, "src": "linkedin", "co": "We Drive Solar", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 2.0, "cat": "General Control", "tgt": 0, "src": "linkedin", "co": "Looper Engineering", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 2.0, "cat": "General Control", "tgt": 0, "src": "linkedin", "co": "Looper Engineering", "fsw": "2026-W22"}]};
 const CAT_COLORS = {"GNC/Aerospace": "#1a3a5c", "High-Tech/Precision": "#2e86ab", "Robotics": "#28a745", "General Control": "#6c757d", "Blacklisted-PLC": "#dc3545", "Blacklisted-Other": "#fd7e14", "Rejected-Senior": "#ffc107", "Rejected-No-Gate": "#adb5bd"};
 const SRC_COLORS = {"linkedin": "#0a66c2", "indeed": "#2e7d32", "other": "#888888"};
 
@@ -623,6 +643,39 @@ function buildChartSource() {
       responsive: true, maintainAspectRatio: false,
       plugins: { legend: { position: 'top' } },
       scales: baseScales(false),
+    },
+  });
+}
+
+// ── Chart: New jobs discovered per week ──────────────────────────
+function buildChartNewJobs() {
+  if (!hasData) return;
+  const newArr       = sl(VIEW.new_jobs_per_week || []);
+  const totalArr     = sl(VIEW.jobs_per_week);
+  const returningArr = totalArr.map((t, i) => Math.max(0, t - (newArr[i] || 0)));
+  CHARTS.newJobs = new Chart(document.getElementById('chartNewJobs'), {
+    type: 'bar',
+    data: {
+      labels: sl(DATA.week_labels),
+      datasets: [
+        {
+          label: 'New (first appearance)',
+          data: newArr,
+          backgroundColor: '#1a3a5c',
+          stack: 'stack',
+        },
+        {
+          label: 'Returning (seen before)',
+          data: returningArr,
+          backgroundColor: '#28a745',
+          stack: 'stack',
+        },
+      ],
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { position: 'top' } },
+      scales: baseScales(true),
     },
   });
 }
@@ -891,6 +944,7 @@ function sortWeekTable(th) {
 function renderAll() {
   renderStatCards();
   buildChartWeekly();
+  buildChartNewJobs();
   buildChartCategory();
   buildChartSource();
   buildChartTrend();
@@ -902,14 +956,131 @@ function renderAll() {
   buildWeekTable();
 }
 
-// ── Toggle handler ────────────────────────────────────────────────
-function onViewToggle() {
+// ── Score-filter re-aggregation ───────────────────────────────────
+// When a min-score or control-theory filter is active we rebuild VIEW
+// from DATA.job_records (individual accepted jobs) so the charts
+// reflect exactly the filtered subset.  Rejected counts become 0 in
+// this mode (rejected jobs have no score and are not in job_records).
+
+const _ALL_CATS = [
+  "GNC/Aerospace","High-Tech/Precision","Robotics","General Control",
+  "Blacklisted-PLC","Blacklisted-Other","Rejected-Senior","Rejected-No-Gate"
+];
+const _SRCS = ["linkedin","indeed","other"];
+
+function _rebuildViewFromRecords(recs) {
+  // recs = already-filtered subset of DATA.job_records
+  const wkIdx = {};
+  DATA.week_labels.forEach((wk, i) => wkIdx[wk] = i);
+  const n = DATA.week_labels.length;
+
+  const jobsArr   = new Array(n).fill(0);
+  const fitSum    = new Array(n).fill(0);
+  const fitCnt    = new Array(n).fill(0);
+  const tgtArr    = new Array(n).fill(0);
+  const catArr    = Object.fromEntries(_ALL_CATS.map(c => [c, new Array(n).fill(0)]));
+  const srcArr    = Object.fromEntries(_SRCS.map(s => [s, new Array(n).fill(0)]));
+  const coCounts  = {};
+
+  for (const r of recs) {
+    const i = wkIdx[r.wk];
+    if (i === undefined) continue;
+    jobsArr[i]++;
+    fitSum[i]  += r.sc;
+    fitCnt[i]++;
+    if (r.tgt) tgtArr[i]++;
+    const cat = _ALL_CATS.includes(r.cat) ? r.cat : "General Control";
+    catArr[cat][i]++;
+    const src = _SRCS.includes(r.src) ? r.src : "other";
+    srcArr[src][i]++;
+    coCounts[r.co] = (coCounts[r.co] || 0) + 1;
+  }
+
+  const rolling = jobsArr.map((_, i) => {
+    const win = jobsArr.slice(Math.max(0, i - 3), i + 1);
+    return Math.round(win.reduce((a, b) => a + b, 0) / win.length * 100) / 100;
+  });
+  const avgFitArr = jobsArr.map((_, i) =>
+    fitCnt[i] ? Math.round(fitSum[i] / fitCnt[i] * 100) / 100 : 0
+  );
+  const topCo = Object.entries(coCounts)
+    .sort((a, b) => b[1] - a[1]).slice(0, 20)
+    .map(([company, count]) => ({ company, count }));
+  const totalAcc  = recs.length;
+  const avgFitAll = totalAcc
+    ? Math.round(recs.reduce((s, r) => s + r.sc, 0) / totalAcc * 100) / 100
+    : 0;
+
+  // new_jobs_per_week: count per-week using fsw (first-seen week).
+  // Apply the new-job score filter (separate dimension) from #newJobScoreFilter.
+  const newJobMinScore = parseFloat(document.getElementById('newJobScoreFilter')?.value) || 0;
+  const newJobsArr = DATA.week_labels.map(wk =>
+    (DATA.job_records || []).filter(r => r.fsw === wk && r.sc >= newJobMinScore).length
+  );
+
+  return {
+    jobs_per_week:     jobsArr,
+    rejected_per_week: new Array(n).fill(0),
+    rolling_avg:       rolling,
+    avg_fit_per_week:  avgFitArr,
+    target_per_week:   tgtArr,
+    cat_per_week:      catArr,
+    src_per_week:      srcArr,
+    top_companies:     topCo,
+    ratio_per_week:    jobsArr.map(m => ({ accepted: m, rejected: 0, total: m, accept_pct: 100 })),
+    new_jobs_per_week: newJobsArr,
+    summary: {
+      total_seen:     totalAcc,
+      total_accepted: totalAcc,
+      total_rejected: 0,
+      avg_fit:        avgFitAll,
+      total_runs:     DATA.all?.summary?.total_runs || 0,
+      last_run:       DATA.all?.summary?.last_run   || '',
+    },
+  };
+}
+
+function _getMinScore() {
+  const v = parseFloat(document.getElementById('minScoreFilter').value);
+  return isNaN(v) ? 0 : v;
+}
+
+function _getNewJobMinScore() {
+  const v = parseFloat(document.getElementById('newJobScoreFilter').value);
+  return isNaN(v) ? 0 : v;
+}
+
+// ── Unified view refresh (toggle + score filter) ───────────────────
+function refreshView() {
   if (!hasData) return;
-  const isControl = document.getElementById('controlTheoryToggle').checked;
-  VIEW = isControl ? DATA.control_theory : DATA.all;
+  const isControl    = document.getElementById('controlTheoryToggle').checked;
+  const minScore     = _getMinScore();
+  const newJobScore  = _getNewJobMinScore();
+
+  if (minScore > 0 || isControl || newJobScore > 0) {
+    // Filter individual records and re-aggregate
+    let recs = DATA.job_records || [];
+    if (isControl) {
+      const ctSet = new Set(DATA.control_theory_categories || []);
+      recs = recs.filter(r => ctSet.has(r.cat));
+    }
+    if (minScore > 0) {
+      recs = recs.filter(r => r.sc >= minScore);
+    }
+    VIEW = _rebuildViewFromRecords(recs);
+  } else {
+    // No filters active — use the fast pre-aggregated payload.
+    // new_jobs_per_week is pre-computed in the Python payload.
+    VIEW = DATA.all;
+  }
+
   destroyAllCharts();
   renderAll();
 }
+
+function onViewToggle()        { if (hasData) refreshView(); }
+function onScoreFilter()       { if (hasData) refreshView(); }
+function onNewJobScoreFilter() { if (hasData) refreshView(); }
 
 // ── Boot ──────────────────────────────────────────────────────────
 if (hasData) {

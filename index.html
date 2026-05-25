@@ -76,6 +76,10 @@ header p  { font-size: 12px; opacity: 0.65; margin-top: 5px; }
 .badge-linkedin { background: #e8f4fd; color: #0a66c2; }
 .badge-indeed   { background: #e8f8f0; color: #2e7d32; }
 .badge-salary   { background: #f3e8ff; color: #6b21a8; }
+.badge-new  { background: #dbeafe; color: #1d4ed8; }
+.badge-seen { background: #dcfce7; color: #166534; }
+.returning-card { background: #f0fff4 !important; border-left: 4px solid #28a745; }
+.target-card.returning-card { border-left: 4px solid #f39c12; }
 
 .card-meta {
   display: flex; flex-wrap: wrap; gap: 10px;
@@ -130,7 +134,7 @@ footer { text-align: center; padding: 24px; font-size: 11px; color: #bbb; }
 <header>
   <div>
     <h1>Control Systems Jobs — Netherlands</h1>
-    <p>Updated: 25 May 2026 at 15:06 UTC &nbsp;|&nbsp; Filters: no senior/lead, no PLC/SCADA/HMI, gate requires MATLAB/control/robotics signal</p>
+    <p>Updated: 25 May 2026 at 15:38 UTC &nbsp;|&nbsp; Filters: no senior/lead, no PLC/SCADA/HMI, gate requires MATLAB/control/robotics signal</p>
   </div>
   <div style="display:flex; gap:8px; flex-wrap:wrap;">
     <a class="nav-link" href="analytics.html">Analytics Dashboard</a>
@@ -156,6 +160,7 @@ footer { text-align: center; padding: 24px; font-size: 11px; color: #bbb; }
   <button class="filter-btn" onclick="filterSite('linkedin', this)">LinkedIn</button>
   <button class="filter-btn" onclick="filterSite('indeed', this)">Indeed</button>
   <button class="filter-btn" onclick="filterTarget(this)">Target only</button>
+  <button class="filter-btn" onclick="filterNew(this)">New only</button>
   <span class="sort-label">Sort:</span>
   <button class="filter-btn active" onclick="sortCards('score', this)">Fit score</button>
   <button class="filter-btn" onclick="sortCards('date', this)">Newest</button>
@@ -163,10 +168,10 @@ footer { text-align: center; padding: 24px; font-size: 11px; color: #bbb; }
 
 <div class="grid" id="jobGrid">
 
-<div class="card" data-score="615.0" data-site="linkedin" data-target="false">
+<div class="card" data-score="615.0" data-site="linkedin" data-target="false" data-new="true">
   <div class="card-header">
     <h3><a href="https://www.linkedin.com/jobs/view/4382480078" target="_blank" rel="noopener">Control Systems Engineer</a></h3>
-    <div class="badges"><span class="badge badge-linkedin">LINKEDIN</span></div>
+    <div class="badges"><span class="badge badge-new">NEW</span><span class="badge badge-linkedin">LINKEDIN</span></div>
   </div>
   <div class="card-meta">
     <span>Source.ag</span>
@@ -182,10 +187,10 @@ footer { text-align: center; padding: 24px; font-size: 11px; color: #bbb; }
   <div class="keywords">Keywords: model predictive control, robust control, kalman, control theory, feedback control, mechatronics</div>
   <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4382480078" target="_blank" rel="noopener">View posting</a>
 </div>
-<div class="card" data-score="307.0" data-site="indeed" data-target="false">
+<div class="card" data-score="307.0" data-site="indeed" data-target="false" data-new="true">
   <div class="card-header">
     <h3><a href="https://nl.indeed.com/viewjob?jk=f7483e30d4d481bf" target="_blank" rel="noopener">Sensing and Vision Engineer (Location: Eindhoven)</a></h3>
-    <div class="badges"><span class="badge badge-indeed">INDEED</span></div>
+    <div class="badges"><span class="badge badge-new">NEW</span><span class="badge badge-indeed">INDEED</span></div>
   </div>
   <div class="card-meta">
     <span>Intralox</span>
@@ -204,10 +209,10 @@ Join Intralox as a **Sensing and Vision Engineer** and help br...</p>
   <div class="keywords">Keywords: deep learning, machine learning, python, matlab, mechatronics, mechatronic</div>
   <a class="apply-btn" href="https://nl.indeed.com/viewjob?jk=f7483e30d4d481bf" target="_blank" rel="noopener">View posting</a>
 </div>
-<div class="card" data-score="201.0" data-site="indeed" data-target="false">
+<div class="card" data-score="201.0" data-site="indeed" data-target="false" data-new="true">
   <div class="card-header">
     <h3><a href="https://nl.indeed.com/viewjob?jk=7a7baf6d443705d8" target="_blank" rel="noopener">Marketing Analytical Engineer</a></h3>
-    <div class="badges"><span class="badge badge-indeed">INDEED</span></div>
+    <div class="badges"><span class="badge badge-new">NEW</span><span class="badge badge-indeed">INDEED</span></div>
   </div>
   <div class="card-meta">
     <span>Just Eat Takeaway.com</span>
@@ -230,10 +235,10 @@ We’re a leading global online delivery platform, and our vision is to empower 
   <div class="keywords">Keywords: machine learning, python, control</div>
   <a class="apply-btn" href="https://nl.indeed.com/viewjob?jk=7a7baf6d443705d8" target="_blank" rel="noopener">View posting</a>
 </div>
-<div class="card" data-score="106.0" data-site="indeed" data-target="false">
+<div class="card" data-score="106.0" data-site="indeed" data-target="false" data-new="true">
   <div class="card-header">
     <h3><a href="https://nl.indeed.com/viewjob?jk=fe3b6bd2bd80451e" target="_blank" rel="noopener">Engineer DCS (EES)</a></h3>
-    <div class="badges"><span class="badge badge-indeed">INDEED</span></div>
+    <div class="badges"><span class="badge badge-new">NEW</span><span class="badge badge-indeed">INDEED</span></div>
   </div>
   <div class="card-meta">
     <span>Spektrum</span>
@@ -252,10 +257,10 @@ Spektrum supports apex purchasers (NATO, UN, EU, and National Government and Def
   <div class="keywords">Keywords: python, aerospace, control, automation, satellite</div>
   <a class="apply-btn" href="https://nl.indeed.com/viewjob?jk=fe3b6bd2bd80451e" target="_blank" rel="noopener">View posting</a>
 </div>
-<div class="card" data-score="103.0" data-site="indeed" data-target="false">
+<div class="card" data-score="103.0" data-site="indeed" data-target="false" data-new="true">
   <div class="card-header">
     <h3><a href="https://nl.indeed.com/viewjob?jk=03dead98b62bfd93" target="_blank" rel="noopener">Revenue Operations Engineer</a></h3>
-    <div class="badges"><span class="badge badge-indeed">INDEED</span></div>
+    <div class="badges"><span class="badge badge-new">NEW</span><span class="badge badge-indeed">INDEED</span></div>
   </div>
   <div class="card-meta">
     <span>Epassi</span>
@@ -279,10 +284,10 @@ Epassi’s purpose is to boost everyday well\-being. We are a leading provider o
   <div class="keywords">Keywords: python, control, automation, precision</div>
   <a class="apply-btn" href="https://nl.indeed.com/viewjob?jk=03dead98b62bfd93" target="_blank" rel="noopener">View posting</a>
 </div>
-<div class="card" data-score="102.0" data-site="indeed" data-target="false">
+<div class="card" data-score="102.0" data-site="indeed" data-target="false" data-new="true">
   <div class="card-header">
     <h3><a href="https://nl.indeed.com/viewjob?jk=47b962c1ca04fd34" target="_blank" rel="noopener">AMS Verification engineer</a></h3>
-    <div class="badges"><span class="badge badge-indeed">INDEED</span></div>
+    <div class="badges"><span class="badge badge-new">NEW</span><span class="badge badge-indeed">INDEED</span></div>
   </div>
   <div class="card-meta">
     <span>NXP Semiconductors</span>
@@ -300,10 +305,10 @@ NXP’s Product Line In\-Vehicle Networking (IVN) is the world’s leading suppl
   <div class="keywords">Keywords: python, control, semiconductor</div>
   <a class="apply-btn" href="https://nl.indeed.com/viewjob?jk=47b962c1ca04fd34" target="_blank" rel="noopener">View posting</a>
 </div>
-<div class="card" data-score="11.0" data-site="indeed" data-target="false">
+<div class="card" data-score="11.0" data-site="indeed" data-target="false" data-new="true">
   <div class="card-header">
     <h3><a href="https://nl.indeed.com/viewjob?jk=cecc082eca6fd8d1" target="_blank" rel="noopener">Development Engineer (Location: Eindhoven)</a></h3>
-    <div class="badges"><span class="badge badge-indeed">INDEED</span></div>
+    <div class="badges"><span class="badge badge-new">NEW</span><span class="badge badge-indeed">INDEED</span></div>
   </div>
   <div class="card-meta">
     <span>Intralox</span>
@@ -322,10 +327,10 @@ Join Intralox as a **Development Engineer** and help us turn innovative ideas...
   <div class="keywords">Keywords: matlab, simulink, mechatronics, control, automation, signal processing</div>
   <a class="apply-btn" href="https://nl.indeed.com/viewjob?jk=cecc082eca6fd8d1" target="_blank" rel="noopener">View posting</a>
 </div>
-<div class="card" data-score="8.0" data-site="indeed" data-target="false">
+<div class="card" data-score="8.0" data-site="indeed" data-target="false" data-new="true">
   <div class="card-header">
     <h3><a href="https://nl.indeed.com/viewjob?jk=8f10227179272785" target="_blank" rel="noopener">Electronics / Avionics Engineer</a></h3>
-    <div class="badges"><span class="badge badge-indeed">INDEED</span></div>
+    <div class="badges"><span class="badge badge-new">NEW</span><span class="badge badge-indeed">INDEED</span></div>
   </div>
   <div class="card-meta">
     <span>Cosine UK</span>
@@ -344,10 +349,10 @@ As the Electronics / Avionics Engineer at cosine you play a key role in shaping 
   <div class="keywords">Keywords: aerospace, avionics, control, precision, optical</div>
   <a class="apply-btn" href="https://nl.indeed.com/viewjob?jk=8f10227179272785" target="_blank" rel="noopener">View posting</a>
 </div>
-<div class="card" data-score="7.0" data-site="linkedin" data-target="false">
+<div class="card" data-score="7.0" data-site="linkedin" data-target="false" data-new="true">
   <div class="card-header">
     <h3><a href="https://www.linkedin.com/jobs/view/4416191030" target="_blank" rel="noopener">mechanical engineer (CAD) | Lamers High Tech Systems</a></h3>
-    <div class="badges"><span class="badge badge-linkedin">LINKEDIN</span></div>
+    <div class="badges"><span class="badge badge-new">NEW</span><span class="badge badge-linkedin">LINKEDIN</span></div>
   </div>
   <div class="card-meta">
     <span>Aalberts advanced mechatronics</span>
@@ -379,10 +384,10 @@ As the Electronics / Avionics Engineer at cosine you play a key role in shaping 
   <div class="keywords">Keywords: mechatronics, mechatronic, control, high tech, space</div>
   <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4416191030" target="_blank" rel="noopener">View posting</a>
 </div>
-<div class="card" data-score="6.0" data-site="indeed" data-target="false">
+<div class="card" data-score="6.0" data-site="indeed" data-target="false" data-new="true">
   <div class="card-header">
     <h3><a href="https://nl.indeed.com/viewjob?jk=3e3e09727df61ac7" target="_blank" rel="noopener">Production Engineer TWINSCAN Factory</a></h3>
-    <div class="badges"><span class="badge badge-indeed">INDEED</span></div>
+    <div class="badges"><span class="badge badge-new">NEW</span><span class="badge badge-indeed">INDEED</span></div>
   </div>
   <div class="card-meta">
     <span>ASML</span>
@@ -403,10 +408,10 @@ We might be looking for you! The...</p>
   <div class="keywords">Keywords: mechatronics, mechatronic, control, semiconductor</div>
   <a class="apply-btn" href="https://nl.indeed.com/viewjob?jk=3e3e09727df61ac7" target="_blank" rel="noopener">View posting</a>
 </div>
-<div class="card" data-score="6.0" data-site="linkedin" data-target="false">
+<div class="card" data-score="6.0" data-site="linkedin" data-target="false" data-new="true">
   <div class="card-header">
     <h3><a href="https://www.linkedin.com/jobs/view/4407261958" target="_blank" rel="noopener">Field Service Engineer - Control Systems</a></h3>
-    <div class="badges"><span class="badge badge-linkedin">LINKEDIN</span></div>
+    <div class="badges"><span class="badge badge-new">NEW</span><span class="badge badge-linkedin">LINKEDIN</span></div>
   </div>
   <div class="card-meta">
     <span>JBT Marel</span>
@@ -429,10 +434,10 @@ We might be looking for you! The...</p>
   <div class="keywords">Keywords: mechatronics, mechatronic, control, automation</div>
   <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4407261958" target="_blank" rel="noopener">View posting</a>
 </div>
-<div class="card" data-score="6.0" data-site="linkedin" data-target="false">
+<div class="card" data-score="6.0" data-site="linkedin" data-target="false" data-new="true">
   <div class="card-header">
     <h3><a href="https://www.linkedin.com/jobs/view/4398393707" target="_blank" rel="noopener">Automation Development Engineer</a></h3>
-    <div class="badges"><span class="badge badge-linkedin">LINKEDIN</span></div>
+    <div class="badges"><span class="badge badge-new">NEW</span><span class="badge badge-linkedin">LINKEDIN</span></div>
   </div>
   <div class="card-meta">
     <span>APM Terminals</span>
@@ -453,10 +458,10 @@ We might be looking for you! The...</p>
   <div class="keywords">Keywords: mechatronics, mechatronic, control, automation</div>
   <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4398393707" target="_blank" rel="noopener">View posting</a>
 </div>
-<div class="card" data-score="5.0" data-site="indeed" data-target="false">
+<div class="card" data-score="5.0" data-site="indeed" data-target="false" data-new="true">
   <div class="card-header">
     <h3><a href="https://nl.indeed.com/viewjob?jk=7ba1f7cc2c83ac5c" target="_blank" rel="noopener">Software Development Engineer</a></h3>
-    <div class="badges"><span class="badge badge-indeed">INDEED</span></div>
+    <div class="badges"><span class="badge badge-new">NEW</span><span class="badge badge-indeed">INDEED</span></div>
   </div>
   <div class="card-meta">
     <span>Spektrum</span>
@@ -475,10 +480,10 @@ Spektrum supports apex purchasers (NATO, UN, EU, and National Government and Def
   <div class="keywords">Keywords: aerospace, control, satellite, space</div>
   <a class="apply-btn" href="https://nl.indeed.com/viewjob?jk=7ba1f7cc2c83ac5c" target="_blank" rel="noopener">View posting</a>
 </div>
-<div class="card" data-score="4.0" data-site="linkedin" data-target="false">
+<div class="card" data-score="4.0" data-site="linkedin" data-target="false" data-new="true">
   <div class="card-header">
     <h3><a href="https://www.linkedin.com/jobs/view/4418119995" target="_blank" rel="noopener">Electromechanical engineer (dynamics, motion control, precision mechanics)</a></h3>
-    <div class="badges"><span class="badge badge-linkedin">LINKEDIN</span></div>
+    <div class="badges"><span class="badge badge-new">NEW</span><span class="badge badge-linkedin">LINKEDIN</span></div>
   </div>
   <div class="card-meta">
     <span>Trinamics</span>
@@ -510,10 +515,10 @@ Spektrum supports apex purchasers (NATO, UN, EU, and National Government and Def
   <div class="keywords">Keywords: motion control, control, precision</div>
   <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4418119995" target="_blank" rel="noopener">View posting</a>
 </div>
-<div class="card" data-score="4.0" data-site="linkedin" data-target="false">
+<div class="card" data-score="4.0" data-site="linkedin" data-target="false" data-new="true">
   <div class="card-header">
     <h3><a href="https://www.linkedin.com/jobs/view/4406067371" target="_blank" rel="noopener">Electrical Engineer</a></h3>
-    <div class="badges"><span class="badge badge-linkedin">LINKEDIN</span></div>
+    <div class="badges"><span class="badge badge-new">NEW</span><span class="badge badge-linkedin">LINKEDIN</span></div>
   </div>
   <div class="card-meta">
     <span>SMST Designers & Constructors</span>
@@ -529,10 +534,10 @@ Spektrum supports apex purchasers (NATO, UN, EU, and National Government and Def
   <div class="keywords">Keywords: mechatronic, control, bode</div>
   <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4406067371" target="_blank" rel="noopener">View posting</a>
 </div>
-<div class="card" data-score="4.0" data-site="linkedin" data-target="false">
+<div class="card" data-score="4.0" data-site="linkedin" data-target="false" data-new="true">
   <div class="card-header">
     <h3><a href="https://www.linkedin.com/jobs/view/4416251639" target="_blank" rel="noopener">Internship or graduation project Electrical Engineering</a></h3>
-    <div class="badges"><span class="badge badge-linkedin">LINKEDIN</span></div>
+    <div class="badges"><span class="badge badge-new">NEW</span><span class="badge badge-linkedin">LINKEDIN</span></div>
   </div>
   <div class="card-meta">
     <span>Damen</span>
@@ -570,6 +575,7 @@ Spektrum supports apex purchasers (NATO, UN, EU, and National Government and Def
 <script>
   let activeSite   = 'all';
   let targetOnly   = false;
+  let newOnly      = false;
   let activeSort   = 'score';
 
   function applyFilters() {
@@ -581,11 +587,13 @@ Spektrum supports apex purchasers (NATO, UN, EU, and National Government and Def
       const site     = card.dataset.site || '';
       const isTarget = card.dataset.target === 'true';
       const score    = parseFloat(card.dataset.score || '0');
+      const isNew    = card.dataset.new === 'true';
       const matchText   = q === '' || text.includes(q);
       const matchSite   = activeSite === 'all' || site === activeSite;
       const matchTarget = !targetOnly || isTarget;
       const matchScore  = minScore === null || isNaN(minScore) || score >= minScore;
-      card.classList.toggle('hidden', !(matchText && matchSite && matchTarget && matchScore));
+      const matchNew    = !newOnly || isNew;
+      card.classList.toggle('hidden', !(matchText && matchSite && matchTarget && matchScore && matchNew));
     });
   }
 
@@ -602,6 +610,12 @@ Spektrum supports apex purchasers (NATO, UN, EU, and National Government and Def
   function filterTarget(btn) {
     targetOnly = !targetOnly;
     btn.classList.toggle('active', targetOnly);
+    applyFilters();
+  }
+
+  function filterNew(btn) {
+    newOnly = !newOnly;
+    btn.classList.toggle('active', newOnly);
     applyFilters();
   }
 
