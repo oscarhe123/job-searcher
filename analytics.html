@@ -33,6 +33,22 @@ header p  { font-size: 12px; opacity: 0.65; margin-top: 4px; }
 }
 .summary-bar strong { color: #1a3a5c; font-size: 22px; display: block; }
 
+.view-toggle {
+  background: white; border-bottom: 1px solid #e0e0e0;
+  padding: 12px 32px; display: flex; gap: 14px; align-items: center;
+  font-size: 13px; flex-wrap: wrap;
+}
+.view-toggle label {
+  display: inline-flex; align-items: center; gap: 8px;
+  cursor: pointer; user-select: none; font-weight: 500; color: #444;
+}
+.view-toggle input[type="checkbox"] {
+  width: 16px; height: 16px; cursor: pointer; accent-color: #1a3a5c;
+}
+.view-toggle .toggle-hint {
+  font-size: 12px; color: #888;
+}
+
 .section {
   padding: 24px 32px;
 }
@@ -111,7 +127,7 @@ footer {
 <header>
   <div>
     <h1>Job Search Analytics — Control Systems NL</h1>
-    <p>Updated: 25 May 2026 at 13:17 UTC &nbsp;|&nbsp; Data from jobs.db — all scrape runs accumulated</p>
+    <p>Updated: 25 May 2026 at 14:13 UTC &nbsp;|&nbsp; Data from jobs.db — all scrape runs accumulated</p>
   </div>
   <div style="display:flex; gap:8px; flex-wrap:wrap;">
     <a class="nav-link" href="index.html">Live Job Board</a>
@@ -122,6 +138,16 @@ footer {
 <div class="summary-bar" id="summaryBar">
   <!-- Populated by JS -->
   <div class="no-data">No data yet — run job_searcher.py --site to populate.</div>
+</div>
+
+<div class="view-toggle">
+  <label>
+    <input type="checkbox" id="controlTheoryToggle" onchange="onViewToggle()">
+    Show only control-theory jobs
+  </label>
+  <span class="toggle-hint" id="toggleHint">
+    Filters all charts to matched jobs categorised as GNC/Aerospace, High-Tech/Precision, or General Control.
+  </span>
 </div>
 
 <div class="section">
@@ -236,21 +262,41 @@ footer {
 
 <script>
 // ── Embedded analytics payload ────────────────────────────────────
-const DATA = {"week_labels": ["2026-W22"], "jobs_per_week": [84], "rejected_per_week": [157], "rolling_avg": [84.0], "avg_fit_per_week": [5.67], "target_per_week": [11], "cat_per_week": {"GNC/Aerospace": [21], "High-Tech/Precision": [11], "Robotics": [34], "General Control": [18], "Blacklisted-PLC": [25], "Blacklisted-Other": [0], "Rejected-Senior": [26], "Rejected-No-Gate": [106]}, "src_per_week": {"linkedin": [63], "indeed": [21], "other": [0]}, "top_companies": [{"company": "Sioux Technologies", "count": 5}, {"company": "Looper Engineering", "count": 5}, {"company": "Damen", "count": 3}, {"company": "Trinamics", "count": 3}, {"company": "Intralox", "count": 2}, {"company": "Spektrum", "count": 2}, {"company": "TWD", "count": 2}, {"company": "Monumental", "count": 2}, {"company": "ALTEN Nederland", "count": 2}, {"company": "VIRO", "count": 2}, {"company": "FORTNA", "count": 2}, {"company": "TNO", "count": 1}, {"company": "NXP Semiconductors", "count": 1}, {"company": "ASML", "count": 1}, {"company": "TMC", "count": 1}, {"company": "Lely", "count": 1}, {"company": "Fokker Services Group", "count": 1}, {"company": "Source.ag", "count": 1}, {"company": "KRUSH Labs B.V.", "count": 1}, {"company": "KRUSH Labs", "count": 1}], "ratio_per_week": [{"week": "2026-W22", "accepted": 84, "rejected": 157, "total": 241, "accept_pct": 34.9}], "summary": {"total_runs": 1, "total_seen": 241, "total_accepted": 84, "total_rejected": 157, "avg_fit": 5.67, "last_run": "2026-05-25"}};
+// DATA has shape: { week_labels, all: {...}, control_theory: {...} }
+const DATA = {"week_labels": ["2026-W22"], "all": {"jobs_per_week": [89], "rejected_per_week": [172], "rolling_avg": [89.0], "avg_fit_per_week": [5.63], "target_per_week": [11], "cat_per_week": {"GNC/Aerospace": [21], "High-Tech/Precision": [11], "Robotics": [36], "General Control": [21], "Blacklisted-PLC": [26], "Blacklisted-Other": [0], "Rejected-Senior": [28], "Rejected-No-Gate": [118]}, "src_per_week": {"linkedin": [67], "indeed": [22], "other": [0]}, "top_companies": [{"company": "Looper Engineering", "count": 7}, {"company": "Sioux Technologies", "count": 5}, {"company": "Damen", "count": 3}, {"company": "Trinamics", "count": 3}, {"company": "Monumental", "count": 3}, {"company": "Intralox", "count": 2}, {"company": "Spektrum", "count": 2}, {"company": "TWD", "count": 2}, {"company": "ALTEN Nederland", "count": 2}, {"company": "VIRO", "count": 2}, {"company": "FORTNA", "count": 2}, {"company": "TNO", "count": 1}, {"company": "NXP Semiconductors", "count": 1}, {"company": "ASML", "count": 1}, {"company": "TMC", "count": 1}, {"company": "Lely", "count": 1}, {"company": "Fokker Services Group", "count": 1}, {"company": "Source.ag", "count": 1}, {"company": "KRUSH Labs B.V.", "count": 1}, {"company": "KRUSH Labs", "count": 1}], "ratio_per_week": [{"week": "2026-W22", "accepted": 89, "rejected": 172, "total": 261, "accept_pct": 34.1}], "summary": {"total_seen": 261, "total_accepted": 89, "total_rejected": 172, "avg_fit": 5.63, "total_runs": 1, "last_run": "2026-05-25"}}, "control_theory": {"jobs_per_week": [53], "rejected_per_week": [0], "rolling_avg": [53.0], "avg_fit_per_week": [5.65], "target_per_week": [9], "cat_per_week": {"GNC/Aerospace": [21], "High-Tech/Precision": [11], "Robotics": [0], "General Control": [21], "Blacklisted-PLC": [0], "Blacklisted-Other": [0], "Rejected-Senior": [0], "Rejected-No-Gate": [0]}, "src_per_week": {"linkedin": [41], "indeed": [12], "other": [0]}, "top_companies": [{"company": "Looper Engineering", "count": 6}, {"company": "Sioux Technologies", "count": 5}, {"company": "Spektrum", "count": 2}, {"company": "Trinamics", "count": 2}, {"company": "TWD", "count": 2}, {"company": "ALTEN Nederland", "count": 2}, {"company": "VIRO", "count": 2}, {"company": "TNO", "count": 1}, {"company": "NXP Semiconductors", "count": 1}, {"company": "ASML", "count": 1}, {"company": "Fokker Services Group", "count": 1}, {"company": "KRUSH Labs B.V.", "count": 1}, {"company": "KRUSH Labs", "count": 1}, {"company": "Innoseis Sensor Technologies", "count": 1}, {"company": "Groupe SII", "count": 1}, {"company": "Signify", "count": 1}, {"company": "GardPass Consulting & Space", "count": 1}, {"company": "Cosine UK", "count": 1}, {"company": "Aalberts advanced mechatronics", "count": 1}, {"company": "SMST Designers & Constructors", "count": 1}], "ratio_per_week": [{"week": "2026-W22", "accepted": 53, "rejected": 0, "total": 53, "accept_pct": 100.0}], "summary": {"total_seen": 53, "total_accepted": 53, "total_rejected": 0, "avg_fit": 5.65, "total_runs": 1, "last_run": "2026-05-25"}}, "control_theory_categories": ["GNC/Aerospace", "General Control", "High-Tech/Precision"]};
+
+// ── View state ────────────────────────────────────────────────────
+// VIEW always points to the active aggregation (either DATA.all or DATA.control_theory).
+// Charts read from VIEW.<field>; toggling the checkbox rebuilds with the other view.
+let VIEW = (DATA && DATA.all) ? DATA.all : null;
 
 // ── Guard: no data yet ────────────────────────────────────────────
-const hasData = DATA && DATA.week_labels && DATA.week_labels.length > 0;
+const hasData = !!(DATA && DATA.week_labels && DATA.week_labels.length > 0 && VIEW);
+
+// ── Chart instance registry (so we can destroy + rebuild on toggle) ──
+const CHARTS = {};
+
+function destroyAllCharts() {
+  for (const key in CHARTS) {
+    if (CHARTS[key]) { CHARTS[key].destroy(); CHARTS[key] = null; }
+  }
+}
 
 // ── Summary bar ───────────────────────────────────────────────────
 function renderSummary() {
   if (!hasData) return;
-  const s   = DATA.summary;
+  const s   = VIEW.summary;
   const bar = document.getElementById('summaryBar');
+  const isControl = document.getElementById('controlTheoryToggle').checked;
+  const seenLabel = isControl ? 'control-theory jobs seen' : 'total jobs seen';
+  const rejBlock  = isControl
+    ? ''
+    : `<div><strong>${s.total_rejected}</strong> rejected / blacklisted</div>`;
   bar.innerHTML = `
     <div><strong>${s.total_runs}</strong> scrape runs</div>
-    <div><strong>${s.total_seen}</strong> total jobs seen</div>
+    <div><strong>${s.total_seen}</strong> ${seenLabel}</div>
     <div><strong>${s.total_accepted}</strong> matched</div>
-    <div><strong>${s.total_rejected}</strong> rejected / blacklisted</div>
+    ${rejBlock}
     <div><strong>${s.avg_fit}</strong> avg fit score</div>
     <div style="font-size:12px; color:#aaa; align-self:center;">Last run: ${s.last_run}</div>
   `;
@@ -280,19 +326,19 @@ function baseScales(stacked) {
 // ── Chart 1: Weekly matched + rejected bar ───────────────────────
 function buildChartWeekly() {
   if (!hasData) return;
-  new Chart(document.getElementById('chartWeekly'), {
+  CHARTS.weekly = new Chart(document.getElementById('chartWeekly'), {
     type: 'bar',
     data: {
       labels: DATA.week_labels,
       datasets: [
         {
           label: 'Matched',
-          data: DATA.jobs_per_week,
+          data: VIEW.jobs_per_week,
           backgroundColor: '#2e86ab',
         },
         {
           label: 'Rejected / Blacklisted',
-          data: DATA.rejected_per_week,
+          data: VIEW.rejected_per_week,
           backgroundColor: '#dc3545aa',
         },
       ],
@@ -311,54 +357,54 @@ function buildChartCategory() {
   const datasets = [
     {
           label: "GNC/Aerospace",
-          data: DATA.cat_per_week["GNC/Aerospace"] || [],
+          data: VIEW.cat_per_week["GNC/Aerospace"] || [],
           backgroundColor: "#1a3a5c",
           stack: 'categories'
         },
 {
           label: "High-Tech/Precision",
-          data: DATA.cat_per_week["High-Tech/Precision"] || [],
+          data: VIEW.cat_per_week["High-Tech/Precision"] || [],
           backgroundColor: "#2e86ab",
           stack: 'categories'
         },
 {
           label: "Robotics",
-          data: DATA.cat_per_week["Robotics"] || [],
+          data: VIEW.cat_per_week["Robotics"] || [],
           backgroundColor: "#28a745",
           stack: 'categories'
         },
 {
           label: "General Control",
-          data: DATA.cat_per_week["General Control"] || [],
+          data: VIEW.cat_per_week["General Control"] || [],
           backgroundColor: "#6c757d",
           stack: 'categories'
         },
 {
           label: "Blacklisted-PLC",
-          data: DATA.cat_per_week["Blacklisted-PLC"] || [],
+          data: VIEW.cat_per_week["Blacklisted-PLC"] || [],
           backgroundColor: "#dc3545",
           stack: 'categories'
         },
 {
           label: "Blacklisted-Other",
-          data: DATA.cat_per_week["Blacklisted-Other"] || [],
+          data: VIEW.cat_per_week["Blacklisted-Other"] || [],
           backgroundColor: "#fd7e14",
           stack: 'categories'
         },
 {
           label: "Rejected-Senior",
-          data: DATA.cat_per_week["Rejected-Senior"] || [],
+          data: VIEW.cat_per_week["Rejected-Senior"] || [],
           backgroundColor: "#ffc107",
           stack: 'categories'
         },
 {
           label: "Rejected-No-Gate",
-          data: DATA.cat_per_week["Rejected-No-Gate"] || [],
+          data: VIEW.cat_per_week["Rejected-No-Gate"] || [],
           backgroundColor: "#adb5bd",
           stack: 'categories'
         }
   ];
-  new Chart(document.getElementById('chartCategory'), {
+  CHARTS.category = new Chart(document.getElementById('chartCategory'), {
     type: 'bar',
     data: { labels: DATA.week_labels, datasets },
     options: {
@@ -375,24 +421,24 @@ function buildChartSource() {
   const datasets = [
     {
           label: "Linkedin",
-          data: DATA.src_per_week["linkedin"] || [],
+          data: VIEW.src_per_week["linkedin"] || [],
           backgroundColor: "#0a66c2",
           stack: 'sources'
         },
 {
           label: "Indeed",
-          data: DATA.src_per_week["indeed"] || [],
+          data: VIEW.src_per_week["indeed"] || [],
           backgroundColor: "#2e7d32",
           stack: 'sources'
         },
 {
           label: "Other",
-          data: DATA.src_per_week["other"] || [],
+          data: VIEW.src_per_week["other"] || [],
           backgroundColor: "#888888",
           stack: 'sources'
         }
   ];
-  new Chart(document.getElementById('chartSource'), {
+  CHARTS.source = new Chart(document.getElementById('chartSource'), {
     type: 'bar',
     data: { labels: DATA.week_labels, datasets },
     options: {
@@ -406,14 +452,14 @@ function buildChartSource() {
 // ── Chart 4: Rolling trend line ───────────────────────────────────
 function buildChartTrend() {
   if (!hasData) return;
-  new Chart(document.getElementById('chartTrend'), {
+  CHARTS.trend = new Chart(document.getElementById('chartTrend'), {
     type: 'line',
     data: {
       labels: DATA.week_labels,
       datasets: [
         {
           label: 'Weekly matched',
-          data: DATA.jobs_per_week,
+          data: VIEW.jobs_per_week,
           borderColor: '#2e86ab44',
           backgroundColor: '#2e86ab11',
           borderWidth: 1,
@@ -423,7 +469,7 @@ function buildChartTrend() {
         },
         {
           label: '4-week rolling avg',
-          data: DATA.rolling_avg,
+          data: VIEW.rolling_avg,
           borderColor: '#1a3a5c',
           backgroundColor: 'transparent',
           borderWidth: 2.5,
@@ -444,13 +490,13 @@ function buildChartTrend() {
 // ── Chart 5: Avg fit score line ───────────────────────────────────
 function buildChartFit() {
   if (!hasData) return;
-  new Chart(document.getElementById('chartFit'), {
+  CHARTS.fit = new Chart(document.getElementById('chartFit'), {
     type: 'line',
     data: {
       labels: DATA.week_labels,
       datasets: [{
         label: 'Avg fit score (matched)',
-        data: DATA.avg_fit_per_week,
+        data: VIEW.avg_fit_per_week,
         borderColor: '#28a745',
         backgroundColor: '#28a74511',
         borderWidth: 2,
@@ -464,7 +510,7 @@ function buildChartFit() {
       plugins: { legend: { position: 'top' } },
       scales: {
         ...baseScales(false),
-        y: { ...baseScales(false).y, min: 0, max: 10 },
+        y: { ...baseScales(false).y, min: 0 },
       },
     },
   });
@@ -473,13 +519,13 @@ function buildChartFit() {
 // ── Chart 6: Target company count per week ───────────────────────
 function buildChartTarget() {
   if (!hasData) return;
-  new Chart(document.getElementById('chartTarget'), {
+  CHARTS.target = new Chart(document.getElementById('chartTarget'), {
     type: 'bar',
     data: {
       labels: DATA.week_labels,
       datasets: [{
         label: 'Target company matches',
-        data: DATA.target_per_week,
+        data: VIEW.target_per_week,
         backgroundColor: '#f39c12',
       }],
     },
@@ -494,8 +540,8 @@ function buildChartTarget() {
 // ── Chart 7: Match rate line ──────────────────────────────────────
 function buildChartRatio() {
   if (!hasData) return;
-  const pcts = DATA.ratio_per_week.map(r => r.accept_pct);
-  new Chart(document.getElementById('chartRatio'), {
+  const pcts = VIEW.ratio_per_week.map(r => r.accept_pct);
+  CHARTS.ratio = new Chart(document.getElementById('chartRatio'), {
     type: 'line',
     data: {
       labels: DATA.week_labels,
@@ -524,12 +570,16 @@ function buildChartRatio() {
 
 // ── Top companies table ───────────────────────────────────────────
 function buildCompanyTable() {
-  if (!hasData || !DATA.top_companies.length) return;
-  const maxCount = DATA.top_companies[0].count;
+  if (!hasData) return;
   const tbody    = document.getElementById('companyTbody');
-  tbody.innerHTML = DATA.top_companies.map((row, i) => {
+  if (!VIEW.top_companies.length) {
+    tbody.innerHTML = '<tr><td colspan="4" class="no-data">No companies in this view.</td></tr>';
+    return;
+  }
+  const maxCount = VIEW.top_companies[0].count;
+  tbody.innerHTML = VIEW.top_companies.map((row, i) => {
     const pct     = maxCount ? Math.round(row.count / maxCount * 100) : 0;
-    const totalAcc = DATA.summary.total_accepted;
+    const totalAcc = VIEW.summary.total_accepted;
     const share   = totalAcc ? ((row.count / totalAcc) * 100).toFixed(1) + '%' : '—';
     return `<tr>
       <td>${i + 1}</td>
@@ -554,18 +604,18 @@ function buildWeekTable() {
   const n       = DATA.week_labels.length;
   const rows    = [];
   for (let i = n - 1; i >= 0; i--) {   // newest first
-    const matched  = DATA.jobs_per_week[i];
-    const rejected = DATA.rejected_per_week[i];
+    const matched  = VIEW.jobs_per_week[i];
+    const rejected = VIEW.rejected_per_week[i];
     const total    = matched + rejected;
     const matchPct = total ? ((matched / total) * 100).toFixed(0) + '%' : '—';
-    const avgFit   = DATA.avg_fit_per_week[i];
-    const target   = DATA.target_per_week[i];
-    const rolling  = DATA.rolling_avg[i];
+    const avgFit   = VIEW.avg_fit_per_week[i];
+    const target   = VIEW.target_per_week[i];
+    const rolling  = VIEW.rolling_avg[i];
 
     // Trend: compare rolling avg to previous week's rolling avg
     let trendBadge = '';
     if (i > 0) {
-      const prev = DATA.rolling_avg[i - 1];
+      const prev = VIEW.rolling_avg[i - 1];
       const delta = rolling - prev;
       if (delta > 0.3)       trendBadge = '<span class="trend-badge trend-up">improving</span>';
       else if (delta < -0.3) trendBadge = '<span class="trend-badge trend-down">declining</span>';
@@ -585,17 +635,31 @@ function buildWeekTable() {
   tbody.innerHTML = rows.join('');
 }
 
+// ── Render everything (called on boot + on toggle) ────────────────
+function renderAll() {
+  renderSummary();
+  buildChartWeekly();
+  buildChartCategory();
+  buildChartSource();
+  buildChartTrend();
+  buildChartFit();
+  buildChartTarget();
+  buildChartRatio();
+  buildCompanyTable();
+  buildWeekTable();
+}
+
+// ── Toggle handler: swap active view + rebuild ───────────────────
+function onViewToggle() {
+  if (!hasData) return;
+  const isControl = document.getElementById('controlTheoryToggle').checked;
+  VIEW = isControl ? DATA.control_theory : DATA.all;
+  destroyAllCharts();
+  renderAll();
+}
+
 // ── Boot ──────────────────────────────────────────────────────────
-renderSummary();
-buildChartWeekly();
-buildChartCategory();
-buildChartSource();
-buildChartTrend();
-buildChartFit();
-buildChartTarget();
-buildChartRatio();
-buildCompanyTable();
-buildWeekTable();
+renderAll();
 </script>
 </body>
 </html>
