@@ -200,7 +200,7 @@ footer {
 <header>
   <div>
     <h1>Job Search Analytics — Control Systems NL</h1>
-    <p>Updated: 25 May 2026 at 15:45 UTC &nbsp;|&nbsp; Data from jobs.db — all scrape runs accumulated</p>
+    <p>Updated: 25 May 2026 at 16:10 UTC &nbsp;|&nbsp; Data from jobs.db — all scrape runs accumulated</p>
   </div>
   <div style="display:flex; gap:8px; flex-wrap:wrap;">
     <a class="nav-link" href="index.html">Live Job Board</a>
@@ -268,13 +268,6 @@ footer {
       <h3>New jobs discovered per week (first appearance)</h3>
       <div class="chart-wrap">
         <canvas id="chartNewJobs"></canvas>
-      </div>
-    </div>
-
-    <div class="chart-card">
-      <h3>Breakdown by job category per week</h3>
-      <div class="chart-wrap">
-        <canvas id="chartCategory"></canvas>
       </div>
     </div>
 
@@ -381,7 +374,7 @@ footer {
 <script>
 // ── Embedded analytics payload ────────────────────────────────────
 // DATA shape: { week_labels, all: {...}, control_theory: {...} }
-const DATA = {"week_labels": ["2026-W22"], "all": {"jobs_per_week": [11], "rejected_per_week": [48], "rolling_avg": [11.0], "avg_fit_per_week": [133.45], "target_per_week": [0], "cat_per_week": {"GNC/Aerospace": [4], "High-Tech/Precision": [2], "Robotics": [5], "General Control": [0], "Blacklisted-PLC": [15], "Blacklisted-Other": [0], "Rejected-Senior": [12], "Rejected-No-Gate": [21]}, "src_per_week": {"linkedin": [2], "indeed": [9], "other": [0]}, "top_companies": [{"company": "Intralox", "count": 2}, {"company": "Spektrum", "count": 2}, {"company": "Source.ag", "count": 1}, {"company": "Just Eat Takeaway.com", "count": 1}, {"company": "Epassi", "count": 1}, {"company": "NXP Semiconductors", "count": 1}, {"company": "Cosine UK", "count": 1}, {"company": "ASML", "count": 1}, {"company": "Fokker Services Group", "count": 1}], "ratio_per_week": [{"week": "2026-W22", "accepted": 11, "rejected": 48, "total": 59, "accept_pct": 18.6}], "summary": {"total_seen": 59, "total_accepted": 11, "total_rejected": 48, "avg_fit": 133.45, "total_runs": 1, "last_run": "2026-05-25"}, "new_jobs_per_week": [11]}, "control_theory": {"jobs_per_week": [6], "rejected_per_week": [0], "rolling_avg": [6.0], "avg_fit_per_week": [38.5], "target_per_week": [0], "cat_per_week": {"GNC/Aerospace": [4], "High-Tech/Precision": [2], "Robotics": [0], "General Control": [0], "Blacklisted-PLC": [0], "Blacklisted-Other": [0], "Rejected-Senior": [0], "Rejected-No-Gate": [0]}, "src_per_week": {"linkedin": [1], "indeed": [5], "other": [0]}, "top_companies": [{"company": "Spektrum", "count": 2}, {"company": "NXP Semiconductors", "count": 1}, {"company": "Cosine UK", "count": 1}, {"company": "ASML", "count": 1}, {"company": "Fokker Services Group", "count": 1}], "ratio_per_week": [{"week": "2026-W22", "accepted": 6, "rejected": 0, "total": 6, "accept_pct": 100.0}], "summary": {"total_seen": 6, "total_accepted": 6, "total_rejected": 0, "avg_fit": 38.5, "total_runs": 1, "last_run": "2026-05-25"}, "new_jobs_per_week": [6]}, "control_theory_categories": ["GNC/Aerospace", "General Control", "High-Tech/Precision"], "job_records": [{"wk": "2026-W22", "sc": 615.0, "cat": "Robotics", "tgt": 0, "src": "linkedin", "co": "Source.ag", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 307.0, "cat": "Robotics", "tgt": 0, "src": "indeed", "co": "Intralox", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 201.0, "cat": "Robotics", "tgt": 0, "src": "indeed", "co": "Just Eat Takeaway.com", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 106.0, "cat": "GNC/Aerospace", "tgt": 0, "src": "indeed", "co": "Spektrum", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 103.0, "cat": "Robotics", "tgt": 0, "src": "indeed", "co": "Epassi", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 102.0, "cat": "High-Tech/Precision", "tgt": 0, "src": "indeed", "co": "NXP Semiconductors", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 11.0, "cat": "Robotics", "tgt": 0, "src": "indeed", "co": "Intralox", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 8.0, "cat": "GNC/Aerospace", "tgt": 0, "src": "indeed", "co": "Cosine UK", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 6.0, "cat": "High-Tech/Precision", "tgt": 0, "src": "indeed", "co": "ASML", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 5.0, "cat": "GNC/Aerospace", "tgt": 0, "src": "indeed", "co": "Spektrum", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 4.0, "cat": "GNC/Aerospace", "tgt": 0, "src": "linkedin", "co": "Fokker Services Group", "fsw": "2026-W22"}]};
+const DATA = {"week_labels": ["2026-W22"], "all": {"jobs_per_week": [16], "rejected_per_week": [65], "rolling_avg": [16.0], "avg_fit_per_week": [93.44], "target_per_week": [0], "cat_per_week": {"GNC/Aerospace": [4], "High-Tech/Precision": [3], "Robotics": [7], "General Control": [2], "Blacklisted-PLC": [16], "Blacklisted-Other": [0], "Rejected-Senior": [13], "Rejected-No-Gate": [36]}, "src_per_week": {"linkedin": [7], "indeed": [9], "other": [0]}, "top_companies": [{"company": "Intralox", "count": 2}, {"company": "Spektrum", "count": 2}, {"company": "Source.ag", "count": 1}, {"company": "Just Eat Takeaway.com", "count": 1}, {"company": "Epassi", "count": 1}, {"company": "NXP Semiconductors", "count": 1}, {"company": "Cosine UK", "count": 1}, {"company": "ASML", "count": 1}, {"company": "Fokker Services Group", "count": 1}, {"company": "Aalberts advanced mechatronics", "count": 1}, {"company": "JBT Marel", "count": 1}, {"company": "APM Terminals", "count": 1}, {"company": "Trinamics", "count": 1}, {"company": "SMST Designers & Constructors", "count": 1}], "ratio_per_week": [{"week": "2026-W22", "accepted": 16, "rejected": 65, "total": 81, "accept_pct": 19.8}], "summary": {"total_seen": 81, "total_accepted": 16, "total_rejected": 65, "avg_fit": 93.44, "total_runs": 1, "last_run": "2026-05-25"}, "new_jobs_per_week": [16]}, "control_theory": {"jobs_per_week": [9], "rejected_per_week": [0], "rolling_avg": [9.0], "avg_fit_per_week": [27.33], "target_per_week": [0], "cat_per_week": {"GNC/Aerospace": [4], "High-Tech/Precision": [3], "Robotics": [0], "General Control": [2], "Blacklisted-PLC": [0], "Blacklisted-Other": [0], "Rejected-Senior": [0], "Rejected-No-Gate": [0]}, "src_per_week": {"linkedin": [4], "indeed": [5], "other": [0]}, "top_companies": [{"company": "Spektrum", "count": 2}, {"company": "NXP Semiconductors", "count": 1}, {"company": "Cosine UK", "count": 1}, {"company": "ASML", "count": 1}, {"company": "Fokker Services Group", "count": 1}, {"company": "Aalberts advanced mechatronics", "count": 1}, {"company": "Trinamics", "count": 1}, {"company": "SMST Designers & Constructors", "count": 1}], "ratio_per_week": [{"week": "2026-W22", "accepted": 9, "rejected": 0, "total": 9, "accept_pct": 100.0}], "summary": {"total_seen": 9, "total_accepted": 9, "total_rejected": 0, "avg_fit": 27.33, "total_runs": 1, "last_run": "2026-05-25"}, "new_jobs_per_week": [9]}, "control_theory_categories": ["GNC/Aerospace", "General Control", "High-Tech/Precision"], "job_records": [{"wk": "2026-W22", "sc": 615.0, "cat": "Robotics", "tgt": 0, "src": "linkedin", "co": "Source.ag", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 307.0, "cat": "Robotics", "tgt": 0, "src": "indeed", "co": "Intralox", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 201.0, "cat": "Robotics", "tgt": 0, "src": "indeed", "co": "Just Eat Takeaway.com", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 106.0, "cat": "GNC/Aerospace", "tgt": 0, "src": "indeed", "co": "Spektrum", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 103.0, "cat": "Robotics", "tgt": 0, "src": "indeed", "co": "Epassi", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 102.0, "cat": "High-Tech/Precision", "tgt": 0, "src": "indeed", "co": "NXP Semiconductors", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 11.0, "cat": "Robotics", "tgt": 0, "src": "indeed", "co": "Intralox", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 8.0, "cat": "GNC/Aerospace", "tgt": 0, "src": "indeed", "co": "Cosine UK", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 6.0, "cat": "High-Tech/Precision", "tgt": 0, "src": "indeed", "co": "ASML", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 5.0, "cat": "GNC/Aerospace", "tgt": 0, "src": "indeed", "co": "Spektrum", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 4.0, "cat": "GNC/Aerospace", "tgt": 0, "src": "linkedin", "co": "Fokker Services Group", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 7.0, "cat": "High-Tech/Precision", "tgt": 0, "src": "linkedin", "co": "Aalberts advanced mechatronics", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 6.0, "cat": "Robotics", "tgt": 0, "src": "linkedin", "co": "JBT Marel", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 6.0, "cat": "Robotics", "tgt": 0, "src": "linkedin", "co": "APM Terminals", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 4.0, "cat": "General Control", "tgt": 0, "src": "linkedin", "co": "Trinamics", "fsw": "2026-W22"}, {"wk": "2026-W22", "sc": 4.0, "cat": "General Control", "tgt": 0, "src": "linkedin", "co": "SMST Designers & Constructors", "fsw": "2026-W22"}]};
 const CAT_COLORS = {"GNC/Aerospace": "#1a3a5c", "High-Tech/Precision": "#2e86ab", "Robotics": "#28a745", "General Control": "#6c757d", "Blacklisted-PLC": "#dc3545", "Blacklisted-Other": "#fd7e14", "Rejected-Senior": "#ffc107", "Rejected-No-Gate": "#adb5bd"};
 const SRC_COLORS = {"linkedin": "#0a66c2", "indeed": "#2e7d32", "other": "#888888"};
 
@@ -567,19 +560,23 @@ function hexToRgba(hex, alpha) {
 function buildChartWeekly() {
   if (!hasData) return;
   CHARTS.weekly = new Chart(document.getElementById('chartWeekly'), {
-    type: 'bar',
+    type: 'line',
     data: {
       labels: sl(DATA.week_labels),
       datasets: [
         {
           label: 'Matched',
           data: sl(VIEW.jobs_per_week),
-          backgroundColor: '#2e86ab',
+          borderColor: '#2e86ab',
+          backgroundColor: '#2e86ab22',
+          borderWidth: 2, pointRadius: 3, fill: true, tension: 0.3,
         },
         {
           label: 'Rejected / Blacklisted',
           data: sl(VIEW.rejected_per_week),
-          backgroundColor: '#dc3545aa',
+          borderColor: '#dc3545',
+          backgroundColor: '#dc354522',
+          borderWidth: 2, pointRadius: 3, fill: true, tension: 0.3,
         },
       ],
     },
@@ -654,21 +651,23 @@ function buildChartNewJobs() {
   const totalArr     = sl(VIEW.jobs_per_week);
   const returningArr = totalArr.map((t, i) => Math.max(0, t - (newArr[i] || 0)));
   CHARTS.newJobs = new Chart(document.getElementById('chartNewJobs'), {
-    type: 'bar',
+    type: 'line',
     data: {
       labels: sl(DATA.week_labels),
       datasets: [
         {
           label: 'New (first appearance)',
           data: newArr,
-          backgroundColor: '#1a3a5c',
-          stack: 'stack',
+          borderColor: '#1a3a5c',
+          backgroundColor: '#1a3a5c22',
+          borderWidth: 2, pointRadius: 3, fill: true, tension: 0.3,
         },
         {
           label: 'Returning (seen before)',
           data: returningArr,
-          backgroundColor: '#28a745',
-          stack: 'stack',
+          borderColor: '#28a745',
+          backgroundColor: '#28a74522',
+          borderWidth: 2, pointRadius: 3, fill: true, tension: 0.3,
         },
       ],
     },
@@ -751,13 +750,15 @@ function buildChartFit() {
 function buildChartTarget() {
   if (!hasData) return;
   CHARTS.target = new Chart(document.getElementById('chartTarget'), {
-    type: 'bar',
+    type: 'line',
     data: {
       labels: sl(DATA.week_labels),
       datasets: [{
         label: 'Target company matches',
         data: sl(VIEW.target_per_week),
-        backgroundColor: '#f39c12',
+        borderColor: '#f39c12',
+        backgroundColor: '#f39c1222',
+        borderWidth: 2, pointRadius: 3, fill: true, tension: 0.3,
       }],
     },
     options: {
@@ -945,7 +946,6 @@ function renderAll() {
   renderStatCards();
   buildChartWeekly();
   buildChartNewJobs();
-  buildChartCategory();
   buildChartSource();
   buildChartTrend();
   buildChartFit();
