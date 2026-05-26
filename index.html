@@ -95,6 +95,10 @@ header p  { font-size: 12px; opacity: 0.65; margin-top: 5px; }
 .discard-btn:hover { background:#e74c3c; color:white; }
 .discard-btn.discarded { background:#e74c3c; color:white; }
 .discarded-card { opacity:0.5; }
+.maybe-btn { padding:5px 10px; border-radius:5px; border:1px solid #f39c12; background:white; color:#f39c12; font-size:12px; font-weight:600; cursor:pointer; transition:background 0.15s,color 0.15s; }
+.maybe-btn:hover { background:#f39c12; color:white; }
+.maybe-btn.maybe { background:#f39c12; color:white; }
+.maybe-card { opacity:0.6; }
 
 .top-match-banner {
   background: #fde8e8; border-bottom: 2px solid #e74c3c;
@@ -155,7 +159,7 @@ footer { text-align: center; padding: 24px; font-size: 11px; color: #bbb; }
 <header>
   <div>
     <h1>Control Theory Jobs NL</h1>
-    <p>Updated: 26 May 2026 at 14:32 UTC</p>
+    <p>Updated: 26 May 2026 at 14:54 UTC</p>
   </div>
   <div style="display:flex; gap:8px; flex-wrap:wrap;">
     <a class="nav-link" href="analytics.html">Analytics Dashboard</a>
@@ -167,7 +171,7 @@ footer { text-align: center; padding: 24px; font-size: 11px; color: #bbb; }
 <div class="top-match-banner">&#128293; 4 new top matches today (score &ge; 90)</div>
 
 <div class="stats">
-  <div><strong>80</strong> jobs found</div>
+  <div><strong>81</strong> jobs found</div>
   <div><strong>0</strong> target companies</div>
   <div><strong>3</strong> high fit (score &ge; 246)</div>
   <div style="font-size:12px;">Sources: Indeed NL + LinkedIn</div>
@@ -210,7 +214,7 @@ footer { text-align: center; padding: 24px; font-size: 11px; color: #bbb; }
   <div class="card-meta">
     <span>Source.ag</span>
     <span>Amsterdam, North Holland, Netherlands</span>
-    <span>Date unknown</span>
+    <span>~2026-05-25</span>
   </div>
   <div class="score-row">
     <span class="score-label">Fit:</span>
@@ -223,6 +227,7 @@ footer { text-align: center; padding: 24px; font-size: 11px; color: #bbb; }
     <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4382480078" target="_blank" rel="noopener">View posting</a>
     <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="015907859d696238e665c29db5239135">&#10003; Applied</button>
     <button class="discard-btn" onclick="toggleDiscardCard(this)" data-jobid="015907859d696238e665c29db5239135">&#128465; Discard</button>
+    <button class="maybe-btn" onclick="toggleMaybeCard(this)" data-jobid="015907859d696238e665c29db5239135">? Maybe</button>
   </div>
 </div>
 <div class="card returning-card" data-score="307.0" data-site="indeed" data-target="false" data-new="false" data-desired="true" data-jobid="5911b6ad037694b70362368172dfcf85">
@@ -233,7 +238,7 @@ footer { text-align: center; padding: 24px; font-size: 11px; color: #bbb; }
   <div class="card-meta">
     <span>Intralox</span>
     <span>Eindhoven, NB, NL</span>
-    <span>Date unknown</span>
+    <span>~2026-05-25</span>
   </div>
   <div class="score-row">
     <span class="score-label">Fit:</span>
@@ -246,6 +251,7 @@ footer { text-align: center; padding: 24px; font-size: 11px; color: #bbb; }
     <a class="apply-btn" href="https://nl.indeed.com/viewjob?jk=f7483e30d4d481bf" target="_blank" rel="noopener">View posting</a>
     <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="5911b6ad037694b70362368172dfcf85">&#10003; Applied</button>
     <button class="discard-btn" onclick="toggleDiscardCard(this)" data-jobid="5911b6ad037694b70362368172dfcf85">&#128465; Discard</button>
+    <button class="maybe-btn" onclick="toggleMaybeCard(this)" data-jobid="5911b6ad037694b70362368172dfcf85">? Maybe</button>
   </div>
 </div>
 <div class="card" data-score="268.0" data-site="linkedin" data-target="false" data-new="true" data-desired="true" data-jobid="0556cb89e4e240d66eba41406aaa3fae">
@@ -256,7 +262,7 @@ footer { text-align: center; padding: 24px; font-size: 11px; color: #bbb; }
   <div class="card-meta">
     <span>KRUSH Labs</span>
     <span>Eindhoven, North Brabant, Netherlands</span>
-    <span>Date unknown</span>
+    <span>~2026-05-26</span>
   </div>
   <div class="score-row">
     <span class="score-label">Fit:</span>
@@ -269,6 +275,7 @@ footer { text-align: center; padding: 24px; font-size: 11px; color: #bbb; }
     <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4413696538" target="_blank" rel="noopener">View posting</a>
     <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="0556cb89e4e240d66eba41406aaa3fae">&#10003; Applied</button>
     <button class="discard-btn" onclick="toggleDiscardCard(this)" data-jobid="0556cb89e4e240d66eba41406aaa3fae">&#128465; Discard</button>
+    <button class="maybe-btn" onclick="toggleMaybeCard(this)" data-jobid="0556cb89e4e240d66eba41406aaa3fae">? Maybe</button>
   </div>
 </div>
 <div class="card applied-card" style="display:none" data-score="221.0" data-site="linkedin" data-target="false" data-new="true" data-desired="true" data-jobid="18fea2acf19afb94040902c66b9b62cb">
@@ -279,7 +286,7 @@ footer { text-align: center; padding: 24px; font-size: 11px; color: #bbb; }
   <div class="card-meta">
     <span>TMC</span>
     <span>Eindhoven, North Brabant, Netherlands</span>
-    <span>Date unknown</span>
+    <span>~2026-05-26</span>
   </div>
   <div class="score-row">
     <span class="score-label">Fit:</span>
@@ -292,6 +299,7 @@ footer { text-align: center; padding: 24px; font-size: 11px; color: #bbb; }
     <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4411817549" target="_blank" rel="noopener">View posting</a>
     <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="18fea2acf19afb94040902c66b9b62cb">&#10003; Applied</button>
     <button class="discard-btn" onclick="toggleDiscardCard(this)" data-jobid="18fea2acf19afb94040902c66b9b62cb">&#128465; Discard</button>
+    <button class="maybe-btn" onclick="toggleMaybeCard(this)" data-jobid="18fea2acf19afb94040902c66b9b62cb">? Maybe</button>
   </div>
 </div>
 <div class="card returning-card" data-score="201.0" data-site="indeed" data-target="false" data-new="false" data-desired="true" data-jobid="1a3d4f366216e5ce6cdc9a5f4b559fb5">
@@ -302,7 +310,7 @@ footer { text-align: center; padding: 24px; font-size: 11px; color: #bbb; }
   <div class="card-meta">
     <span>Just Eat Takeaway.com</span>
     <span>Amsterdam, NH, NL</span>
-    <span>Date unknown</span>
+    <span>~2026-05-25</span>
   </div>
   <div class="score-row">
     <span class="score-label">Fit:</span>
@@ -315,6 +323,7 @@ footer { text-align: center; padding: 24px; font-size: 11px; color: #bbb; }
     <a class="apply-btn" href="https://nl.indeed.com/viewjob?jk=7a7baf6d443705d8" target="_blank" rel="noopener">View posting</a>
     <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="1a3d4f366216e5ce6cdc9a5f4b559fb5">&#10003; Applied</button>
     <button class="discard-btn" onclick="toggleDiscardCard(this)" data-jobid="1a3d4f366216e5ce6cdc9a5f4b559fb5">&#128465; Discard</button>
+    <button class="maybe-btn" onclick="toggleMaybeCard(this)" data-jobid="1a3d4f366216e5ce6cdc9a5f4b559fb5">? Maybe</button>
   </div>
 </div>
 <div class="card" data-score="112.0" data-site="linkedin" data-target="false" data-new="true" data-desired="true" data-jobid="cc3048e7407a9856fd764238491118f0">
@@ -325,14 +334,14 @@ footer { text-align: center; padding: 24px; font-size: 11px; color: #bbb; }
   <div class="card-meta">
     <span>Airlift Systems</span>
     <span>Rotterdam, South Holland, Netherlands</span>
-    <span>Date unknown</span>
+    <span>~2026-05-26</span>
   </div>
   <div class="score-row">
     <span class="score-label">Fit:</span>
     <span class="score-num score-low">112.0</span>
     <div class="score-bar"><div class="bar-fill score-low" style="width:18.2%"></div></div>
   </div>
-  <div class="keywords">Keywords: ekf, ukf, state estimation, flight control, controller, sensor fusion</div>
+  <div class="keywords">Keywords: ekf, ukf, state estimation, flight control, controller, sensor fusion, localization, navigation, drone</div>
   <div class="job-desc">At
  **Airlift Systems** 
  , we are building advanced aerial robotic platforms designed to perform real\-world utility tasks in environments where traditional drones fall short.
@@ -345,6 +354,7 @@ footer { text-align: center; padding: 24px; font-size: 11px; color: #bbb; }
     <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4419102368" target="_blank" rel="noopener">View posting</a>
     <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="cc3048e7407a9856fd764238491118f0">&#10003; Applied</button>
     <button class="discard-btn" onclick="toggleDiscardCard(this)" data-jobid="cc3048e7407a9856fd764238491118f0">&#128465; Discard</button>
+    <button class="maybe-btn" onclick="toggleMaybeCard(this)" data-jobid="cc3048e7407a9856fd764238491118f0">? Maybe</button>
   </div>
 </div>
 <div class="card" data-score="107.0" data-site="linkedin" data-target="false" data-new="true" data-desired="true" data-jobid="3113982c56264652a4cbc9d41f27c14d">
@@ -355,7 +365,7 @@ footer { text-align: center; padding: 24px; font-size: 11px; color: #bbb; }
   <div class="card-meta">
     <span>Inspiro</span>
     <span>Arnhem, Gelderland, Netherlands</span>
-    <span>Date unknown</span>
+    <span>~2026-05-26</span>
   </div>
   <div class="score-row">
     <span class="score-label">Fit:</span>
@@ -368,6 +378,7 @@ footer { text-align: center; padding: 24px; font-size: 11px; color: #bbb; }
     <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4409417126" target="_blank" rel="noopener">View posting</a>
     <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="3113982c56264652a4cbc9d41f27c14d">&#10003; Applied</button>
     <button class="discard-btn" onclick="toggleDiscardCard(this)" data-jobid="3113982c56264652a4cbc9d41f27c14d">&#128465; Discard</button>
+    <button class="maybe-btn" onclick="toggleMaybeCard(this)" data-jobid="3113982c56264652a4cbc9d41f27c14d">? Maybe</button>
   </div>
 </div>
 <div class="card returning-card" data-score="106.0" data-site="indeed" data-target="false" data-new="false" data-desired="true" data-jobid="df71e59b1d04cb6b08b677033370cca4">
@@ -378,7 +389,7 @@ footer { text-align: center; padding: 24px; font-size: 11px; color: #bbb; }
   <div class="card-meta">
     <span>Spektrum</span>
     <span>Den Haag, ZH, NL</span>
-    <span>Date unknown</span>
+    <span>~2026-05-25</span>
   </div>
   <div class="score-row">
     <span class="score-label">Fit:</span>
@@ -391,6 +402,7 @@ footer { text-align: center; padding: 24px; font-size: 11px; color: #bbb; }
     <a class="apply-btn" href="https://nl.indeed.com/viewjob?jk=fe3b6bd2bd80451e" target="_blank" rel="noopener">View posting</a>
     <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="df71e59b1d04cb6b08b677033370cca4">&#10003; Applied</button>
     <button class="discard-btn" onclick="toggleDiscardCard(this)" data-jobid="df71e59b1d04cb6b08b677033370cca4">&#128465; Discard</button>
+    <button class="maybe-btn" onclick="toggleMaybeCard(this)" data-jobid="df71e59b1d04cb6b08b677033370cca4">? Maybe</button>
   </div>
 </div>
 <div class="card returning-card" data-score="103.0" data-site="indeed" data-target="false" data-new="false" data-desired="true" data-jobid="28f14b3b52914e702e1b84fc98212d1f">
@@ -401,7 +413,7 @@ footer { text-align: center; padding: 24px; font-size: 11px; color: #bbb; }
   <div class="card-meta">
     <span>Epassi</span>
     <span>Heerenveen, FR, NL</span>
-    <span>Date unknown</span>
+    <span>~2026-05-25</span>
   </div>
   <div class="score-row">
     <span class="score-label">Fit:</span>
@@ -414,6 +426,7 @@ footer { text-align: center; padding: 24px; font-size: 11px; color: #bbb; }
     <a class="apply-btn" href="https://nl.indeed.com/viewjob?jk=03dead98b62bfd93" target="_blank" rel="noopener">View posting</a>
     <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="28f14b3b52914e702e1b84fc98212d1f">&#10003; Applied</button>
     <button class="discard-btn" onclick="toggleDiscardCard(this)" data-jobid="28f14b3b52914e702e1b84fc98212d1f">&#128465; Discard</button>
+    <button class="maybe-btn" onclick="toggleMaybeCard(this)" data-jobid="28f14b3b52914e702e1b84fc98212d1f">? Maybe</button>
   </div>
 </div>
 <div class="card returning-card" data-score="103.0" data-site="linkedin" data-target="false" data-new="false" data-desired="true" data-jobid="fe5c786660eaf9326f4ffd106d051aa3">
@@ -424,7 +437,7 @@ footer { text-align: center; padding: 24px; font-size: 11px; color: #bbb; }
   <div class="card-meta">
     <span>Anduril Industries</span>
     <span>Amsterdam, North Holland, Netherlands</span>
-    <span>Date unknown</span>
+    <span>~2026-05-25</span>
   </div>
   <div class="score-row">
     <span class="score-label">Fit:</span>
@@ -437,6 +450,7 @@ footer { text-align: center; padding: 24px; font-size: 11px; color: #bbb; }
     <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4400222669" target="_blank" rel="noopener">View posting</a>
     <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="fe5c786660eaf9326f4ffd106d051aa3">&#10003; Applied</button>
     <button class="discard-btn" onclick="toggleDiscardCard(this)" data-jobid="fe5c786660eaf9326f4ffd106d051aa3">&#128465; Discard</button>
+    <button class="maybe-btn" onclick="toggleMaybeCard(this)" data-jobid="fe5c786660eaf9326f4ffd106d051aa3">? Maybe</button>
   </div>
 </div>
 <div class="card returning-card" data-score="102.0" data-site="indeed" data-target="false" data-new="false" data-desired="true" data-jobid="b6f79e5a0edd94ee5597b1feab18cd0e">
@@ -447,7 +461,7 @@ footer { text-align: center; padding: 24px; font-size: 11px; color: #bbb; }
   <div class="card-meta">
     <span>NXP Semiconductors</span>
     <span>Nijmegen, GE, NL</span>
-    <span>Date unknown</span>
+    <span>~2026-05-25</span>
   </div>
   <div class="score-row">
     <span class="score-label">Fit:</span>
@@ -460,6 +474,7 @@ footer { text-align: center; padding: 24px; font-size: 11px; color: #bbb; }
     <a class="apply-btn" href="https://nl.indeed.com/viewjob?jk=47b962c1ca04fd34" target="_blank" rel="noopener">View posting</a>
     <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="b6f79e5a0edd94ee5597b1feab18cd0e">&#10003; Applied</button>
     <button class="discard-btn" onclick="toggleDiscardCard(this)" data-jobid="b6f79e5a0edd94ee5597b1feab18cd0e">&#128465; Discard</button>
+    <button class="maybe-btn" onclick="toggleMaybeCard(this)" data-jobid="b6f79e5a0edd94ee5597b1feab18cd0e">? Maybe</button>
   </div>
 </div>
 <div class="card" data-score="74.0" data-site="indeed" data-target="false" data-new="true" data-desired="false" data-jobid="2679280d98dfa37e5fe5ecf38fd8b489">
@@ -487,6 +502,7 @@ W...</div>
     <a class="apply-btn" href="https://nl.indeed.com/viewjob?jk=fc35a716bf968360" target="_blank" rel="noopener">View posting</a>
     <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="2679280d98dfa37e5fe5ecf38fd8b489">&#10003; Applied</button>
     <button class="discard-btn" onclick="toggleDiscardCard(this)" data-jobid="2679280d98dfa37e5fe5ecf38fd8b489">&#128465; Discard</button>
+    <button class="maybe-btn" onclick="toggleMaybeCard(this)" data-jobid="2679280d98dfa37e5fe5ecf38fd8b489">? Maybe</button>
   </div>
 </div>
 <div class="card" data-score="72.0" data-site="linkedin" data-target="false" data-new="true" data-desired="false" data-jobid="6c6b484a257eb95321bb311923c5146d">
@@ -510,6 +526,7 @@ W...</div>
     <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4418681461" target="_blank" rel="noopener">View posting</a>
     <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="6c6b484a257eb95321bb311923c5146d">&#10003; Applied</button>
     <button class="discard-btn" onclick="toggleDiscardCard(this)" data-jobid="6c6b484a257eb95321bb311923c5146d">&#128465; Discard</button>
+    <button class="maybe-btn" onclick="toggleMaybeCard(this)" data-jobid="6c6b484a257eb95321bb311923c5146d">? Maybe</button>
   </div>
 </div>
 <div class="card" data-score="66.0" data-site="indeed" data-target="false" data-new="true" data-desired="false" data-jobid="413623c437463a2b84ec4abb6727a6c5">
@@ -520,7 +537,7 @@ W...</div>
   <div class="card-meta">
     <span>Xsens</span>
     <span>Enschede, OV, NL</span>
-    <span>Date unknown</span>
+    <span>~2026-05-26</span>
   </div>
   <div class="score-row">
     <span class="score-label">Fit:</span>
@@ -533,6 +550,7 @@ W...</div>
     <a class="apply-btn" href="https://nl.indeed.com/viewjob?jk=2e87921a07e54aca" target="_blank" rel="noopener">View posting</a>
     <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="413623c437463a2b84ec4abb6727a6c5">&#10003; Applied</button>
     <button class="discard-btn" onclick="toggleDiscardCard(this)" data-jobid="413623c437463a2b84ec4abb6727a6c5">&#128465; Discard</button>
+    <button class="maybe-btn" onclick="toggleMaybeCard(this)" data-jobid="413623c437463a2b84ec4abb6727a6c5">? Maybe</button>
   </div>
 </div>
 <div class="card" data-score="66.0" data-site="linkedin" data-target="false" data-new="true" data-desired="false" data-jobid="7b34f5f9d17a744dc7595c38ab16b103">
@@ -543,7 +561,7 @@ W...</div>
   <div class="card-meta">
     <span>Novartis</span>
     <span>Baarle-Hertog, North Brabant, Netherlands</span>
-    <span>Date unknown</span>
+    <span>~2026-05-26</span>
   </div>
   <div class="score-row">
     <span class="score-label">Fit:</span>
@@ -556,6 +574,7 @@ W...</div>
     <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4379871572" target="_blank" rel="noopener">View posting</a>
     <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="7b34f5f9d17a744dc7595c38ab16b103">&#10003; Applied</button>
     <button class="discard-btn" onclick="toggleDiscardCard(this)" data-jobid="7b34f5f9d17a744dc7595c38ab16b103">&#128465; Discard</button>
+    <button class="maybe-btn" onclick="toggleMaybeCard(this)" data-jobid="7b34f5f9d17a744dc7595c38ab16b103">? Maybe</button>
   </div>
 </div>
 <div class="card" data-score="64.0" data-site="linkedin" data-target="false" data-new="true" data-desired="false" data-jobid="f3b436d359540b70f8c6fd5832a91fca">
@@ -566,7 +585,7 @@ W...</div>
   <div class="card-meta">
     <span>TMC</span>
     <span>Eindhoven, North Brabant, Netherlands</span>
-    <span>Date unknown</span>
+    <span>~2026-05-26</span>
   </div>
   <div class="score-row">
     <span class="score-label">Fit:</span>
@@ -579,6 +598,7 @@ W...</div>
     <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4411640720" target="_blank" rel="noopener">View posting</a>
     <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="f3b436d359540b70f8c6fd5832a91fca">&#10003; Applied</button>
     <button class="discard-btn" onclick="toggleDiscardCard(this)" data-jobid="f3b436d359540b70f8c6fd5832a91fca">&#128465; Discard</button>
+    <button class="maybe-btn" onclick="toggleMaybeCard(this)" data-jobid="f3b436d359540b70f8c6fd5832a91fca">? Maybe</button>
   </div>
 </div>
 <div class="card" data-score="62.0" data-site="indeed" data-target="false" data-new="true" data-desired="false" data-jobid="19dc084a43fe619648d0b906affd4766">
@@ -589,7 +609,7 @@ W...</div>
   <div class="card-meta">
     <span>TMC</span>
     <span>Eindhoven, NB, NL</span>
-    <span>Date unknown</span>
+    <span>~2026-05-26</span>
   </div>
   <div class="score-row">
     <span class="score-label">Fit:</span>
@@ -602,6 +622,7 @@ W...</div>
     <a class="apply-btn" href="https://nl.indeed.com/viewjob?jk=879c77fcef22ccc2" target="_blank" rel="noopener">View posting</a>
     <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="19dc084a43fe619648d0b906affd4766">&#10003; Applied</button>
     <button class="discard-btn" onclick="toggleDiscardCard(this)" data-jobid="19dc084a43fe619648d0b906affd4766">&#128465; Discard</button>
+    <button class="maybe-btn" onclick="toggleMaybeCard(this)" data-jobid="19dc084a43fe619648d0b906affd4766">? Maybe</button>
   </div>
 </div>
 <div class="card" data-score="62.0" data-site="indeed" data-target="false" data-new="true" data-desired="false" data-jobid="57b15458a493beb81e5b6223f5acfc9f">
@@ -612,7 +633,7 @@ W...</div>
   <div class="card-meta">
     <span>TMC</span>
     <span>Eindhoven, NB, NL</span>
-    <span>Date unknown</span>
+    <span>~2026-05-26</span>
   </div>
   <div class="score-row">
     <span class="score-label">Fit:</span>
@@ -625,6 +646,7 @@ W...</div>
     <a class="apply-btn" href="https://nl.indeed.com/viewjob?jk=aa90144a50c33e77" target="_blank" rel="noopener">View posting</a>
     <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="57b15458a493beb81e5b6223f5acfc9f">&#10003; Applied</button>
     <button class="discard-btn" onclick="toggleDiscardCard(this)" data-jobid="57b15458a493beb81e5b6223f5acfc9f">&#128465; Discard</button>
+    <button class="maybe-btn" onclick="toggleMaybeCard(this)" data-jobid="57b15458a493beb81e5b6223f5acfc9f">? Maybe</button>
   </div>
 </div>
 <div class="card" data-score="62.0" data-site="indeed" data-target="false" data-new="true" data-desired="false" data-jobid="93a8915ad27bb31ee8dca6d54176d004">
@@ -635,7 +657,7 @@ W...</div>
   <div class="card-meta">
     <span>TMC</span>
     <span>Eindhoven, NB, NL</span>
-    <span>Date unknown</span>
+    <span>~2026-05-26</span>
   </div>
   <div class="score-row">
     <span class="score-label">Fit:</span>
@@ -648,6 +670,7 @@ W...</div>
     <a class="apply-btn" href="https://nl.indeed.com/viewjob?jk=a0e3746bd30cd8b8" target="_blank" rel="noopener">View posting</a>
     <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="93a8915ad27bb31ee8dca6d54176d004">&#10003; Applied</button>
     <button class="discard-btn" onclick="toggleDiscardCard(this)" data-jobid="93a8915ad27bb31ee8dca6d54176d004">&#128465; Discard</button>
+    <button class="maybe-btn" onclick="toggleMaybeCard(this)" data-jobid="93a8915ad27bb31ee8dca6d54176d004">? Maybe</button>
   </div>
 </div>
 <div class="card" data-score="56.0" data-site="indeed" data-target="false" data-new="true" data-desired="false" data-jobid="3a8fd07d3e8d126e40869fcf8cac55d1">
@@ -658,7 +681,7 @@ W...</div>
   <div class="card-meta">
     <span>ARC</span>
     <span>Groningen, GR, NL</span>
-    <span>Date unknown</span>
+    <span>~2026-05-26</span>
   </div>
   <div class="score-row">
     <span class="score-label">Fit:</span>
@@ -671,6 +694,7 @@ W...</div>
     <a class="apply-btn" href="https://nl.indeed.com/viewjob?jk=3b43e3c50cb7da33" target="_blank" rel="noopener">View posting</a>
     <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="3a8fd07d3e8d126e40869fcf8cac55d1">&#10003; Applied</button>
     <button class="discard-btn" onclick="toggleDiscardCard(this)" data-jobid="3a8fd07d3e8d126e40869fcf8cac55d1">&#128465; Discard</button>
+    <button class="maybe-btn" onclick="toggleMaybeCard(this)" data-jobid="3a8fd07d3e8d126e40869fcf8cac55d1">? Maybe</button>
   </div>
 </div>
 <div class="card" data-score="56.0" data-site="linkedin" data-target="false" data-new="true" data-desired="false" data-jobid="a0695d316a8e02c05c7d27b4c045c4b5">
@@ -681,7 +705,7 @@ W...</div>
   <div class="card-meta">
     <span>Amaris Consulting</span>
     <span>Eindhoven, North Brabant, Netherlands</span>
-    <span>Date unknown</span>
+    <span>~2026-05-26</span>
   </div>
   <div class="score-row">
     <span class="score-label">Fit:</span>
@@ -694,6 +718,7 @@ W...</div>
     <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4366221323" target="_blank" rel="noopener">View posting</a>
     <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="a0695d316a8e02c05c7d27b4c045c4b5">&#10003; Applied</button>
     <button class="discard-btn" onclick="toggleDiscardCard(this)" data-jobid="a0695d316a8e02c05c7d27b4c045c4b5">&#128465; Discard</button>
+    <button class="maybe-btn" onclick="toggleMaybeCard(this)" data-jobid="a0695d316a8e02c05c7d27b4c045c4b5">? Maybe</button>
   </div>
 </div>
 <div class="card" data-score="54.0" data-site="linkedin" data-target="false" data-new="true" data-desired="false" data-jobid="8a6e5d70dd760f02b4c635198bd7971f">
@@ -704,7 +729,7 @@ W...</div>
   <div class="card-meta">
     <span>ITT Inc.</span>
     <span>Oud-Beijerland, South Holland, Netherlands</span>
-    <span>Date unknown</span>
+    <span>~2026-05-26</span>
   </div>
   <div class="score-row">
     <span class="score-label">Fit:</span>
@@ -717,6 +742,7 @@ W...</div>
     <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4392401551" target="_blank" rel="noopener">View posting</a>
     <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="8a6e5d70dd760f02b4c635198bd7971f">&#10003; Applied</button>
     <button class="discard-btn" onclick="toggleDiscardCard(this)" data-jobid="8a6e5d70dd760f02b4c635198bd7971f">&#128465; Discard</button>
+    <button class="maybe-btn" onclick="toggleMaybeCard(this)" data-jobid="8a6e5d70dd760f02b4c635198bd7971f">? Maybe</button>
   </div>
 </div>
 <div class="card" data-score="52.0" data-site="linkedin" data-target="false" data-new="true" data-desired="false" data-jobid="7c7294a7f6bb26274ad7bec4c7399518">
@@ -727,7 +753,7 @@ W...</div>
   <div class="card-meta">
     <span>Looper Engineering</span>
     <span>Rotterdam, South Holland, Netherlands</span>
-    <span>Date unknown</span>
+    <span>~2026-05-26</span>
   </div>
   <div class="score-row">
     <span class="score-label">Fit:</span>
@@ -742,6 +768,7 @@ W...</div>
     <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4419156057" target="_blank" rel="noopener">View posting</a>
     <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="7c7294a7f6bb26274ad7bec4c7399518">&#10003; Applied</button>
     <button class="discard-btn" onclick="toggleDiscardCard(this)" data-jobid="7c7294a7f6bb26274ad7bec4c7399518">&#128465; Discard</button>
+    <button class="maybe-btn" onclick="toggleMaybeCard(this)" data-jobid="7c7294a7f6bb26274ad7bec4c7399518">? Maybe</button>
   </div>
 </div>
 <div class="card" data-score="50.0" data-site="linkedin" data-target="false" data-new="true" data-desired="false" data-jobid="a4fa3970dd60c4df30840e99cf1c34d1">
@@ -752,7 +779,7 @@ W...</div>
   <div class="card-meta">
     <span>Versuni</span>
     <span>Drachten, Friesland, Netherlands</span>
-    <span>Date unknown</span>
+    <span>~2026-05-26</span>
   </div>
   <div class="score-row">
     <span class="score-label">Fit:</span>
@@ -766,6 +793,7 @@ W...</div>
     <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4379045100" target="_blank" rel="noopener">View posting</a>
     <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="a4fa3970dd60c4df30840e99cf1c34d1">&#10003; Applied</button>
     <button class="discard-btn" onclick="toggleDiscardCard(this)" data-jobid="a4fa3970dd60c4df30840e99cf1c34d1">&#128465; Discard</button>
+    <button class="maybe-btn" onclick="toggleMaybeCard(this)" data-jobid="a4fa3970dd60c4df30840e99cf1c34d1">? Maybe</button>
   </div>
 </div>
 <div class="card" data-score="46.0" data-site="indeed" data-target="false" data-new="true" data-desired="false" data-jobid="105151f7a38ffa741fefdc580af6c6ee">
@@ -776,7 +804,7 @@ W...</div>
   <div class="card-meta">
     <span>QED Technologies International</span>
     <span>Delft, ZH, NL</span>
-    <span>Date unknown</span>
+    <span>~2026-05-26</span>
   </div>
   <div class="score-row">
     <span class="score-label">Fit:</span>
@@ -789,6 +817,7 @@ W...</div>
     <a class="apply-btn" href="https://nl.indeed.com/viewjob?jk=23fd8e5d7010800a" target="_blank" rel="noopener">View posting</a>
     <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="105151f7a38ffa741fefdc580af6c6ee">&#10003; Applied</button>
     <button class="discard-btn" onclick="toggleDiscardCard(this)" data-jobid="105151f7a38ffa741fefdc580af6c6ee">&#128465; Discard</button>
+    <button class="maybe-btn" onclick="toggleMaybeCard(this)" data-jobid="105151f7a38ffa741fefdc580af6c6ee">? Maybe</button>
   </div>
 </div>
 <div class="card" data-score="46.0" data-site="indeed" data-target="false" data-new="true" data-desired="false" data-jobid="a66dfbc9560975c518e01d414c68a367">
@@ -799,7 +828,7 @@ W...</div>
   <div class="card-meta">
     <span>QED Technologies International</span>
     <span>Delft, ZH, NL</span>
-    <span>Date unknown</span>
+    <span>~2026-05-26</span>
   </div>
   <div class="score-row">
     <span class="score-label">Fit:</span>
@@ -812,6 +841,7 @@ W...</div>
     <a class="apply-btn" href="https://nl.indeed.com/viewjob?jk=5d9cb0f4787e6cd6" target="_blank" rel="noopener">View posting</a>
     <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="a66dfbc9560975c518e01d414c68a367">&#10003; Applied</button>
     <button class="discard-btn" onclick="toggleDiscardCard(this)" data-jobid="a66dfbc9560975c518e01d414c68a367">&#128465; Discard</button>
+    <button class="maybe-btn" onclick="toggleMaybeCard(this)" data-jobid="a66dfbc9560975c518e01d414c68a367">? Maybe</button>
   </div>
 </div>
 <div class="card" data-score="46.0" data-site="indeed" data-target="false" data-new="true" data-desired="false" data-jobid="c856d83b66e6fb88f9abfaa3c7308c77">
@@ -822,7 +852,7 @@ W...</div>
   <div class="card-meta">
     <span>NEDSCHROEF</span>
     <span>NL</span>
-    <span>Date unknown</span>
+    <span>~2026-05-26</span>
   </div>
   <div class="score-row">
     <span class="score-label">Fit:</span>
@@ -835,6 +865,7 @@ W...</div>
     <a class="apply-btn" href="https://nl.indeed.com/viewjob?jk=976f82f00c9c5e2d" target="_blank" rel="noopener">View posting</a>
     <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="c856d83b66e6fb88f9abfaa3c7308c77">&#10003; Applied</button>
     <button class="discard-btn" onclick="toggleDiscardCard(this)" data-jobid="c856d83b66e6fb88f9abfaa3c7308c77">&#128465; Discard</button>
+    <button class="maybe-btn" onclick="toggleMaybeCard(this)" data-jobid="c856d83b66e6fb88f9abfaa3c7308c77">? Maybe</button>
   </div>
 </div>
 <div class="card" data-score="44.0" data-site="linkedin" data-target="false" data-new="true" data-desired="false" data-jobid="83331b774968ea1af5cc6067a15b6e7d">
@@ -845,7 +876,7 @@ W...</div>
   <div class="card-meta">
     <span>Akkodis</span>
     <span>Hengelo, Overijssel, Netherlands</span>
-    <span>Date unknown</span>
+    <span>~2026-05-26</span>
   </div>
   <div class="score-row">
     <span class="score-label">Fit:</span>
@@ -858,6 +889,7 @@ W...</div>
     <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4398800717" target="_blank" rel="noopener">View posting</a>
     <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="83331b774968ea1af5cc6067a15b6e7d">&#10003; Applied</button>
     <button class="discard-btn" onclick="toggleDiscardCard(this)" data-jobid="83331b774968ea1af5cc6067a15b6e7d">&#128465; Discard</button>
+    <button class="maybe-btn" onclick="toggleMaybeCard(this)" data-jobid="83331b774968ea1af5cc6067a15b6e7d">? Maybe</button>
   </div>
 </div>
 <div class="card" data-score="44.0" data-site="indeed" data-target="false" data-new="true" data-desired="false" data-jobid="cbeb99bcd8e55720ad8fb1dcf2119181">
@@ -868,7 +900,7 @@ W...</div>
   <div class="card-meta">
     <span>LELY</span>
     <span>Maassluis, ZH, NL</span>
-    <span>Date unknown</span>
+    <span>~2026-05-26</span>
   </div>
   <div class="score-row">
     <span class="score-label">Fit:</span>
@@ -881,6 +913,7 @@ W...</div>
     <a class="apply-btn" href="https://nl.indeed.com/viewjob?jk=7cad3be4e953bab8" target="_blank" rel="noopener">View posting</a>
     <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="cbeb99bcd8e55720ad8fb1dcf2119181">&#10003; Applied</button>
     <button class="discard-btn" onclick="toggleDiscardCard(this)" data-jobid="cbeb99bcd8e55720ad8fb1dcf2119181">&#128465; Discard</button>
+    <button class="maybe-btn" onclick="toggleMaybeCard(this)" data-jobid="cbeb99bcd8e55720ad8fb1dcf2119181">? Maybe</button>
   </div>
 </div>
 <div class="card" data-score="38.0" data-site="indeed" data-target="false" data-new="true" data-desired="false" data-jobid="20b449671a82972a633ca31c4f242b1b">
@@ -891,7 +924,7 @@ W...</div>
   <div class="card-meta">
     <span>Shapeways</span>
     <span>Eindhoven, NB, NL</span>
-    <span>Date unknown</span>
+    <span>~2026-05-26</span>
   </div>
   <div class="score-row">
     <span class="score-label">Fit:</span>
@@ -904,6 +937,7 @@ W...</div>
     <a class="apply-btn" href="https://nl.indeed.com/viewjob?jk=39352e98dfc11c42" target="_blank" rel="noopener">View posting</a>
     <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="20b449671a82972a633ca31c4f242b1b">&#10003; Applied</button>
     <button class="discard-btn" onclick="toggleDiscardCard(this)" data-jobid="20b449671a82972a633ca31c4f242b1b">&#128465; Discard</button>
+    <button class="maybe-btn" onclick="toggleMaybeCard(this)" data-jobid="20b449671a82972a633ca31c4f242b1b">? Maybe</button>
   </div>
 </div>
 <div class="card" data-score="36.0" data-site="linkedin" data-target="false" data-new="true" data-desired="false" data-jobid="336b680847f2c830218e30534ac4ecce">
@@ -914,7 +948,7 @@ W...</div>
   <div class="card-meta">
     <span>Lely</span>
     <span>Maassluis, South Holland, Netherlands</span>
-    <span>Date unknown</span>
+    <span>~2026-05-26</span>
   </div>
   <div class="score-row">
     <span class="score-label">Fit:</span>
@@ -927,6 +961,7 @@ W...</div>
     <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4375224617" target="_blank" rel="noopener">View posting</a>
     <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="336b680847f2c830218e30534ac4ecce">&#10003; Applied</button>
     <button class="discard-btn" onclick="toggleDiscardCard(this)" data-jobid="336b680847f2c830218e30534ac4ecce">&#128465; Discard</button>
+    <button class="maybe-btn" onclick="toggleMaybeCard(this)" data-jobid="336b680847f2c830218e30534ac4ecce">? Maybe</button>
   </div>
 </div>
 <div class="card discarded-card" style="display:none" data-score="36.0" data-site="indeed" data-target="false" data-new="true" data-desired="false" data-jobid="366256eef000b7a787cbbe675b716f6e">
@@ -937,7 +972,7 @@ W...</div>
   <div class="card-meta">
     <span>Eindhoven University of Technology</span>
     <span>Eindhoven, NB, NL</span>
-    <span>Date unknown</span>
+    <span>~2026-05-26</span>
   </div>
   <div class="score-row">
     <span class="score-label">Fit:</span>
@@ -950,6 +985,7 @@ W...</div>
     <a class="apply-btn" href="https://nl.indeed.com/viewjob?jk=aaafb66562a8fc83" target="_blank" rel="noopener">View posting</a>
     <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="366256eef000b7a787cbbe675b716f6e">&#10003; Applied</button>
     <button class="discard-btn discarded" onclick="toggleDiscardCard(this)" data-jobid="366256eef000b7a787cbbe675b716f6e">&#128465; Discard</button>
+    <button class="maybe-btn" onclick="toggleMaybeCard(this)" data-jobid="366256eef000b7a787cbbe675b716f6e">? Maybe</button>
   </div>
 </div>
 <div class="card" data-score="34.0" data-site="indeed" data-target="false" data-new="true" data-desired="false" data-jobid="e4fff039ff1098c9f0e035cf1dd6a9d0">
@@ -960,7 +996,7 @@ W...</div>
   <div class="card-meta">
     <span>Intralox</span>
     <span>Amsterdam, NH, NL</span>
-    <span>Date unknown</span>
+    <span>~2026-05-26</span>
   </div>
   <div class="score-row">
     <span class="score-label">Fit:</span>
@@ -973,6 +1009,7 @@ W...</div>
     <a class="apply-btn" href="https://nl.indeed.com/viewjob?jk=b6fbd04ca99d8c15" target="_blank" rel="noopener">View posting</a>
     <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="e4fff039ff1098c9f0e035cf1dd6a9d0">&#10003; Applied</button>
     <button class="discard-btn" onclick="toggleDiscardCard(this)" data-jobid="e4fff039ff1098c9f0e035cf1dd6a9d0">&#128465; Discard</button>
+    <button class="maybe-btn" onclick="toggleMaybeCard(this)" data-jobid="e4fff039ff1098c9f0e035cf1dd6a9d0">? Maybe</button>
   </div>
 </div>
 <div class="card" data-score="32.0" data-site="linkedin" data-target="false" data-new="true" data-desired="false" data-jobid="06ba0b15dd117bdb0ec7068f4c26b2d2">
@@ -983,7 +1020,7 @@ W...</div>
   <div class="card-meta">
     <span>NLR - Netherlands Aerospace Centre</span>
     <span>Marknesse, Flevoland, Netherlands</span>
-    <span>Date unknown</span>
+    <span>~2026-05-26</span>
   </div>
   <div class="score-row">
     <span class="score-label">Fit:</span>
@@ -996,6 +1033,7 @@ W...</div>
     <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4382094605" target="_blank" rel="noopener">View posting</a>
     <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="06ba0b15dd117bdb0ec7068f4c26b2d2">&#10003; Applied</button>
     <button class="discard-btn" onclick="toggleDiscardCard(this)" data-jobid="06ba0b15dd117bdb0ec7068f4c26b2d2">&#128465; Discard</button>
+    <button class="maybe-btn" onclick="toggleMaybeCard(this)" data-jobid="06ba0b15dd117bdb0ec7068f4c26b2d2">? Maybe</button>
   </div>
 </div>
 <div class="card" data-score="32.0" data-site="linkedin" data-target="false" data-new="true" data-desired="false" data-jobid="082d52365627bfdfb7f5338a2fbff38b">
@@ -1006,7 +1044,7 @@ W...</div>
   <div class="card-meta">
     <span>Bilfinger België & Nederland</span>
     <span>Hengelo, Overijssel, Netherlands</span>
-    <span>Date unknown</span>
+    <span>~2026-05-26</span>
   </div>
   <div class="score-row">
     <span class="score-label">Fit:</span>
@@ -1019,6 +1057,7 @@ W...</div>
     <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4356447573" target="_blank" rel="noopener">View posting</a>
     <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="082d52365627bfdfb7f5338a2fbff38b">&#10003; Applied</button>
     <button class="discard-btn" onclick="toggleDiscardCard(this)" data-jobid="082d52365627bfdfb7f5338a2fbff38b">&#128465; Discard</button>
+    <button class="maybe-btn" onclick="toggleMaybeCard(this)" data-jobid="082d52365627bfdfb7f5338a2fbff38b">? Maybe</button>
   </div>
 </div>
 <div class="card" data-score="32.0" data-site="linkedin" data-target="false" data-new="true" data-desired="false" data-jobid="3dda47f2a35d03185d868d110134d5e8">
@@ -1029,7 +1068,7 @@ W...</div>
   <div class="card-meta">
     <span>Almatis</span>
     <span>Rotterdam, South Holland, Netherlands</span>
-    <span>Date unknown</span>
+    <span>~2026-05-26</span>
   </div>
   <div class="score-row">
     <span class="score-label">Fit:</span>
@@ -1042,6 +1081,7 @@ W...</div>
     <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4409695185" target="_blank" rel="noopener">View posting</a>
     <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="3dda47f2a35d03185d868d110134d5e8">&#10003; Applied</button>
     <button class="discard-btn" onclick="toggleDiscardCard(this)" data-jobid="3dda47f2a35d03185d868d110134d5e8">&#128465; Discard</button>
+    <button class="maybe-btn" onclick="toggleMaybeCard(this)" data-jobid="3dda47f2a35d03185d868d110134d5e8">? Maybe</button>
   </div>
 </div>
 <div class="card" data-score="32.0" data-site="linkedin" data-target="false" data-new="true" data-desired="false" data-jobid="3fa31d7c1ca11568030a9ca125865ee5">
@@ -1052,7 +1092,7 @@ W...</div>
   <div class="card-meta">
     <span>Uptec</span>
     <span></span>
-    <span>Date unknown</span>
+    <span>~2026-05-26</span>
   </div>
   <div class="score-row">
     <span class="score-label">Fit:</span>
@@ -1069,6 +1109,7 @@ W...</div>
     <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4419137336" target="_blank" rel="noopener">View posting</a>
     <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="3fa31d7c1ca11568030a9ca125865ee5">&#10003; Applied</button>
     <button class="discard-btn" onclick="toggleDiscardCard(this)" data-jobid="3fa31d7c1ca11568030a9ca125865ee5">&#128465; Discard</button>
+    <button class="maybe-btn" onclick="toggleMaybeCard(this)" data-jobid="3fa31d7c1ca11568030a9ca125865ee5">? Maybe</button>
   </div>
 </div>
 <div class="card" data-score="32.0" data-site="linkedin" data-target="false" data-new="true" data-desired="false" data-jobid="5ea0e0ee3114f4d52fe8ffb3c4e278e9">
@@ -1079,7 +1120,7 @@ W...</div>
   <div class="card-meta">
     <span>Emergent Swarm Solutions</span>
     <span>Delft, South Holland, Netherlands</span>
-    <span>Date unknown</span>
+    <span>~2026-05-26</span>
   </div>
   <div class="score-row">
     <span class="score-label">Fit:</span>
@@ -1092,6 +1133,7 @@ W...</div>
     <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4409191840" target="_blank" rel="noopener">View posting</a>
     <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="5ea0e0ee3114f4d52fe8ffb3c4e278e9">&#10003; Applied</button>
     <button class="discard-btn" onclick="toggleDiscardCard(this)" data-jobid="5ea0e0ee3114f4d52fe8ffb3c4e278e9">&#128465; Discard</button>
+    <button class="maybe-btn" onclick="toggleMaybeCard(this)" data-jobid="5ea0e0ee3114f4d52fe8ffb3c4e278e9">? Maybe</button>
   </div>
 </div>
 <div class="card" data-score="32.0" data-site="linkedin" data-target="false" data-new="true" data-desired="false" data-jobid="c64c640f728a33b46a675514fefa1628">
@@ -1102,7 +1144,7 @@ W...</div>
   <div class="card-meta">
     <span>Thales</span>
     <span>Hengelo, Overijssel, Netherlands</span>
-    <span>Date unknown</span>
+    <span>~2026-05-26</span>
   </div>
   <div class="score-row">
     <span class="score-label">Fit:</span>
@@ -1115,6 +1157,7 @@ W...</div>
     <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4380383489" target="_blank" rel="noopener">View posting</a>
     <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="c64c640f728a33b46a675514fefa1628">&#10003; Applied</button>
     <button class="discard-btn" onclick="toggleDiscardCard(this)" data-jobid="c64c640f728a33b46a675514fefa1628">&#128465; Discard</button>
+    <button class="maybe-btn" onclick="toggleMaybeCard(this)" data-jobid="c64c640f728a33b46a675514fefa1628">? Maybe</button>
   </div>
 </div>
 <div class="card" data-score="32.0" data-site="indeed" data-target="false" data-new="true" data-desired="false" data-jobid="c87220c06771bd67e1a887afb7cca493">
@@ -1125,7 +1168,7 @@ W...</div>
   <div class="card-meta">
     <span>TMC</span>
     <span>Utrecht, UT, NL</span>
-    <span>Date unknown</span>
+    <span>~2026-05-26</span>
   </div>
   <div class="score-row">
     <span class="score-label">Fit:</span>
@@ -1138,6 +1181,7 @@ W...</div>
     <a class="apply-btn" href="https://nl.indeed.com/viewjob?jk=209cece713100653" target="_blank" rel="noopener">View posting</a>
     <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="c87220c06771bd67e1a887afb7cca493">&#10003; Applied</button>
     <button class="discard-btn" onclick="toggleDiscardCard(this)" data-jobid="c87220c06771bd67e1a887afb7cca493">&#128465; Discard</button>
+    <button class="maybe-btn" onclick="toggleMaybeCard(this)" data-jobid="c87220c06771bd67e1a887afb7cca493">? Maybe</button>
   </div>
 </div>
 <div class="card" data-score="30.0" data-site="linkedin" data-target="false" data-new="true" data-desired="false" data-jobid="111d67a7776b32ffac03763d445c4728">
@@ -1148,7 +1192,7 @@ W...</div>
   <div class="card-meta">
     <span>Looper Engineering</span>
     <span>North Brabant, Netherlands</span>
-    <span>Date unknown</span>
+    <span>~2026-05-26</span>
   </div>
   <div class="score-row">
     <span class="score-label">Fit:</span>
@@ -1163,6 +1207,7 @@ W...</div>
     <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4419152141" target="_blank" rel="noopener">View posting</a>
     <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="111d67a7776b32ffac03763d445c4728">&#10003; Applied</button>
     <button class="discard-btn" onclick="toggleDiscardCard(this)" data-jobid="111d67a7776b32ffac03763d445c4728">&#128465; Discard</button>
+    <button class="maybe-btn" onclick="toggleMaybeCard(this)" data-jobid="111d67a7776b32ffac03763d445c4728">? Maybe</button>
   </div>
 </div>
 <div class="card" data-score="26.0" data-site="linkedin" data-target="false" data-new="true" data-desired="false" data-jobid="9361ba68e9d1bb62ac154414a296ce09">
@@ -1173,7 +1218,7 @@ W...</div>
   <div class="card-meta">
     <span>Johnson & Johnson</span>
     <span>Groningen, Groningen, Netherlands</span>
-    <span>Date unknown</span>
+    <span>~2026-05-26</span>
   </div>
   <div class="score-row">
     <span class="score-label">Fit:</span>
@@ -1186,6 +1231,7 @@ W...</div>
     <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4414275699" target="_blank" rel="noopener">View posting</a>
     <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="9361ba68e9d1bb62ac154414a296ce09">&#10003; Applied</button>
     <button class="discard-btn" onclick="toggleDiscardCard(this)" data-jobid="9361ba68e9d1bb62ac154414a296ce09">&#128465; Discard</button>
+    <button class="maybe-btn" onclick="toggleMaybeCard(this)" data-jobid="9361ba68e9d1bb62ac154414a296ce09">? Maybe</button>
   </div>
 </div>
 <div class="card" data-score="26.0" data-site="indeed" data-target="false" data-new="true" data-desired="false" data-jobid="def3f6b6d24cafb2cda1aa376fb597ad">
@@ -1196,7 +1242,7 @@ W...</div>
   <div class="card-meta">
     <span>Eindhoven University of Technology</span>
     <span>Eindhoven, NB, NL</span>
-    <span>Date unknown</span>
+    <span>~2026-05-26</span>
   </div>
   <div class="score-row">
     <span class="score-label">Fit:</span>
@@ -1209,6 +1255,31 @@ W...</div>
     <a class="apply-btn" href="https://nl.indeed.com/viewjob?jk=fc0fad8128a7aec5" target="_blank" rel="noopener">View posting</a>
     <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="def3f6b6d24cafb2cda1aa376fb597ad">&#10003; Applied</button>
     <button class="discard-btn" onclick="toggleDiscardCard(this)" data-jobid="def3f6b6d24cafb2cda1aa376fb597ad">&#128465; Discard</button>
+    <button class="maybe-btn" onclick="toggleMaybeCard(this)" data-jobid="def3f6b6d24cafb2cda1aa376fb597ad">? Maybe</button>
+  </div>
+</div>
+<div class="card" data-score="24.0" data-site="linkedin" data-target="false" data-new="true" data-desired="false" data-jobid="140f06c8c82de92be6c0d8239cc4b4e2">
+  <div class="card-header">
+    <h3><a href="https://www.linkedin.com/jobs/view/4408667635" target="_blank" rel="noopener">Software Engineer Applicaties & Industrial Automation</a></h3>
+    <div class="badges"><span class="badge badge-new">NEW</span><span class="badge badge-linkedin">LINKEDIN</span></div>
+  </div>
+  <div class="card-meta">
+    <span>VIRO</span>
+    <span>Hengelo, Overijssel, Netherlands</span>
+    <span>~2026-05-26</span>
+  </div>
+  <div class="score-row">
+    <span class="score-label">Fit:</span>
+    <span class="score-num score-low">24.0</span>
+    <div class="score-bar"><div class="bar-fill score-low" style="width:3.9%"></div></div>
+  </div>
+  <div class="keywords">Keywords: mechatronic, mechatronica, regeling, besturing</div>
+  <div class="job-desc">Een Software Engineer Applicaties \& Industrial Automation bij VIRO ontwikkelt en beheert software die machines, productielijnen en industriële processen bestuurt, optimaliseert en verbindt. In een mu...</div>
+  <div style="display:flex; gap:8px; align-items:center; margin-top:4px;">
+    <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4408667635" target="_blank" rel="noopener">View posting</a>
+    <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="140f06c8c82de92be6c0d8239cc4b4e2">&#10003; Applied</button>
+    <button class="discard-btn" onclick="toggleDiscardCard(this)" data-jobid="140f06c8c82de92be6c0d8239cc4b4e2">&#128465; Discard</button>
+    <button class="maybe-btn" onclick="toggleMaybeCard(this)" data-jobid="140f06c8c82de92be6c0d8239cc4b4e2">? Maybe</button>
   </div>
 </div>
 <div class="card" data-score="24.0" data-site="indeed" data-target="false" data-new="true" data-desired="false" data-jobid="234cda17796c3f98f1019b0943d9fa93">
@@ -1219,7 +1290,7 @@ W...</div>
   <div class="card-meta">
     <span>CERTUS Port Automation</span>
     <span>Sliedrecht, ZH, NL</span>
-    <span>Date unknown</span>
+    <span>~2026-05-26</span>
   </div>
   <div class="score-row">
     <span class="score-label">Fit:</span>
@@ -1232,6 +1303,7 @@ W...</div>
     <a class="apply-btn" href="https://nl.indeed.com/viewjob?jk=cc7d028034996a57" target="_blank" rel="noopener">View posting</a>
     <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="234cda17796c3f98f1019b0943d9fa93">&#10003; Applied</button>
     <button class="discard-btn" onclick="toggleDiscardCard(this)" data-jobid="234cda17796c3f98f1019b0943d9fa93">&#128465; Discard</button>
+    <button class="maybe-btn" onclick="toggleMaybeCard(this)" data-jobid="234cda17796c3f98f1019b0943d9fa93">? Maybe</button>
   </div>
 </div>
 <div class="card" data-score="24.0" data-site="linkedin" data-target="false" data-new="true" data-desired="false" data-jobid="445476224d14de2f5dd8620844afa1bb">
@@ -1255,6 +1327,7 @@ W...</div>
     <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4375219820" target="_blank" rel="noopener">View posting</a>
     <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="445476224d14de2f5dd8620844afa1bb">&#10003; Applied</button>
     <button class="discard-btn" onclick="toggleDiscardCard(this)" data-jobid="445476224d14de2f5dd8620844afa1bb">&#128465; Discard</button>
+    <button class="maybe-btn" onclick="toggleMaybeCard(this)" data-jobid="445476224d14de2f5dd8620844afa1bb">? Maybe</button>
   </div>
 </div>
 <div class="card" data-score="24.0" data-site="indeed" data-target="false" data-new="true" data-desired="false" data-jobid="52265b36a734eba32e694fe00e7b7744">
@@ -1265,7 +1338,7 @@ W...</div>
   <div class="card-meta">
     <span>Dash0</span>
     <span>Amsterdam, NH, NL</span>
-    <span>Date unknown</span>
+    <span>~2026-05-26</span>
   </div>
   <div class="score-row">
     <span class="score-label">Fit:</span>
@@ -1278,6 +1351,7 @@ W...</div>
     <a class="apply-btn" href="https://nl.indeed.com/viewjob?jk=35b9eab441f313e3" target="_blank" rel="noopener">View posting</a>
     <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="52265b36a734eba32e694fe00e7b7744">&#10003; Applied</button>
     <button class="discard-btn" onclick="toggleDiscardCard(this)" data-jobid="52265b36a734eba32e694fe00e7b7744">&#128465; Discard</button>
+    <button class="maybe-btn" onclick="toggleMaybeCard(this)" data-jobid="52265b36a734eba32e694fe00e7b7744">? Maybe</button>
   </div>
 </div>
 <div class="card" data-score="24.0" data-site="indeed" data-target="false" data-new="true" data-desired="false" data-jobid="57ab1d97b160246a3d4198cb9dfed558">
@@ -1288,7 +1362,7 @@ W...</div>
   <div class="card-meta">
     <span>Eindhoven University of Technology</span>
     <span>Eindhoven, NB, NL</span>
-    <span>Date unknown</span>
+    <span>~2026-05-26</span>
   </div>
   <div class="score-row">
     <span class="score-label">Fit:</span>
@@ -1301,6 +1375,7 @@ W...</div>
     <a class="apply-btn" href="https://nl.indeed.com/viewjob?jk=d070de1d94f9ebc8" target="_blank" rel="noopener">View posting</a>
     <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="57ab1d97b160246a3d4198cb9dfed558">&#10003; Applied</button>
     <button class="discard-btn" onclick="toggleDiscardCard(this)" data-jobid="57ab1d97b160246a3d4198cb9dfed558">&#128465; Discard</button>
+    <button class="maybe-btn" onclick="toggleMaybeCard(this)" data-jobid="57ab1d97b160246a3d4198cb9dfed558">? Maybe</button>
   </div>
 </div>
 <div class="card" data-score="24.0" data-site="indeed" data-target="false" data-new="true" data-desired="false" data-jobid="692fa9e5a2df9fc318835141c0a37eef">
@@ -1311,7 +1386,7 @@ W...</div>
   <div class="card-meta">
     <span>TMC</span>
     <span>Hengelo OV, OV, NL</span>
-    <span>Date unknown</span>
+    <span>~2026-05-26</span>
   </div>
   <div class="score-row">
     <span class="score-label">Fit:</span>
@@ -1324,6 +1399,7 @@ W...</div>
     <a class="apply-btn" href="https://nl.indeed.com/viewjob?jk=ba57ac0f7b7f2616" target="_blank" rel="noopener">View posting</a>
     <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="692fa9e5a2df9fc318835141c0a37eef">&#10003; Applied</button>
     <button class="discard-btn" onclick="toggleDiscardCard(this)" data-jobid="692fa9e5a2df9fc318835141c0a37eef">&#128465; Discard</button>
+    <button class="maybe-btn" onclick="toggleMaybeCard(this)" data-jobid="692fa9e5a2df9fc318835141c0a37eef">? Maybe</button>
   </div>
 </div>
 <div class="card" data-score="24.0" data-site="linkedin" data-target="false" data-new="true" data-desired="false" data-jobid="ed8326599464a9c0d9c5a6faa67489eb">
@@ -1334,7 +1410,7 @@ W...</div>
   <div class="card-meta">
     <span>NewCold</span>
     <span>Breda, North Brabant, Netherlands</span>
-    <span>Date unknown</span>
+    <span>~2026-05-26</span>
   </div>
   <div class="score-row">
     <span class="score-label">Fit:</span>
@@ -1347,6 +1423,7 @@ W...</div>
     <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4412752654" target="_blank" rel="noopener">View posting</a>
     <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="ed8326599464a9c0d9c5a6faa67489eb">&#10003; Applied</button>
     <button class="discard-btn" onclick="toggleDiscardCard(this)" data-jobid="ed8326599464a9c0d9c5a6faa67489eb">&#128465; Discard</button>
+    <button class="maybe-btn" onclick="toggleMaybeCard(this)" data-jobid="ed8326599464a9c0d9c5a6faa67489eb">? Maybe</button>
   </div>
 </div>
 <div class="card" data-score="22.0" data-site="indeed" data-target="false" data-new="true" data-desired="false" data-jobid="0f0f1ba7a372b0f87931854f8bb0b971">
@@ -1357,7 +1434,7 @@ W...</div>
   <div class="card-meta">
     <span>SAP</span>
     <span>Den Bosch, NB, NL</span>
-    <span>Date unknown</span>
+    <span>~2026-05-26</span>
   </div>
   <div class="score-row">
     <span class="score-label">Fit:</span>
@@ -1370,6 +1447,7 @@ W...</div>
     <a class="apply-btn" href="https://nl.indeed.com/viewjob?jk=a73ae3371b315e60" target="_blank" rel="noopener">View posting</a>
     <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="0f0f1ba7a372b0f87931854f8bb0b971">&#10003; Applied</button>
     <button class="discard-btn" onclick="toggleDiscardCard(this)" data-jobid="0f0f1ba7a372b0f87931854f8bb0b971">&#128465; Discard</button>
+    <button class="maybe-btn" onclick="toggleMaybeCard(this)" data-jobid="0f0f1ba7a372b0f87931854f8bb0b971">? Maybe</button>
   </div>
 </div>
 <div class="card" data-score="22.0" data-site="linkedin" data-target="false" data-new="true" data-desired="false" data-jobid="18c79a0d6f0cfe70a01619bf169cbc31">
@@ -1380,7 +1458,7 @@ W...</div>
   <div class="card-meta">
     <span>TNO</span>
     <span>The Hague, South Holland, Netherlands</span>
-    <span>Date unknown</span>
+    <span>~2026-05-26</span>
   </div>
   <div class="score-row">
     <span class="score-label">Fit:</span>
@@ -1393,6 +1471,7 @@ W...</div>
     <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4416921547" target="_blank" rel="noopener">View posting</a>
     <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="18c79a0d6f0cfe70a01619bf169cbc31">&#10003; Applied</button>
     <button class="discard-btn" onclick="toggleDiscardCard(this)" data-jobid="18c79a0d6f0cfe70a01619bf169cbc31">&#128465; Discard</button>
+    <button class="maybe-btn" onclick="toggleMaybeCard(this)" data-jobid="18c79a0d6f0cfe70a01619bf169cbc31">? Maybe</button>
   </div>
 </div>
 <div class="card" data-score="22.0" data-site="linkedin" data-target="false" data-new="true" data-desired="false" data-jobid="1d2d4edfb96fa55d44ae7a6013a6cbdb">
@@ -1403,7 +1482,7 @@ W...</div>
   <div class="card-meta">
     <span>Damen</span>
     <span>Nijkerk, Gelderland, Netherlands</span>
-    <span>Date unknown</span>
+    <span>~2026-05-26</span>
   </div>
   <div class="score-row">
     <span class="score-label">Fit:</span>
@@ -1416,6 +1495,7 @@ W...</div>
     <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4416255577" target="_blank" rel="noopener">View posting</a>
     <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="1d2d4edfb96fa55d44ae7a6013a6cbdb">&#10003; Applied</button>
     <button class="discard-btn" onclick="toggleDiscardCard(this)" data-jobid="1d2d4edfb96fa55d44ae7a6013a6cbdb">&#128465; Discard</button>
+    <button class="maybe-btn" onclick="toggleMaybeCard(this)" data-jobid="1d2d4edfb96fa55d44ae7a6013a6cbdb">? Maybe</button>
   </div>
 </div>
 <div class="card" data-score="22.0" data-site="linkedin" data-target="false" data-new="true" data-desired="false" data-jobid="677ffccaae17205716288adf702b4612">
@@ -1426,7 +1506,7 @@ W...</div>
   <div class="card-meta">
     <span>VDL Mobility Innovation Centre</span>
     <span>Born, Limburg, Netherlands</span>
-    <span>Date unknown</span>
+    <span>~2026-05-26</span>
   </div>
   <div class="score-row">
     <span class="score-label">Fit:</span>
@@ -1439,6 +1519,7 @@ W...</div>
     <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4384861370" target="_blank" rel="noopener">View posting</a>
     <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="677ffccaae17205716288adf702b4612">&#10003; Applied</button>
     <button class="discard-btn" onclick="toggleDiscardCard(this)" data-jobid="677ffccaae17205716288adf702b4612">&#128465; Discard</button>
+    <button class="maybe-btn" onclick="toggleMaybeCard(this)" data-jobid="677ffccaae17205716288adf702b4612">? Maybe</button>
   </div>
 </div>
 <div class="card" data-score="22.0" data-site="indeed" data-target="false" data-new="true" data-desired="false" data-jobid="6b61fb0d6db180097bedd06276c58ba0">
@@ -1449,7 +1530,7 @@ W...</div>
   <div class="card-meta">
     <span>Atlassian</span>
     <span>Amsterdam Centrum, NH, NL</span>
-    <span>Date unknown</span>
+    <span>~2026-05-26</span>
   </div>
   <div class="score-row">
     <span class="score-label">Fit:</span>
@@ -1462,6 +1543,7 @@ W...</div>
     <a class="apply-btn" href="https://nl.indeed.com/viewjob?jk=830cc19d83e3cce5" target="_blank" rel="noopener">View posting</a>
     <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="6b61fb0d6db180097bedd06276c58ba0">&#10003; Applied</button>
     <button class="discard-btn" onclick="toggleDiscardCard(this)" data-jobid="6b61fb0d6db180097bedd06276c58ba0">&#128465; Discard</button>
+    <button class="maybe-btn" onclick="toggleMaybeCard(this)" data-jobid="6b61fb0d6db180097bedd06276c58ba0">? Maybe</button>
   </div>
 </div>
 <div class="card" data-score="22.0" data-site="linkedin" data-target="false" data-new="true" data-desired="false" data-jobid="72ccd2b35bc0d6b7894115e6eaf3cb45">
@@ -1472,7 +1554,7 @@ W...</div>
   <div class="card-meta">
     <span>Orion Engineering</span>
     <span>Eindhoven, North Brabant, Netherlands</span>
-    <span>Date unknown</span>
+    <span>~2026-05-26</span>
   </div>
   <div class="score-row">
     <span class="score-label">Fit:</span>
@@ -1485,6 +1567,7 @@ W...</div>
     <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4410579531" target="_blank" rel="noopener">View posting</a>
     <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="72ccd2b35bc0d6b7894115e6eaf3cb45">&#10003; Applied</button>
     <button class="discard-btn" onclick="toggleDiscardCard(this)" data-jobid="72ccd2b35bc0d6b7894115e6eaf3cb45">&#128465; Discard</button>
+    <button class="maybe-btn" onclick="toggleMaybeCard(this)" data-jobid="72ccd2b35bc0d6b7894115e6eaf3cb45">? Maybe</button>
   </div>
 </div>
 <div class="card" data-score="22.0" data-site="linkedin" data-target="false" data-new="true" data-desired="false" data-jobid="d702db4d5fb80b86af97cd098259ad6c">
@@ -1495,7 +1578,7 @@ W...</div>
   <div class="card-meta">
     <span>Winthrop Technologies</span>
     <span>Amsterdam, North Holland, Netherlands</span>
-    <span>Date unknown</span>
+    <span>~2026-05-26</span>
   </div>
   <div class="score-row">
     <span class="score-label">Fit:</span>
@@ -1508,6 +1591,7 @@ W...</div>
     <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4322722351" target="_blank" rel="noopener">View posting</a>
     <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="d702db4d5fb80b86af97cd098259ad6c">&#10003; Applied</button>
     <button class="discard-btn" onclick="toggleDiscardCard(this)" data-jobid="d702db4d5fb80b86af97cd098259ad6c">&#128465; Discard</button>
+    <button class="maybe-btn" onclick="toggleMaybeCard(this)" data-jobid="d702db4d5fb80b86af97cd098259ad6c">? Maybe</button>
   </div>
 </div>
 <div class="card" data-score="22.0" data-site="linkedin" data-target="false" data-new="true" data-desired="false" data-jobid="e65278c9581e304c22d4913b8554f3a7">
@@ -1518,7 +1602,7 @@ W...</div>
   <div class="card-meta">
     <span>VIRO</span>
     <span>Echt, Limburg, Netherlands</span>
-    <span>Date unknown</span>
+    <span>~2026-05-26</span>
   </div>
   <div class="score-row">
     <span class="score-label">Fit:</span>
@@ -1531,6 +1615,7 @@ W...</div>
     <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4397287010" target="_blank" rel="noopener">View posting</a>
     <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="e65278c9581e304c22d4913b8554f3a7">&#10003; Applied</button>
     <button class="discard-btn" onclick="toggleDiscardCard(this)" data-jobid="e65278c9581e304c22d4913b8554f3a7">&#128465; Discard</button>
+    <button class="maybe-btn" onclick="toggleMaybeCard(this)" data-jobid="e65278c9581e304c22d4913b8554f3a7">? Maybe</button>
   </div>
 </div>
 <div class="card" data-score="20.0" data-site="linkedin" data-target="false" data-new="true" data-desired="false" data-jobid="d96c1a222f2d34ba14e893c8dd5e9a7f">
@@ -1541,7 +1626,7 @@ W...</div>
   <div class="card-meta">
     <span>Destinus</span>
     <span>Hengelo, Overijssel, Netherlands</span>
-    <span>Date unknown</span>
+    <span>~2026-05-26</span>
   </div>
   <div class="score-row">
     <span class="score-label">Fit:</span>
@@ -1554,6 +1639,7 @@ W...</div>
     <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4416098373" target="_blank" rel="noopener">View posting</a>
     <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="d96c1a222f2d34ba14e893c8dd5e9a7f">&#10003; Applied</button>
     <button class="discard-btn" onclick="toggleDiscardCard(this)" data-jobid="d96c1a222f2d34ba14e893c8dd5e9a7f">&#128465; Discard</button>
+    <button class="maybe-btn" onclick="toggleMaybeCard(this)" data-jobid="d96c1a222f2d34ba14e893c8dd5e9a7f">? Maybe</button>
   </div>
 </div>
 <div class="card" data-score="18.0" data-site="linkedin" data-target="false" data-new="true" data-desired="false" data-jobid="0fa45306e8a9cf0a6601d2cad4db664a">
@@ -1582,6 +1668,7 @@ W...</div>
     <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4375530208" target="_blank" rel="noopener">View posting</a>
     <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="0fa45306e8a9cf0a6601d2cad4db664a">&#10003; Applied</button>
     <button class="discard-btn" onclick="toggleDiscardCard(this)" data-jobid="0fa45306e8a9cf0a6601d2cad4db664a">&#128465; Discard</button>
+    <button class="maybe-btn" onclick="toggleMaybeCard(this)" data-jobid="0fa45306e8a9cf0a6601d2cad4db664a">? Maybe</button>
   </div>
 </div>
 <div class="card" data-score="18.0" data-site="linkedin" data-target="false" data-new="true" data-desired="false" data-jobid="59c815b430728263272f97eb9292e5b6">
@@ -1592,7 +1679,7 @@ W...</div>
   <div class="card-meta">
     <span>TMC</span>
     <span>Eindhoven, North Brabant, Netherlands</span>
-    <span>Date unknown</span>
+    <span>~2026-05-26</span>
   </div>
   <div class="score-row">
     <span class="score-label">Fit:</span>
@@ -1605,6 +1692,7 @@ W...</div>
     <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4411823259" target="_blank" rel="noopener">View posting</a>
     <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="59c815b430728263272f97eb9292e5b6">&#10003; Applied</button>
     <button class="discard-btn" onclick="toggleDiscardCard(this)" data-jobid="59c815b430728263272f97eb9292e5b6">&#128465; Discard</button>
+    <button class="maybe-btn" onclick="toggleMaybeCard(this)" data-jobid="59c815b430728263272f97eb9292e5b6">? Maybe</button>
   </div>
 </div>
 <div class="card" data-score="16.0" data-site="linkedin" data-target="false" data-new="true" data-desired="false" data-jobid="783f8193f96d63ae5db9513cf231ee43">
@@ -1615,7 +1703,7 @@ W...</div>
   <div class="card-meta">
     <span>Thales</span>
     <span>Hengelo, Overijssel, Netherlands</span>
-    <span>Date unknown</span>
+    <span>~2026-05-26</span>
   </div>
   <div class="score-row">
     <span class="score-label">Fit:</span>
@@ -1628,6 +1716,7 @@ W...</div>
     <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4343661889" target="_blank" rel="noopener">View posting</a>
     <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="783f8193f96d63ae5db9513cf231ee43">&#10003; Applied</button>
     <button class="discard-btn" onclick="toggleDiscardCard(this)" data-jobid="783f8193f96d63ae5db9513cf231ee43">&#128465; Discard</button>
+    <button class="maybe-btn" onclick="toggleMaybeCard(this)" data-jobid="783f8193f96d63ae5db9513cf231ee43">? Maybe</button>
   </div>
 </div>
 <div class="card" data-score="16.0" data-site="indeed" data-target="false" data-new="true" data-desired="false" data-jobid="95ecf075e4da6c69e2151443c855e2e1">
@@ -1638,7 +1727,7 @@ W...</div>
   <div class="card-meta">
     <span>Spektrum</span>
     <span>Den Haag, ZH, NL</span>
-    <span>Date unknown</span>
+    <span>~2026-05-26</span>
   </div>
   <div class="score-row">
     <span class="score-label">Fit:</span>
@@ -1651,6 +1740,7 @@ W...</div>
     <a class="apply-btn" href="https://nl.indeed.com/viewjob?jk=98a7f94e7e3215b0" target="_blank" rel="noopener">View posting</a>
     <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="95ecf075e4da6c69e2151443c855e2e1">&#10003; Applied</button>
     <button class="discard-btn" onclick="toggleDiscardCard(this)" data-jobid="95ecf075e4da6c69e2151443c855e2e1">&#128465; Discard</button>
+    <button class="maybe-btn" onclick="toggleMaybeCard(this)" data-jobid="95ecf075e4da6c69e2151443c855e2e1">? Maybe</button>
   </div>
 </div>
 <div class="card" data-score="16.0" data-site="linkedin" data-target="false" data-new="true" data-desired="false" data-jobid="95f144bd4321dfcffb40f49d792da8c2">
@@ -1661,7 +1751,7 @@ W...</div>
   <div class="card-meta">
     <span>Serco Space Services - Europe Careers</span>
     <span>Noordwijk aan Zee, South Holland, Netherlands</span>
-    <span>Date unknown</span>
+    <span>~2026-05-26</span>
   </div>
   <div class="score-row">
     <span class="score-label">Fit:</span>
@@ -1674,6 +1764,7 @@ W...</div>
     <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4413958646" target="_blank" rel="noopener">View posting</a>
     <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="95f144bd4321dfcffb40f49d792da8c2">&#10003; Applied</button>
     <button class="discard-btn" onclick="toggleDiscardCard(this)" data-jobid="95f144bd4321dfcffb40f49d792da8c2">&#128465; Discard</button>
+    <button class="maybe-btn" onclick="toggleMaybeCard(this)" data-jobid="95f144bd4321dfcffb40f49d792da8c2">? Maybe</button>
   </div>
 </div>
 <div class="card" data-score="14.0" data-site="linkedin" data-target="false" data-new="true" data-desired="false" data-jobid="8327463fde0241cc0578eae312b1cca0">
@@ -1684,7 +1775,7 @@ W...</div>
   <div class="card-meta">
     <span>Monumental</span>
     <span>Amsterdam, North Holland, Netherlands</span>
-    <span>Date unknown</span>
+    <span>~2026-05-26</span>
   </div>
   <div class="score-row">
     <span class="score-label">Fit:</span>
@@ -1697,6 +1788,7 @@ W...</div>
     <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4417370663" target="_blank" rel="noopener">View posting</a>
     <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="8327463fde0241cc0578eae312b1cca0">&#10003; Applied</button>
     <button class="discard-btn" onclick="toggleDiscardCard(this)" data-jobid="8327463fde0241cc0578eae312b1cca0">&#128465; Discard</button>
+    <button class="maybe-btn" onclick="toggleMaybeCard(this)" data-jobid="8327463fde0241cc0578eae312b1cca0">? Maybe</button>
   </div>
 </div>
 <div class="card" data-score="14.0" data-site="linkedin" data-target="false" data-new="true" data-desired="false" data-jobid="b4cc06e1d44c8a57e7af40c2a42d2737">
@@ -1707,7 +1799,7 @@ W...</div>
   <div class="card-meta">
     <span>Osbit</span>
     <span>Rotterdam, South Holland, Netherlands</span>
-    <span>Date unknown</span>
+    <span>~2026-05-26</span>
   </div>
   <div class="score-row">
     <span class="score-label">Fit:</span>
@@ -1720,6 +1812,7 @@ W...</div>
     <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4385922896" target="_blank" rel="noopener">View posting</a>
     <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="b4cc06e1d44c8a57e7af40c2a42d2737">&#10003; Applied</button>
     <button class="discard-btn" onclick="toggleDiscardCard(this)" data-jobid="b4cc06e1d44c8a57e7af40c2a42d2737">&#128465; Discard</button>
+    <button class="maybe-btn" onclick="toggleMaybeCard(this)" data-jobid="b4cc06e1d44c8a57e7af40c2a42d2737">? Maybe</button>
   </div>
 </div>
 <div class="card" data-score="14.0" data-site="linkedin" data-target="false" data-new="true" data-desired="false" data-jobid="ea97ef3a1a8abc49a2c7e7eb458994c4">
@@ -1730,7 +1823,7 @@ W...</div>
   <div class="card-meta">
     <span>Thales</span>
     <span>Hengelo, Overijssel, Netherlands</span>
-    <span>Date unknown</span>
+    <span>~2026-05-26</span>
   </div>
   <div class="score-row">
     <span class="score-label">Fit:</span>
@@ -1743,6 +1836,7 @@ W...</div>
     <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4412402115" target="_blank" rel="noopener">View posting</a>
     <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="ea97ef3a1a8abc49a2c7e7eb458994c4">&#10003; Applied</button>
     <button class="discard-btn" onclick="toggleDiscardCard(this)" data-jobid="ea97ef3a1a8abc49a2c7e7eb458994c4">&#128465; Discard</button>
+    <button class="maybe-btn" onclick="toggleMaybeCard(this)" data-jobid="ea97ef3a1a8abc49a2c7e7eb458994c4">? Maybe</button>
   </div>
 </div>
 <div class="card" data-score="11.0" data-site="linkedin" data-target="false" data-new="true" data-desired="false" data-jobid="3b6ba7c918d0897c06b32862d2148ae2">
@@ -1753,7 +1847,7 @@ W...</div>
   <div class="card-meta">
     <span>Uptec</span>
     <span></span>
-    <span>Date unknown</span>
+    <span>~2026-05-26</span>
   </div>
   <div class="score-row">
     <span class="score-label">Fit:</span>
@@ -1771,6 +1865,7 @@ W...</div>
     <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4419149165" target="_blank" rel="noopener">View posting</a>
     <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="3b6ba7c918d0897c06b32862d2148ae2">&#10003; Applied</button>
     <button class="discard-btn" onclick="toggleDiscardCard(this)" data-jobid="3b6ba7c918d0897c06b32862d2148ae2">&#128465; Discard</button>
+    <button class="maybe-btn" onclick="toggleMaybeCard(this)" data-jobid="3b6ba7c918d0897c06b32862d2148ae2">? Maybe</button>
   </div>
 </div>
 <div class="card returning-card" data-score="11.0" data-site="indeed" data-target="false" data-new="false" data-desired="false" data-jobid="9628654176424a3f337cad9f9f43fb7e">
@@ -1781,7 +1876,7 @@ W...</div>
   <div class="card-meta">
     <span>Intralox</span>
     <span>Eindhoven, NB, NL</span>
-    <span>Date unknown</span>
+    <span>~2026-05-25</span>
   </div>
   <div class="score-row">
     <span class="score-label">Fit:</span>
@@ -1794,6 +1889,7 @@ W...</div>
     <a class="apply-btn" href="https://nl.indeed.com/viewjob?jk=cecc082eca6fd8d1" target="_blank" rel="noopener">View posting</a>
     <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="9628654176424a3f337cad9f9f43fb7e">&#10003; Applied</button>
     <button class="discard-btn" onclick="toggleDiscardCard(this)" data-jobid="9628654176424a3f337cad9f9f43fb7e">&#128465; Discard</button>
+    <button class="maybe-btn" onclick="toggleMaybeCard(this)" data-jobid="9628654176424a3f337cad9f9f43fb7e">? Maybe</button>
   </div>
 </div>
 <div class="card" data-score="10.0" data-site="linkedin" data-target="false" data-new="true" data-desired="false" data-jobid="8a55245989b0dd5144e586da0cfed780">
@@ -1804,7 +1900,7 @@ W...</div>
   <div class="card-meta">
     <span>AWL</span>
     <span>Harderwijk, Gelderland, Netherlands</span>
-    <span>Date unknown</span>
+    <span>~2026-05-26</span>
   </div>
   <div class="score-row">
     <span class="score-label">Fit:</span>
@@ -1817,6 +1913,7 @@ W...</div>
     <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4409919825" target="_blank" rel="noopener">View posting</a>
     <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="8a55245989b0dd5144e586da0cfed780">&#10003; Applied</button>
     <button class="discard-btn" onclick="toggleDiscardCard(this)" data-jobid="8a55245989b0dd5144e586da0cfed780">&#128465; Discard</button>
+    <button class="maybe-btn" onclick="toggleMaybeCard(this)" data-jobid="8a55245989b0dd5144e586da0cfed780">? Maybe</button>
   </div>
 </div>
 <div class="card returning-card" data-score="8.0" data-site="indeed" data-target="false" data-new="false" data-desired="false" data-jobid="8acb40c6bec63c7387eadccc3620e986">
@@ -1827,7 +1924,7 @@ W...</div>
   <div class="card-meta">
     <span>Cosine UK</span>
     <span>Sassenheim, ZH, NL</span>
-    <span>Date unknown</span>
+    <span>~2026-05-25</span>
   </div>
   <div class="score-row">
     <span class="score-label">Fit:</span>
@@ -1840,6 +1937,7 @@ W...</div>
     <a class="apply-btn" href="https://nl.indeed.com/viewjob?jk=8f10227179272785" target="_blank" rel="noopener">View posting</a>
     <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="8acb40c6bec63c7387eadccc3620e986">&#10003; Applied</button>
     <button class="discard-btn" onclick="toggleDiscardCard(this)" data-jobid="8acb40c6bec63c7387eadccc3620e986">&#128465; Discard</button>
+    <button class="maybe-btn" onclick="toggleMaybeCard(this)" data-jobid="8acb40c6bec63c7387eadccc3620e986">? Maybe</button>
   </div>
 </div>
 <div class="card returning-card" data-score="7.0" data-site="linkedin" data-target="false" data-new="false" data-desired="false" data-jobid="083920d64cb5a80b85352b487ae4858d">
@@ -1850,7 +1948,7 @@ W...</div>
   <div class="card-meta">
     <span>Aalberts advanced mechatronics</span>
     <span>Nijmegen, Gelderland, Netherlands</span>
-    <span>Date unknown</span>
+    <span>~2026-05-25</span>
   </div>
   <div class="score-row">
     <span class="score-label">Fit:</span>
@@ -1863,6 +1961,7 @@ W...</div>
     <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4416191030" target="_blank" rel="noopener">View posting</a>
     <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="083920d64cb5a80b85352b487ae4858d">&#10003; Applied</button>
     <button class="discard-btn" onclick="toggleDiscardCard(this)" data-jobid="083920d64cb5a80b85352b487ae4858d">&#128465; Discard</button>
+    <button class="maybe-btn" onclick="toggleMaybeCard(this)" data-jobid="083920d64cb5a80b85352b487ae4858d">? Maybe</button>
   </div>
 </div>
 <div class="card" data-score="6.0" data-site="linkedin" data-target="false" data-new="true" data-desired="false" data-jobid="1e8d9ced900ad94be572e7818490c5cd">
@@ -1873,7 +1972,7 @@ W...</div>
   <div class="card-meta">
     <span>kaiko.ai</span>
     <span>Amsterdam, North Holland, Netherlands</span>
-    <span>Date unknown</span>
+    <span>~2026-05-26</span>
   </div>
   <div class="score-row">
     <span class="score-label">Fit:</span>
@@ -1886,6 +1985,7 @@ W...</div>
     <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4412832303" target="_blank" rel="noopener">View posting</a>
     <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="1e8d9ced900ad94be572e7818490c5cd">&#10003; Applied</button>
     <button class="discard-btn" onclick="toggleDiscardCard(this)" data-jobid="1e8d9ced900ad94be572e7818490c5cd">&#128465; Discard</button>
+    <button class="maybe-btn" onclick="toggleMaybeCard(this)" data-jobid="1e8d9ced900ad94be572e7818490c5cd">? Maybe</button>
   </div>
 </div>
 <div class="card returning-card" data-score="6.0" data-site="linkedin" data-target="false" data-new="false" data-desired="false" data-jobid="24b9383db701201122d3f8ce1f007d0e">
@@ -1896,7 +1996,7 @@ W...</div>
   <div class="card-meta">
     <span>JBT Marel</span>
     <span>Boxmeer, North Brabant, Netherlands</span>
-    <span>Date unknown</span>
+    <span>~2026-05-25</span>
   </div>
   <div class="score-row">
     <span class="score-label">Fit:</span>
@@ -1909,6 +2009,7 @@ W...</div>
     <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4407261958" target="_blank" rel="noopener">View posting</a>
     <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="24b9383db701201122d3f8ce1f007d0e">&#10003; Applied</button>
     <button class="discard-btn" onclick="toggleDiscardCard(this)" data-jobid="24b9383db701201122d3f8ce1f007d0e">&#128465; Discard</button>
+    <button class="maybe-btn" onclick="toggleMaybeCard(this)" data-jobid="24b9383db701201122d3f8ce1f007d0e">? Maybe</button>
   </div>
 </div>
 <div class="card returning-card" data-score="6.0" data-site="indeed" data-target="false" data-new="false" data-desired="false" data-jobid="69af2927211e680aff49a1ecf92afccd">
@@ -1919,7 +2020,7 @@ W...</div>
   <div class="card-meta">
     <span>ASML</span>
     <span>Veldhoven, NB, NL</span>
-    <span>Date unknown</span>
+    <span>~2026-05-25</span>
   </div>
   <div class="score-row">
     <span class="score-label">Fit:</span>
@@ -1932,6 +2033,7 @@ W...</div>
     <a class="apply-btn" href="https://nl.indeed.com/viewjob?jk=3e3e09727df61ac7" target="_blank" rel="noopener">View posting</a>
     <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="69af2927211e680aff49a1ecf92afccd">&#10003; Applied</button>
     <button class="discard-btn" onclick="toggleDiscardCard(this)" data-jobid="69af2927211e680aff49a1ecf92afccd">&#128465; Discard</button>
+    <button class="maybe-btn" onclick="toggleMaybeCard(this)" data-jobid="69af2927211e680aff49a1ecf92afccd">? Maybe</button>
   </div>
 </div>
 <div class="card returning-card" data-score="6.0" data-site="linkedin" data-target="false" data-new="false" data-desired="false" data-jobid="e1bb7c3f97cea0f654c5cfe6155583a4">
@@ -1942,7 +2044,7 @@ W...</div>
   <div class="card-meta">
     <span>APM Terminals</span>
     <span>Rotterdam, South Holland, Netherlands</span>
-    <span>Date unknown</span>
+    <span>~2026-05-25</span>
   </div>
   <div class="score-row">
     <span class="score-label">Fit:</span>
@@ -1955,6 +2057,7 @@ W...</div>
     <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4398393707" target="_blank" rel="noopener">View posting</a>
     <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="e1bb7c3f97cea0f654c5cfe6155583a4">&#10003; Applied</button>
     <button class="discard-btn" onclick="toggleDiscardCard(this)" data-jobid="e1bb7c3f97cea0f654c5cfe6155583a4">&#128465; Discard</button>
+    <button class="maybe-btn" onclick="toggleMaybeCard(this)" data-jobid="e1bb7c3f97cea0f654c5cfe6155583a4">? Maybe</button>
   </div>
 </div>
 <div class="card returning-card" data-score="5.0" data-site="indeed" data-target="false" data-new="false" data-desired="false" data-jobid="1fc235e16783fcf1346bbd0ffdf253d7">
@@ -1965,7 +2068,7 @@ W...</div>
   <div class="card-meta">
     <span>Spektrum</span>
     <span>Den Haag, ZH, NL</span>
-    <span>Date unknown</span>
+    <span>~2026-05-25</span>
   </div>
   <div class="score-row">
     <span class="score-label">Fit:</span>
@@ -1978,6 +2081,7 @@ W...</div>
     <a class="apply-btn" href="https://nl.indeed.com/viewjob?jk=7ba1f7cc2c83ac5c" target="_blank" rel="noopener">View posting</a>
     <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="1fc235e16783fcf1346bbd0ffdf253d7">&#10003; Applied</button>
     <button class="discard-btn" onclick="toggleDiscardCard(this)" data-jobid="1fc235e16783fcf1346bbd0ffdf253d7">&#128465; Discard</button>
+    <button class="maybe-btn" onclick="toggleMaybeCard(this)" data-jobid="1fc235e16783fcf1346bbd0ffdf253d7">? Maybe</button>
   </div>
 </div>
 <div class="card" data-score="5.0" data-site="linkedin" data-target="false" data-new="true" data-desired="false" data-jobid="655c46accd343ee2b12e51b7d11b87a8">
@@ -1988,7 +2092,7 @@ W...</div>
   <div class="card-meta">
     <span>Capgemini Engineering</span>
     <span>Utrecht, Utrecht, Netherlands</span>
-    <span>Date unknown</span>
+    <span>~2026-05-26</span>
   </div>
   <div class="score-row">
     <span class="score-label">Fit:</span>
@@ -2001,6 +2105,7 @@ W...</div>
     <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4374118293" target="_blank" rel="noopener">View posting</a>
     <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="655c46accd343ee2b12e51b7d11b87a8">&#10003; Applied</button>
     <button class="discard-btn" onclick="toggleDiscardCard(this)" data-jobid="655c46accd343ee2b12e51b7d11b87a8">&#128465; Discard</button>
+    <button class="maybe-btn" onclick="toggleMaybeCard(this)" data-jobid="655c46accd343ee2b12e51b7d11b87a8">? Maybe</button>
   </div>
 </div>
 <div class="card" data-score="4.0" data-site="linkedin" data-target="false" data-new="true" data-desired="false" data-jobid="6ec4f46671938260b7b411c1e18af1a2">
@@ -2011,7 +2116,7 @@ W...</div>
   <div class="card-meta">
     <span>Voortman Steel Group</span>
     <span>Overijssel, Netherlands</span>
-    <span>Date unknown</span>
+    <span>~2026-05-26</span>
   </div>
   <div class="score-row">
     <span class="score-label">Fit:</span>
@@ -2024,6 +2129,7 @@ W...</div>
     <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4407787126" target="_blank" rel="noopener">View posting</a>
     <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="6ec4f46671938260b7b411c1e18af1a2">&#10003; Applied</button>
     <button class="discard-btn" onclick="toggleDiscardCard(this)" data-jobid="6ec4f46671938260b7b411c1e18af1a2">&#128465; Discard</button>
+    <button class="maybe-btn" onclick="toggleMaybeCard(this)" data-jobid="6ec4f46671938260b7b411c1e18af1a2">? Maybe</button>
   </div>
 </div>
 <div class="card returning-card" data-score="4.0" data-site="linkedin" data-target="false" data-new="false" data-desired="false" data-jobid="cce3b5d121d8dcc6d112af6197b9e136">
@@ -2034,7 +2140,7 @@ W...</div>
   <div class="card-meta">
     <span>Trinamics</span>
     <span></span>
-    <span>Date unknown</span>
+    <span>~2026-05-25</span>
   </div>
   <div class="score-row">
     <span class="score-label">Fit:</span>
@@ -2047,6 +2153,7 @@ W...</div>
     <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4418119995" target="_blank" rel="noopener">View posting</a>
     <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="cce3b5d121d8dcc6d112af6197b9e136">&#10003; Applied</button>
     <button class="discard-btn" onclick="toggleDiscardCard(this)" data-jobid="cce3b5d121d8dcc6d112af6197b9e136">&#128465; Discard</button>
+    <button class="maybe-btn" onclick="toggleMaybeCard(this)" data-jobid="cce3b5d121d8dcc6d112af6197b9e136">? Maybe</button>
   </div>
 </div>
 <div class="card returning-card" data-score="4.0" data-site="linkedin" data-target="false" data-new="false" data-desired="false" data-jobid="f1a0a6060b3bb5cfe017d24fcd483a3f">
@@ -2057,7 +2164,7 @@ W...</div>
   <div class="card-meta">
     <span>SMST Designers & Constructors</span>
     <span>Friesland, Netherlands</span>
-    <span>Date unknown</span>
+    <span>~2026-05-25</span>
   </div>
   <div class="score-row">
     <span class="score-label">Fit:</span>
@@ -2070,6 +2177,7 @@ W...</div>
     <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4406067371" target="_blank" rel="noopener">View posting</a>
     <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="f1a0a6060b3bb5cfe017d24fcd483a3f">&#10003; Applied</button>
     <button class="discard-btn" onclick="toggleDiscardCard(this)" data-jobid="f1a0a6060b3bb5cfe017d24fcd483a3f">&#128465; Discard</button>
+    <button class="maybe-btn" onclick="toggleMaybeCard(this)" data-jobid="f1a0a6060b3bb5cfe017d24fcd483a3f">? Maybe</button>
   </div>
 </div>
 </div>
@@ -2084,6 +2192,7 @@ W...</div>
   const DESIRED_SCORE = 90;
   const SERVER_APPLIED = new Set(["18fea2acf19afb94040902c66b9b62cb"]);
   const SERVER_DISCARDED = new Set(["366256eef000b7a787cbbe675b716f6e"]);
+  const SERVER_MAYBE = new Set([]);
   let activeSite   = 'all';
   let targetOnly   = false;
   let newOnly      = false;
@@ -2256,6 +2365,69 @@ W...</div>
     saveDiscarded();
   }
 
+  // ── Maybe / Possible jobs ─────────────────────────────────────────────
+  const MAYBE_FILE = 'maybe.json';
+  let maybeSet = new Set(SERVER_MAYBE);
+
+  async function loadMaybe() {
+    try {
+      const res = await fetch(MAYBE_FILE + '?_=' + Date.now());
+      if (res.ok) { const arr = await res.json(); arr.forEach(id => maybeSet.add(id)); }
+    } catch(e) {}
+    try {
+      const local = JSON.parse(localStorage.getItem('jss_maybe') || '[]');
+      local.forEach(id => maybeSet.add(id));
+    } catch(e) {}
+    initMaybeUI();
+  }
+
+  function initMaybeUI() {
+    document.querySelectorAll('[data-jobid]').forEach(card => {
+      if (maybeSet.has(card.dataset.jobid)) {
+        card.classList.add('maybe-card');
+        if (!window._showMaybe) card.style.display = 'none';
+        const btn = card.querySelector('.maybe-btn');
+        if (btn) { btn.classList.add('maybe'); btn.textContent = '↩ Undo Maybe'; }
+      }
+    });
+  }
+
+  async function saveMaybe() {
+    const arr = Array.from(maybeSet);
+    localStorage.setItem('jss_maybe', JSON.stringify(arr));
+    const pat  = localStorage.getItem(LS_PAT);
+    const user = localStorage.getItem(LS_USER);
+    const repo = localStorage.getItem(LS_REPO);
+    if (!pat || !user || !repo) return;
+    try {
+      const apiUrl = `https://api.github.com/repos/${user}/${repo}/contents/${MAYBE_FILE}`;
+      let sha = null;
+      try { const r = await fetch(apiUrl,{headers:{Authorization:`Bearer ${pat}`}}); if(r.ok){const d=await r.json();sha=d.sha;} } catch(e) {}
+      const body = {message:'Update maybe.json', content:btoa(JSON.stringify(arr,null,2))};
+      if (sha) body.sha = sha;
+      await fetch(apiUrl,{method:'PUT',headers:{Authorization:`Bearer ${pat}`,'Content-Type':'application/json'},body:JSON.stringify(body)});
+    } catch(e) { console.warn('Could not save maybe.json:', e); }
+  }
+
+  function toggleMaybeCard(btn) {
+    const jid  = btn.dataset.jobid;
+    const card = btn.closest('[data-jobid]');
+    if (maybeSet.has(jid)) {
+      maybeSet.delete(jid);
+      card.classList.remove('maybe-card');
+      card.style.display = '';
+      btn.classList.remove('maybe');
+      btn.textContent = '? Maybe';
+    } else {
+      maybeSet.add(jid);
+      card.classList.add('maybe-card');
+      card.style.display = 'none';
+      btn.classList.add('maybe');
+      btn.textContent = '↩ Undo Maybe';
+    }
+    saveMaybe();
+  }
+
   function applyFilters() {
     const q = document.getElementById('searchBox').value.toLowerCase();
     const minScoreRaw = document.getElementById('minScoreBox').value;
@@ -2264,8 +2436,9 @@ W...</div>
       const jid      = card.dataset.jobid || '';
       const isApp    = appliedSet.has(jid);
       const isDisc   = discardedSet.has(jid);
-      // Discarded cards are always hidden from the main board
-      if (isDisc) { card.style.display = 'none'; return; }
+      const isMaybe  = maybeSet.has(jid);
+      // Discarded and maybe cards are always hidden from the main board
+      if (isDisc || isMaybe) { card.style.display = 'none'; return; }
       // Applied cards obey the showApplied toggle independently of filters
       if (isApp) {
         card.style.display = window._showApplied ? '' : 'none';
@@ -2327,6 +2500,7 @@ W...</div>
   // Run on page load
   loadApplied();
   loadDiscarded();
+  loadMaybe();
 </script>
 </body>
 </html>
