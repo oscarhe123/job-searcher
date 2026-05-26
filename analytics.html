@@ -92,6 +92,26 @@ header p  { font-size: 12px; opacity: 0.65; margin-top: 4px; }
   background: #1a3a5c; color: white; border-color: #1a3a5c;
 }
 
+/* ── Granularity toggle (Daily / Weekly) ─────────────────────── */
+.gran-toggle {
+  background: #f0f2f5; border-bottom: 1px solid #e0e0e0;
+  padding: 10px 32px; display: flex; gap: 8px; align-items: center;
+  flex-wrap: wrap;
+}
+.gran-btn {
+  font-size: 12px; font-weight: 600; padding: 5px 16px;
+  border-radius: 6px; border: 1px solid #cbd5e1;
+  background: white; color: #475569; cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+.gran-btn:hover { background: #e2e8f0; }
+.gran-btn.active {
+  background: #1a3a5c; color: white; border-color: #1a3a5c;
+}
+.gran-label {
+  font-size: 12px; font-weight: 600; color: #475569; margin-right: 4px;
+}
+
 /* ── View toggle ─────────────────────────────────────────────── */
 .view-toggle {
   background: white; border-bottom: 1px solid #e0e0e0;
@@ -101,12 +121,6 @@ header p  { font-size: 12px; opacity: 0.65; margin-top: 4px; }
 .view-toggle label {
   display: inline-flex; align-items: center; gap: 8px;
   cursor: pointer; user-select: none; font-weight: 500; color: #444;
-}
-.view-toggle input[type="checkbox"] {
-  width: 16px; height: 16px; cursor: pointer; accent-color: #1a3a5c;
-}
-.view-toggle .toggle-hint {
-  font-size: 12px; color: #888;
 }
 
 /* ── Layout ──────────────────────────────────────────────────── */
@@ -187,7 +201,7 @@ footer {
   .charts-grid { grid-template-columns: 1fr; }
   .stat-cards  { grid-template-columns: repeat(2, 1fr); padding: 14px 16px; }
   .section     { padding: 16px; }
-  header, .range-strip, .view-toggle { padding-left: 16px; padding-right: 16px; }
+  header, .range-strip, .gran-toggle, .view-toggle { padding-left: 16px; padding-right: 16px; }
   .range-quick { margin-left: 0; }
 }
 @media (max-width: 480px) {
@@ -200,7 +214,7 @@ footer {
 <header>
   <div>
     <h1>Analytics — My Job Search</h1>
-    <p>Updated: 26 May 2026 at 07:57 UTC &nbsp;|&nbsp; Data from jobs.db — all scrape runs accumulated</p>
+    <p>Updated: 26 May 2026 at 09:14 UTC &nbsp;|&nbsp; Data from jobs.db — all scrape runs accumulated</p>
   </div>
   <div style="display:flex; gap:8px; flex-wrap:wrap;">
     <a class="nav-link" href="index.html">Live Job Board</a>
@@ -216,29 +230,30 @@ footer {
   </div>
 </div>
 
+<!-- Granularity toggle: Daily / Weekly -->
+<div class="gran-toggle" id="granToggle" style="display:none;">
+  <span class="gran-label">View:</span>
+  <button class="gran-btn active" id="btnWeekly" onclick="setGranularity('week', this)">Weekly</button>
+  <button class="gran-btn"        id="btnDaily"  onclick="setGranularity('day',  this)">Daily</button>
+</div>
+
 <!-- Range selector strip -->
 <div class="range-strip" id="rangeStrip" style="display:none;">
-  <label for="fromWeek">From week</label>
-  <select id="fromWeek" onchange="onRangeDropdown()"></select>
-  <label for="toWeek">To week</label>
-  <select id="toWeek" onchange="onRangeDropdown()"></select>
-  <div class="range-quick">
-    <button class="range-btn" onclick="setQuickRange(4,  this)">Last 4 weeks</button>
-    <button class="range-btn" onclick="setQuickRange(8,  this)">Last 8 weeks</button>
-    <button class="range-btn" onclick="setQuickRange(12, this)">Last 12 weeks</button>
+  <label for="fromPeriod" id="fromPeriodLabel">From week</label>
+  <select id="fromPeriod" onchange="onRangeDropdown()"></select>
+  <label for="toPeriod" id="toPeriodLabel">To week</label>
+  <select id="toPeriod" onchange="onRangeDropdown()"></select>
+  <div class="range-quick" id="rangeQuickBtns">
+    <button class="range-btn" onclick="setQuickRange(4,  this)">Last 4</button>
+    <button class="range-btn" onclick="setQuickRange(8,  this)">Last 8</button>
+    <button class="range-btn" onclick="setQuickRange(12, this)">Last 12</button>
+    <button class="range-btn" onclick="setQuickRange(30, this)">Last 30</button>
     <button class="range-btn" onclick="setQuickRange(0,  this)">All time</button>
   </div>
 </div>
 
 <div class="view-toggle">
-  <label>
-    <input type="checkbox" id="controlTheoryToggle" onchange="onViewToggle()">
-    Show only control-theory jobs
-  </label>
-  <span class="toggle-hint">
-    GNC/Aerospace, High-Tech/Precision, General Control only.
-  </span>
-  <span style="display:inline-flex; align-items:center; gap:8px; margin-left:16px;">
+  <span style="display:inline-flex; align-items:center; gap:8px;">
     <label for="minScoreFilter" style="font-weight:500; color:#444; white-space:nowrap;">Min score:</label>
     <input type="number" id="minScoreFilter" min="0" step="1" placeholder="any"
            oninput="onScoreFilter()"
@@ -258,21 +273,21 @@ footer {
   <div class="charts-grid">
 
     <div class="chart-card chart-wide">
-      <h3>Jobs found per week (matched vs rejected)</h3>
+      <h3 id="titleChartWeekly">Jobs found per period (matched vs rejected)</h3>
       <div class="chart-wrap">
         <canvas id="chartWeekly"></canvas>
       </div>
     </div>
 
     <div class="chart-card chart-wide">
-      <h3>New jobs discovered per week (first appearance)</h3>
+      <h3 id="titleChartNewJobs">New jobs discovered per period (first appearance)</h3>
       <div class="chart-wrap">
         <canvas id="chartNewJobs"></canvas>
       </div>
     </div>
 
     <div class="chart-card">
-      <h3>Source: LinkedIn vs Indeed per week</h3>
+      <h3 id="titleChartSource">Source: LinkedIn vs Indeed per period</h3>
       <div class="chart-wrap">
         <canvas id="chartSource"></canvas>
       </div>
@@ -286,35 +301,35 @@ footer {
   <div class="charts-grid">
 
     <div class="chart-card">
-      <h3>Rolling 4-week average (matched jobs) — is the market improving?</h3>
+      <h3 id="titleChartTrend">Rolling 4-period average (matched jobs) — is the market improving?</h3>
       <div class="chart-wrap">
         <canvas id="chartTrend"></canvas>
       </div>
     </div>
 
     <div class="chart-card">
-      <h3>Average fit score per week</h3>
+      <h3 id="titleChartFit">Average fit score per period</h3>
       <div class="chart-wrap">
         <canvas id="chartFit"></canvas>
       </div>
     </div>
 
     <div class="chart-card">
-      <h3>Target company appearances per week</h3>
+      <h3 id="titleChartTarget">Target company appearances per period</h3>
       <div class="chart-wrap">
         <canvas id="chartTarget"></canvas>
       </div>
     </div>
 
     <div class="chart-card" id="chartDesiredCard" style="display:none;">
-      <h3>Desired matches per week (score &ge; desired threshold)</h3>
+      <h3 id="titleChartDesired">Desired matches per period (score &ge; desired threshold)</h3>
       <div class="chart-wrap">
         <canvas id="chartDesired"></canvas>
       </div>
     </div>
 
     <div class="chart-card">
-      <h3>Match rate: accepted / (accepted + rejected) per week</h3>
+      <h3 id="titleChartRatio">Match rate: accepted / (accepted + rejected) per period</h3>
       <div class="chart-wrap">
         <canvas id="chartRatio"></canvas>
       </div>
@@ -351,12 +366,12 @@ footer {
 </div>
 
 <div class="section">
-  <div class="section-title">Weekly Breakdown Table</div>
+  <div class="section-title" id="titleBreakdownTable">Weekly Breakdown Table</div>
   <div style="background:white; border-radius:10px; border:1px solid #e8e8e8; overflow:hidden; overflow-x:auto;">
     <table id="weekTable">
       <thead>
         <tr>
-          <th class="sortable" data-col="0" data-dir="desc" onclick="sortWeekTable(this)">Week</th>
+          <th class="sortable" data-col="0" data-dir="desc" onclick="sortWeekTable(this)" id="thPeriodCol">Week</th>
           <th class="sortable" data-col="1" data-dir="desc" onclick="sortWeekTable(this)">Matched</th>
           <th class="sortable" data-col="2" data-dir="desc" onclick="sortWeekTable(this)">Rejected</th>
           <th class="sortable" data-col="3" data-dir="desc" onclick="sortWeekTable(this)">Match Rate</th>
@@ -380,16 +395,29 @@ footer {
 
 <script>
 // ── Embedded analytics payload ────────────────────────────────────
-// DATA shape: { week_labels, all: {...}, control_theory: {...}, desired_score }
-const DATA = {"week_labels": ["2026-W22"], "all": {"jobs_per_week": [30], "rejected_per_week": [110], "rolling_avg": [30.0], "avg_fit_per_week": [106.1], "target_per_week": [0], "desired_per_week": [4], "cat_per_week": {"GNC/Aerospace": [7], "High-Tech/Precision": [6], "Robotics": [13], "General Control": [4], "Blacklisted-PLC": [17], "Blacklisted-Other": [0], "Rejected-Senior": [24], "Rejected-No-Gate": [69]}, "src_per_week": {"linkedin": [13], "indeed": [17], "other": [0]}, "top_companies": [{"company": "Intralox", "count": 4}, {"company": "Spektrum", "count": 4}, {"company": "Source.ag", "count": 2}, {"company": "Just Eat Takeaway.com", "count": 2}, {"company": "Epassi", "count": 2}, {"company": "NXP Semiconductors", "count": 2}, {"company": "Aalberts advanced mechatronics", "count": 2}, {"company": "ASML", "count": 2}, {"company": "Trinamics", "count": 2}, {"company": "JBT Marel", "count": 2}, {"company": "SMST Designers & Constructors", "count": 2}, {"company": "Cosine UK", "count": 1}, {"company": "APM Terminals", "count": 1}, {"company": "Anduril Industries", "count": 1}, {"company": "Airlift Systems", "count": 1}], "ratio_per_week": [{"week": "2026-W22", "accepted": 30, "rejected": 110, "total": 140, "accept_pct": 21.4}], "summary": {"total_seen": 140, "total_accepted": 30, "total_rejected": 110, "avg_fit": 106.1, "total_desired": 4, "total_runs": 2, "last_run": "2026-05-26"}, "new_jobs_per_week": [17]}, "control_theory": {"jobs_per_week": [17], "rejected_per_week": [0], "rolling_avg": [17.0], "avg_fit_per_week": [40.65], "target_per_week": [0], "desired_per_week": [0], "cat_per_week": {"GNC/Aerospace": [7], "High-Tech/Precision": [6], "Robotics": [0], "General Control": [4], "Blacklisted-PLC": [0], "Blacklisted-Other": [0], "Rejected-Senior": [0], "Rejected-No-Gate": [0]}, "src_per_week": {"linkedin": [8], "indeed": [9], "other": [0]}, "top_companies": [{"company": "Spektrum", "count": 4}, {"company": "NXP Semiconductors", "count": 2}, {"company": "Aalberts advanced mechatronics", "count": 2}, {"company": "ASML", "count": 2}, {"company": "Trinamics", "count": 2}, {"company": "SMST Designers & Constructors", "count": 2}, {"company": "Cosine UK", "count": 1}, {"company": "Anduril Industries", "count": 1}, {"company": "Airlift Systems", "count": 1}], "ratio_per_week": [{"week": "2026-W22", "accepted": 17, "rejected": 0, "total": 17, "accept_pct": 100.0}], "summary": {"total_seen": 17, "total_accepted": 17, "total_rejected": 0, "avg_fit": 40.65, "total_desired": 0, "total_runs": 2, "last_run": "2026-05-26"}, "new_jobs_per_week": [10]}, "control_theory_categories": ["GNC/Aerospace", "General Control", "High-Tech/Precision"], "job_records": [{"wk": "2026-W22", "sc": 615.0, "cat": "Robotics", "tgt": 0, "src": "linkedin", "co": "Source.ag", "fsw": "2026-W22", "ds": 1}, {"wk": "2026-W22", "sc": 307.0, "cat": "Robotics", "tgt": 0, "src": "indeed", "co": "Intralox", "fsw": "2026-W22", "ds": 1}, {"wk": "2026-W22", "sc": 201.0, "cat": "Robotics", "tgt": 0, "src": "indeed", "co": "Just Eat Takeaway.com", "fsw": "2026-W22", "ds": 0}, {"wk": "2026-W22", "sc": 106.0, "cat": "GNC/Aerospace", "tgt": 0, "src": "indeed", "co": "Spektrum", "fsw": "2026-W22", "ds": 0}, {"wk": "2026-W22", "sc": 103.0, "cat": "Robotics", "tgt": 0, "src": "indeed", "co": "Epassi", "fsw": "2026-W22", "ds": 0}, {"wk": "2026-W22", "sc": 102.0, "cat": "High-Tech/Precision", "tgt": 0, "src": "indeed", "co": "NXP Semiconductors", "fsw": "2026-W22", "ds": 0}, {"wk": "2026-W22", "sc": 11.0, "cat": "Robotics", "tgt": 0, "src": "indeed", "co": "Intralox", "fsw": "2026-W22", "ds": 0}, {"wk": "2026-W22", "sc": 8.0, "cat": "GNC/Aerospace", "tgt": 0, "src": "indeed", "co": "Cosine UK", "fsw": "2026-W22", "ds": 0}, {"wk": "2026-W22", "sc": 7.0, "cat": "High-Tech/Precision", "tgt": 0, "src": "linkedin", "co": "Aalberts advanced mechatronics", "fsw": "2026-W22", "ds": 0}, {"wk": "2026-W22", "sc": 6.0, "cat": "High-Tech/Precision", "tgt": 0, "src": "indeed", "co": "ASML", "fsw": "2026-W22", "ds": 0}, {"wk": "2026-W22", "sc": 5.0, "cat": "GNC/Aerospace", "tgt": 0, "src": "indeed", "co": "Spektrum", "fsw": "2026-W22", "ds": 0}, {"wk": "2026-W22", "sc": 4.0, "cat": "General Control", "tgt": 0, "src": "linkedin", "co": "Trinamics", "fsw": "2026-W22", "ds": 0}, {"wk": "2026-W22", "sc": 6.0, "cat": "Robotics", "tgt": 0, "src": "linkedin", "co": "JBT Marel", "fsw": "2026-W22", "ds": 0}, {"wk": "2026-W22", "sc": 6.0, "cat": "Robotics", "tgt": 0, "src": "linkedin", "co": "APM Terminals", "fsw": "2026-W22", "ds": 0}, {"wk": "2026-W22", "sc": 4.0, "cat": "General Control", "tgt": 0, "src": "linkedin", "co": "SMST Designers & Constructors", "fsw": "2026-W22", "ds": 0}, {"wk": "2026-W22", "sc": 103.0, "cat": "GNC/Aerospace", "tgt": 0, "src": "linkedin", "co": "Anduril Industries", "fsw": "2026-W22", "ds": 0}, {"wk": "2026-W22", "sc": 615.0, "cat": "Robotics", "tgt": 0, "src": "linkedin", "co": "Source.ag", "fsw": "2026-W22", "ds": 1}, {"wk": "2026-W22", "sc": 307.0, "cat": "Robotics", "tgt": 0, "src": "indeed", "co": "Intralox", "fsw": "2026-W22", "ds": 1}, {"wk": "2026-W22", "sc": 201.0, "cat": "Robotics", "tgt": 0, "src": "indeed", "co": "Just Eat Takeaway.com", "fsw": "2026-W22", "ds": 0}, {"wk": "2026-W22", "sc": 112.0, "cat": "GNC/Aerospace", "tgt": 0, "src": "linkedin", "co": "Airlift Systems", "fsw": "2026-W22", "ds": 0}, {"wk": "2026-W22", "sc": 106.0, "cat": "GNC/Aerospace", "tgt": 0, "src": "indeed", "co": "Spektrum", "fsw": "2026-W22", "ds": 0}, {"wk": "2026-W22", "sc": 103.0, "cat": "Robotics", "tgt": 0, "src": "indeed", "co": "Epassi", "fsw": "2026-W22", "ds": 0}, {"wk": "2026-W22", "sc": 102.0, "cat": "High-Tech/Precision", "tgt": 0, "src": "indeed", "co": "NXP Semiconductors", "fsw": "2026-W22", "ds": 0}, {"wk": "2026-W22", "sc": 11.0, "cat": "Robotics", "tgt": 0, "src": "indeed", "co": "Intralox", "fsw": "2026-W22", "ds": 0}, {"wk": "2026-W22", "sc": 7.0, "cat": "High-Tech/Precision", "tgt": 0, "src": "linkedin", "co": "Aalberts advanced mechatronics", "fsw": "2026-W22", "ds": 0}, {"wk": "2026-W22", "sc": 6.0, "cat": "High-Tech/Precision", "tgt": 0, "src": "indeed", "co": "ASML", "fsw": "2026-W22", "ds": 0}, {"wk": "2026-W22", "sc": 6.0, "cat": "Robotics", "tgt": 0, "src": "linkedin", "co": "JBT Marel", "fsw": "2026-W22", "ds": 0}, {"wk": "2026-W22", "sc": 5.0, "cat": "GNC/Aerospace", "tgt": 0, "src": "indeed", "co": "Spektrum", "fsw": "2026-W22", "ds": 0}, {"wk": "2026-W22", "sc": 4.0, "cat": "General Control", "tgt": 0, "src": "linkedin", "co": "Trinamics", "fsw": "2026-W22", "ds": 0}, {"wk": "2026-W22", "sc": 4.0, "cat": "General Control", "tgt": 0, "src": "linkedin", "co": "SMST Designers & Constructors", "fsw": "2026-W22", "ds": 0}], "desired_score": 300};
+// DATA shape: { week_labels, day_labels, all_weekly, all_daily, all, desired_score }
+const DATA = {"week_labels": ["2026-W22"], "day_labels": ["2026-05-25", "2026-05-26"], "all_weekly": {"jobs_per_week": [18], "rejected_per_week": [75], "rolling_avg": [18.0], "avg_fit_per_week": [95.39], "target_per_week": [0], "desired_per_week": [2], "cat_per_week": {"GNC/Aerospace": [5], "High-Tech/Precision": [3], "Robotics": [8], "General Control": [2], "Blacklisted-PLC": [15], "Blacklisted-Other": [0], "Rejected-Senior": [15], "Rejected-No-Gate": [45]}, "src_per_week": {"linkedin": [9], "indeed": [9], "other": [0]}, "top_companies": [{"company": "Intralox", "count": 2}, {"company": "Spektrum", "count": 2}, {"company": "Source.ag", "count": 1}, {"company": "Just Eat Takeaway.com", "count": 1}, {"company": "Epassi", "count": 1}, {"company": "NXP Semiconductors", "count": 1}, {"company": "Cosine UK", "count": 1}, {"company": "Aalberts advanced mechatronics", "count": 1}, {"company": "ASML", "count": 1}, {"company": "Trinamics", "count": 1}, {"company": "JBT Marel", "count": 1}, {"company": "APM Terminals", "count": 1}, {"company": "SMST Designers & Constructors", "count": 1}, {"company": "Anduril Industries", "count": 1}, {"company": "Airlift Systems", "count": 1}, {"company": "Uptec", "count": 1}], "ratio_per_week": [{"week": "2026-W22", "accepted": 18, "rejected": 75, "total": 93, "accept_pct": 19.4}], "summary": {"total_seen": 93, "total_accepted": 18, "total_rejected": 75, "avg_fit": 95.39, "total_desired": 2, "total_runs": 2, "last_run": "2026-05-26"}, "new_jobs_per_week": [18]}, "all_daily": {"jobs_per_week": [16, 2], "rejected_per_week": [66, 9], "rolling_avg": [16.0, 9.0], "avg_fit_per_week": [99.62, 61.5], "target_per_week": [0, 0], "desired_per_week": [2, 0], "cat_per_week": {"GNC/Aerospace": [4, 1], "High-Tech/Precision": [3, 0], "Robotics": [7, 1], "General Control": [2, 0], "Blacklisted-PLC": [13, 2], "Blacklisted-Other": [0, 0], "Rejected-Senior": [13, 2], "Rejected-No-Gate": [40, 5]}, "src_per_week": {"linkedin": [7, 2], "indeed": [9, 0], "other": [0, 0]}, "top_companies": [{"company": "Intralox", "count": 2}, {"company": "Spektrum", "count": 2}, {"company": "Source.ag", "count": 1}, {"company": "Just Eat Takeaway.com", "count": 1}, {"company": "Epassi", "count": 1}, {"company": "NXP Semiconductors", "count": 1}, {"company": "Cosine UK", "count": 1}, {"company": "Aalberts advanced mechatronics", "count": 1}, {"company": "ASML", "count": 1}, {"company": "Trinamics", "count": 1}, {"company": "JBT Marel", "count": 1}, {"company": "APM Terminals", "count": 1}, {"company": "SMST Designers & Constructors", "count": 1}, {"company": "Anduril Industries", "count": 1}, {"company": "Airlift Systems", "count": 1}, {"company": "Uptec", "count": 1}], "ratio_per_week": [{"week": "2026-05-25", "accepted": 16, "rejected": 66, "total": 82, "accept_pct": 19.5}, {"week": "2026-05-26", "accepted": 2, "rejected": 9, "total": 11, "accept_pct": 18.2}], "summary": {"total_seen": 93, "total_accepted": 18, "total_rejected": 75, "avg_fit": 95.39, "total_desired": 2, "total_runs": 2, "last_run": "2026-05-26"}, "new_jobs_per_week": [16, 2]}, "all": {"jobs_per_week": [18], "rejected_per_week": [75], "rolling_avg": [18.0], "avg_fit_per_week": [95.39], "target_per_week": [0], "desired_per_week": [2], "cat_per_week": {"GNC/Aerospace": [5], "High-Tech/Precision": [3], "Robotics": [8], "General Control": [2], "Blacklisted-PLC": [15], "Blacklisted-Other": [0], "Rejected-Senior": [15], "Rejected-No-Gate": [45]}, "src_per_week": {"linkedin": [9], "indeed": [9], "other": [0]}, "top_companies": [{"company": "Intralox", "count": 2}, {"company": "Spektrum", "count": 2}, {"company": "Source.ag", "count": 1}, {"company": "Just Eat Takeaway.com", "count": 1}, {"company": "Epassi", "count": 1}, {"company": "NXP Semiconductors", "count": 1}, {"company": "Cosine UK", "count": 1}, {"company": "Aalberts advanced mechatronics", "count": 1}, {"company": "ASML", "count": 1}, {"company": "Trinamics", "count": 1}, {"company": "JBT Marel", "count": 1}, {"company": "APM Terminals", "count": 1}, {"company": "SMST Designers & Constructors", "count": 1}, {"company": "Anduril Industries", "count": 1}, {"company": "Airlift Systems", "count": 1}, {"company": "Uptec", "count": 1}], "ratio_per_week": [{"week": "2026-W22", "accepted": 18, "rejected": 75, "total": 93, "accept_pct": 19.4}], "summary": {"total_seen": 93, "total_accepted": 18, "total_rejected": 75, "avg_fit": 95.39, "total_desired": 2, "total_runs": 2, "last_run": "2026-05-26"}, "new_jobs_per_week": [18]}, "job_records": [{"wk": "2026-W22", "sc": 615.0, "cat": "Robotics", "tgt": 0, "src": "linkedin", "co": "Source.ag", "fsw": "2026-W22", "fsd": "2026-05-25", "ds": 1}, {"wk": "2026-W22", "sc": 307.0, "cat": "Robotics", "tgt": 0, "src": "indeed", "co": "Intralox", "fsw": "2026-W22", "fsd": "2026-05-25", "ds": 1}, {"wk": "2026-W22", "sc": 201.0, "cat": "Robotics", "tgt": 0, "src": "indeed", "co": "Just Eat Takeaway.com", "fsw": "2026-W22", "fsd": "2026-05-25", "ds": 0}, {"wk": "2026-W22", "sc": 106.0, "cat": "GNC/Aerospace", "tgt": 0, "src": "indeed", "co": "Spektrum", "fsw": "2026-W22", "fsd": "2026-05-25", "ds": 0}, {"wk": "2026-W22", "sc": 103.0, "cat": "Robotics", "tgt": 0, "src": "indeed", "co": "Epassi", "fsw": "2026-W22", "fsd": "2026-05-25", "ds": 0}, {"wk": "2026-W22", "sc": 102.0, "cat": "High-Tech/Precision", "tgt": 0, "src": "indeed", "co": "NXP Semiconductors", "fsw": "2026-W22", "fsd": "2026-05-25", "ds": 0}, {"wk": "2026-W22", "sc": 11.0, "cat": "Robotics", "tgt": 0, "src": "indeed", "co": "Intralox", "fsw": "2026-W22", "fsd": "2026-05-25", "ds": 0}, {"wk": "2026-W22", "sc": 8.0, "cat": "GNC/Aerospace", "tgt": 0, "src": "indeed", "co": "Cosine UK", "fsw": "2026-W22", "fsd": "2026-05-25", "ds": 0}, {"wk": "2026-W22", "sc": 7.0, "cat": "High-Tech/Precision", "tgt": 0, "src": "linkedin", "co": "Aalberts advanced mechatronics", "fsw": "2026-W22", "fsd": "2026-05-25", "ds": 0}, {"wk": "2026-W22", "sc": 6.0, "cat": "High-Tech/Precision", "tgt": 0, "src": "indeed", "co": "ASML", "fsw": "2026-W22", "fsd": "2026-05-25", "ds": 0}, {"wk": "2026-W22", "sc": 5.0, "cat": "GNC/Aerospace", "tgt": 0, "src": "indeed", "co": "Spektrum", "fsw": "2026-W22", "fsd": "2026-05-25", "ds": 0}, {"wk": "2026-W22", "sc": 4.0, "cat": "General Control", "tgt": 0, "src": "linkedin", "co": "Trinamics", "fsw": "2026-W22", "fsd": "2026-05-25", "ds": 0}, {"wk": "2026-W22", "sc": 6.0, "cat": "Robotics", "tgt": 0, "src": "linkedin", "co": "JBT Marel", "fsw": "2026-W22", "fsd": "2026-05-25", "ds": 0}, {"wk": "2026-W22", "sc": 6.0, "cat": "Robotics", "tgt": 0, "src": "linkedin", "co": "APM Terminals", "fsw": "2026-W22", "fsd": "2026-05-25", "ds": 0}, {"wk": "2026-W22", "sc": 4.0, "cat": "General Control", "tgt": 0, "src": "linkedin", "co": "SMST Designers & Constructors", "fsw": "2026-W22", "fsd": "2026-05-25", "ds": 0}, {"wk": "2026-W22", "sc": 103.0, "cat": "GNC/Aerospace", "tgt": 0, "src": "linkedin", "co": "Anduril Industries", "fsw": "2026-W22", "fsd": "2026-05-25", "ds": 0}, {"wk": "2026-W22", "sc": 112.0, "cat": "GNC/Aerospace", "tgt": 0, "src": "linkedin", "co": "Airlift Systems", "fsw": "2026-W22", "fsd": "2026-05-26", "ds": 0}, {"wk": "2026-W22", "sc": 11.0, "cat": "Robotics", "tgt": 0, "src": "linkedin", "co": "Uptec", "fsw": "2026-W22", "fsd": "2026-05-26", "ds": 0}], "desired_score": 300};
 const CAT_COLORS = {"GNC/Aerospace": "#1a3a5c", "High-Tech/Precision": "#2e86ab", "Robotics": "#28a745", "General Control": "#6c757d", "Blacklisted-PLC": "#dc3545", "Blacklisted-Other": "#fd7e14", "Rejected-Senior": "#ffc107", "Rejected-No-Gate": "#adb5bd"};
 const SRC_COLORS = {"linkedin": "#0a66c2", "indeed": "#2e7d32", "other": "#888888"};
 const DESIRED_SCORE = (DATA && DATA.desired_score) ? DATA.desired_score : 0;
 
+// ── Granularity state: "week" or "day" ────────────────────────────
+let GRAN = 'week';   // active granularity
+
+// Return the active label array for the current granularity.
+function activeLabels() {
+  return GRAN === 'day' ? (DATA.day_labels || []) : (DATA.week_labels || []);
+}
+
+// Return the base (pre-filter) aggregation for the current granularity.
+function baseAgg() {
+  return GRAN === 'day' ? DATA.all_daily : DATA.all_weekly;
+}
+
 // ── View state ────────────────────────────────────────────────────
-// VIEW = active aggregation (DATA.all or DATA.control_theory)
-// RANGE = [fromIdx, toIdx] inclusive indices into DATA.week_labels
-let VIEW  = (DATA && DATA.all) ? DATA.all : null;
+// VIEW = active aggregation (possibly score-filtered)
+// RANGE = [fromIdx, toIdx] inclusive indices into the active label array
+let VIEW  = (DATA && DATA.all_weekly) ? DATA.all_weekly : ((DATA && DATA.all) ? DATA.all : null);
 let RANGE = [0, 0];  // will be set during boot
 
 // ── Guard: no data yet ────────────────────────────────────────────
@@ -419,27 +447,88 @@ function slRolling(jobsArr) {
   });
 }
 
+// ── Granularity toggle ────────────────────────────────────────────
+function setGranularity(gran, btn) {
+  if (!hasData) return;
+  GRAN = gran;
+
+  // Update button highlight
+  document.querySelectorAll('.gran-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+
+  // Update UI labels for range strip and breakdown table
+  const isDay = (gran === 'day');
+  document.getElementById('fromPeriodLabel').textContent = isDay ? 'From day' : 'From week';
+  document.getElementById('toPeriodLabel').textContent   = isDay ? 'To day'   : 'To week';
+  const thPeriod = document.getElementById('thPeriodCol');
+  if (thPeriod) thPeriod.textContent = isDay ? 'Day' : 'Week';
+  const titleBreakdown = document.getElementById('titleBreakdownTable');
+  if (titleBreakdown) titleBreakdown.textContent = isDay ? 'Daily Breakdown Table' : 'Weekly Breakdown Table';
+
+  // Update chart heading suffixes
+  const suffix = isDay ? 'per day' : 'per week';
+  [
+    ['titleChartWeekly',  `Jobs found ${suffix} (matched vs rejected)`],
+    ['titleChartNewJobs', `New jobs discovered ${suffix} (first appearance)`],
+    ['titleChartSource',  `Source: LinkedIn vs Indeed ${suffix}`],
+    ['titleChartTrend',   `Rolling 4-period average (matched jobs) — is the market improving?`],
+    ['titleChartFit',     `Average fit score ${suffix}`],
+    ['titleChartTarget',  `Target company appearances ${suffix}`],
+    ['titleChartDesired', `Desired matches ${suffix} (score ≥ ${DESIRED_SCORE})`],
+    ['titleChartRatio',   `Match rate: accepted / (accepted + rejected) ${suffix}`],
+  ].forEach(([id, text]) => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = text;
+  });
+
+  // Reset VIEW to the base aggregation for the new granularity (respecting any
+  // active score filter).  refreshView() rebuilds VIEW from job_records when a
+  // filter is set, otherwise it falls back to baseAgg() which now returns the
+  // correct granularity payload.
+  const minScore    = _getMinScore();
+  const newJobScore = _getNewJobMinScore();
+  if (minScore > 0 || newJobScore > 0) {
+    let recs = DATA.job_records || [];
+    if (minScore > 0) recs = recs.filter(r => r.sc >= minScore);
+    VIEW = _rebuildViewFromRecords(recs);
+  } else {
+    VIEW = baseAgg();
+  }
+
+  // Re-initialise range UI for the new label set, then re-render.
+  initRangeUI();
+}
+
 // ── Range selector helpers ────────────────────────────────────────
 function initRangeUI() {
   if (!hasData) return;
-  const labels = DATA.week_labels;
-  const from = document.getElementById('fromWeek');
-  const to   = document.getElementById('toWeek');
+  const labels = activeLabels();
+  const from = document.getElementById('fromPeriod');
+  const to   = document.getElementById('toPeriod');
   from.innerHTML = labels.map((l, i) => `<option value="${i}">${l}</option>`).join('');
   to.innerHTML   = labels.map((l, i) => `<option value="${i}">${l}</option>`).join('');
-  document.getElementById('rangeStrip').style.display = '';
+  document.getElementById('rangeStrip').style.display  = '';
+  document.getElementById('granToggle').style.display  = '';
 
-  // Default: last 8 weeks (or all if fewer)
-  const defaultBtn = document.querySelectorAll('.range-btn')[1]; // "Last 8 weeks"
-  setQuickRange(8, defaultBtn);
+  // Default: weekly → last 8, daily → last 30
+  const defaultN   = GRAN === 'day' ? 30 : 8;
+  // Find the quick-range button that matches the default N.
+  // Buttons are: Last 4, Last 8, Last 12, Last 30, All time
+  const quickBtns = document.querySelectorAll('.range-btn');
+  let defaultBtn = null;
+  quickBtns.forEach(b => {
+    const match = b.textContent.match(/\d+/);
+    if (match && parseInt(match[0], 10) === defaultN) defaultBtn = b;
+  });
+  setQuickRange(defaultN, defaultBtn);
 }
 
 function applyRange(fromIdx, toIdx) {
-  const labels = DATA.week_labels;
+  const labels = activeLabels();
   RANGE[0] = Math.max(0, fromIdx);
   RANGE[1] = Math.min(labels.length - 1, toIdx);
-  document.getElementById('fromWeek').value = RANGE[0];
-  document.getElementById('toWeek').value   = RANGE[1];
+  document.getElementById('fromPeriod').value = RANGE[0];
+  document.getElementById('toPeriod').value   = RANGE[1];
 }
 
 function setQuickRange(n, btn) {
@@ -447,7 +536,7 @@ function setQuickRange(n, btn) {
   document.querySelectorAll('.range-btn').forEach(b => b.classList.remove('active'));
   if (btn) btn.classList.add('active');
 
-  const total = DATA.week_labels.length;
+  const total = activeLabels().length;
   if (n === 0 || n >= total) {
     applyRange(0, total - 1);
   } else {
@@ -460,8 +549,8 @@ function setQuickRange(n, btn) {
 function onRangeDropdown() {
   // Clear quick-range highlight when user manually picks dropdowns
   document.querySelectorAll('.range-btn').forEach(b => b.classList.remove('active'));
-  const from = parseInt(document.getElementById('fromWeek').value, 10);
-  const to   = parseInt(document.getElementById('toWeek').value,   10);
+  const from = parseInt(document.getElementById('fromPeriod').value, 10);
+  const to   = parseInt(document.getElementById('toPeriod').value,   10);
   if (from <= to) {
     RANGE[0] = from;
     RANGE[1] = to;
@@ -508,7 +597,8 @@ function renderStatCards() {
   const totalDesired = slDesired.reduce((a, b) => a + b, 0);
 
   const s = VIEW.summary;
-  const rangeLabel = `${DATA.week_labels[RANGE[0]]} – ${DATA.week_labels[RANGE[1]]}`;
+  const _al = activeLabels();
+  const rangeLabel = `${_al[RANGE[0]]} – ${_al[RANGE[1]]}`;
 
   container.innerHTML = `
     <div class="stat-card">
@@ -578,7 +668,7 @@ function buildChartWeekly() {
   CHARTS.weekly = new Chart(document.getElementById('chartWeekly'), {
     type: 'line',
     data: {
-      labels: sl(DATA.week_labels),
+      labels: sl(activeLabels()),
       datasets: [
         {
           label: 'Matched',
@@ -607,7 +697,7 @@ function buildChartWeekly() {
 // ── Chart 2: Category stacked area line ──────────────────────────
 function buildChartCategory() {
   if (!hasData) return;
-  const slLabels = sl(DATA.week_labels);
+  const slLabels = sl(activeLabels());
   const datasets = Object.entries(VIEW.cat_per_week).map(([cat, vals]) => {
     const color = CAT_COLORS[cat] || '#999999';
     return {
@@ -635,7 +725,7 @@ function buildChartCategory() {
 // ── Chart 3: Source line chart ────────────────────────────────────
 function buildChartSource() {
   if (!hasData) return;
-  const slLabels = sl(DATA.week_labels);
+  const slLabels = sl(activeLabels());
   const datasets = Object.entries(VIEW.src_per_week).map(([src, vals]) => {
     const color = SRC_COLORS[src] || '#888888';
     return {
@@ -660,7 +750,7 @@ function buildChartSource() {
   });
 }
 
-// ── Chart: New jobs discovered per week ──────────────────────────
+// ── Chart: New jobs discovered per period ────────────────────────
 function buildChartNewJobs() {
   if (!hasData) return;
   const newArr       = sl(VIEW.new_jobs_per_week || []);
@@ -669,7 +759,7 @@ function buildChartNewJobs() {
   CHARTS.newJobs = new Chart(document.getElementById('chartNewJobs'), {
     type: 'line',
     data: {
-      labels: sl(DATA.week_labels),
+      labels: sl(activeLabels()),
       datasets: [
         {
           label: 'New (first appearance)',
@@ -701,7 +791,7 @@ function buildChartTrend() {
   CHARTS.trend = new Chart(document.getElementById('chartTrend'), {
     type: 'line',
     data: {
-      labels: sl(DATA.week_labels),
+      labels: sl(activeLabels()),
       datasets: [
         {
           label: 'Weekly matched',
@@ -739,7 +829,7 @@ function buildChartFit() {
   CHARTS.fit = new Chart(document.getElementById('chartFit'), {
     type: 'line',
     data: {
-      labels: sl(DATA.week_labels),
+      labels: sl(activeLabels()),
       datasets: [{
         label: 'Avg fit score (matched)',
         data: sl(VIEW.avg_fit_per_week),
@@ -762,13 +852,13 @@ function buildChartFit() {
   });
 }
 
-// ── Chart 6: Target company count per week ───────────────────────
+// ── Chart 6: Target company count per period ─────────────────────
 function buildChartTarget() {
   if (!hasData) return;
   CHARTS.target = new Chart(document.getElementById('chartTarget'), {
     type: 'line',
     data: {
-      labels: sl(DATA.week_labels),
+      labels: sl(activeLabels()),
       datasets: [{
         label: 'Target company matches',
         data: sl(VIEW.target_per_week),
@@ -785,7 +875,7 @@ function buildChartTarget() {
   });
 }
 
-// ── Chart: Desired matches per week ──────────────────────────────
+// ── Chart: Desired matches per period ────────────────────────────
 function buildChartDesired() {
   const card = document.getElementById('chartDesiredCard');
   if (!hasData || DESIRED_SCORE <= 0) {
@@ -796,7 +886,7 @@ function buildChartDesired() {
   CHARTS.desired = new Chart(document.getElementById('chartDesired'), {
     type: 'line',
     data: {
-      labels: sl(DATA.week_labels),
+      labels: sl(activeLabels()),
       datasets: [{
         label: `Desired matches (score ≥ ${DESIRED_SCORE})`,
         data: sl(VIEW.desired_per_week || []),
@@ -826,7 +916,7 @@ function buildChartRatio() {
   CHARTS.ratio = new Chart(document.getElementById('chartRatio'), {
     type: 'line',
     data: {
-      labels: sl(DATA.week_labels),
+      labels: sl(activeLabels()),
       datasets: [{
         label: 'Match rate (%)',
         data: pcts,
@@ -907,13 +997,14 @@ function buildCompanyTable() {
   }).join('');
 }
 
-// ── Weekly breakdown table (with sort) ───────────────────────────
-let _weekSortCol = 0;   // default sort: Week column
+// ── Period breakdown table (with sort) ───────────────────────────
+let _weekSortCol = 0;   // default sort: Period column
 let _weekSortDir = -1;  // -1 = desc (newest first)
 
 function buildWeekTable() {
   if (!hasData) return;
-  const tbody   = document.getElementById('weekTbody');
+  const tbody  = document.getElementById('weekTbody');
+  const labels = activeLabels();
 
   // Build row data for the selected range (newest first default)
   const rows = [];
@@ -936,7 +1027,7 @@ function buildWeekTable() {
     }
 
     rows.push({
-      week:      DATA.week_labels[i],
+      week:      labels[i],
       matched,
       rejected,
       matchPct:  matchPct !== null ? matchPct : -1,
@@ -944,7 +1035,7 @@ function buildWeekTable() {
       target,
       trendBadge,
       // sortable numeric values for each column (col index matches th data-col)
-      sortVals: [DATA.week_labels[i], matched, rejected, matchPct !== null ? matchPct : -1, avgFit || 0, target],
+      sortVals: [labels[i], matched, rejected, matchPct !== null ? matchPct : -1, avgFit || 0, target],
     });
   }
 
@@ -1002,10 +1093,10 @@ function renderAll() {
 }
 
 // ── Score-filter re-aggregation ───────────────────────────────────
-// When a min-score or control-theory filter is active we rebuild VIEW
-// from DATA.job_records (individual accepted jobs) so the charts
-// reflect exactly the filtered subset.  Rejected counts become 0 in
-// this mode (rejected jobs have no score and are not in job_records).
+// When a min-score filter is active we rebuild VIEW from DATA.job_records
+// (individual accepted jobs) so the charts reflect exactly the filtered
+// subset.  Rejected counts become 0 in this mode (rejected jobs have no
+// score and are not in job_records).
 
 const _ALL_CATS = [
   "GNC/Aerospace","High-Tech/Precision","Robotics","General Control",
@@ -1015,9 +1106,14 @@ const _SRCS = ["linkedin","indeed","other"];
 
 function _rebuildViewFromRecords(recs) {
   // recs = already-filtered subset of DATA.job_records
-  const wkIdx = {};
-  DATA.week_labels.forEach((wk, i) => wkIdx[wk] = i);
-  const n = DATA.week_labels.length;
+  // Uses GRAN to decide whether to bucket by ISO week (r.wk / r.fsw) or
+  // calendar day (r.fsd — first-seen YYYY-MM-DD).
+  const labels = activeLabels();
+  const pkIdx  = {};
+  labels.forEach((lbl, i) => pkIdx[lbl] = i);
+  const n = labels.length;
+
+  const isDay = (GRAN === 'day');
 
   const jobsArr     = new Array(n).fill(0);
   const fitSum      = new Array(n).fill(0);
@@ -1029,7 +1125,11 @@ function _rebuildViewFromRecords(recs) {
   const coCounts    = {};
 
   for (const r of recs) {
-    const i = wkIdx[r.wk];
+    // Pick the period key depending on granularity.
+    // For daily mode, r.fsd (first-seen date) is the bucket key.
+    // For weekly mode, r.wk (run-week) is the bucket key.
+    const pk = isDay ? r.fsd : r.wk;
+    const i  = pkIdx[pk];
     if (i === undefined) continue;
     jobsArr[i]++;
     fitSum[i]  += r.sc;
@@ -1058,13 +1158,17 @@ function _rebuildViewFromRecords(recs) {
     ? Math.round(recs.reduce((s, r) => s + r.sc, 0) / totalAcc * 100) / 100
     : 0;
 
-  // new_jobs_per_week: count per-week using fsw (first-seen week).
+  // new_jobs: count per-period using the first-seen key (fsw for weekly, fsd for daily).
   // Apply the new-job score filter (separate dimension) from #newJobScoreFilter.
   const newJobMinScore = parseFloat(document.getElementById('newJobScoreFilter')?.value) || 0;
-  const newJobsArr = DATA.week_labels.map(wk =>
-    (DATA.job_records || []).filter(r => r.fsw === wk && r.sc >= newJobMinScore).length
+  const newJobsArr = labels.map(lbl =>
+    (DATA.job_records || []).filter(r => {
+      const fsKey = isDay ? r.fsd : r.fsw;
+      return fsKey === lbl && r.sc >= newJobMinScore;
+    }).length
   );
 
+  const baseSum = isDay ? DATA.all_daily?.summary : DATA.all_weekly?.summary;
   return {
     jobs_per_week:     jobsArr,
     rejected_per_week: new Array(n).fill(0),
@@ -1083,8 +1187,8 @@ function _rebuildViewFromRecords(recs) {
       total_rejected: 0,
       avg_fit:        avgFitAll,
       total_desired:  desiredArr.reduce((a, b) => a + b, 0),
-      total_runs:     DATA.all?.summary?.total_runs || 0,
-      last_run:       DATA.all?.summary?.last_run   || '',
+      total_runs:     baseSum?.total_runs || 0,
+      last_run:       baseSum?.last_run   || '',
     },
   };
 }
@@ -1099,35 +1203,28 @@ function _getNewJobMinScore() {
   return isNaN(v) ? 0 : v;
 }
 
-// ── Unified view refresh (toggle + score filter) ───────────────────
+// ── Unified view refresh (score filter) ───────────────────────────
 function refreshView() {
   if (!hasData) return;
-  const isControl    = document.getElementById('controlTheoryToggle').checked;
-  const minScore     = _getMinScore();
-  const newJobScore  = _getNewJobMinScore();
+  const minScore    = _getMinScore();
+  const newJobScore = _getNewJobMinScore();
 
-  if (minScore > 0 || isControl || newJobScore > 0) {
+  if (minScore > 0 || newJobScore > 0) {
     // Filter individual records and re-aggregate
     let recs = DATA.job_records || [];
-    if (isControl) {
-      const ctSet = new Set(DATA.control_theory_categories || []);
-      recs = recs.filter(r => ctSet.has(r.cat));
-    }
     if (minScore > 0) {
       recs = recs.filter(r => r.sc >= minScore);
     }
     VIEW = _rebuildViewFromRecords(recs);
   } else {
-    // No filters active — use the fast pre-aggregated payload.
-    // new_jobs_per_week is pre-computed in the Python payload.
-    VIEW = DATA.all;
+    // No filters active — use the fast pre-aggregated payload for current granularity.
+    VIEW = baseAgg();
   }
 
   destroyAllCharts();
   renderAll();
 }
 
-function onViewToggle()        { if (hasData) refreshView(); }
 function onScoreFilter()       { if (hasData) refreshView(); }
 function onNewJobScoreFilter() { if (hasData) refreshView(); }
 
