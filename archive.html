@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Archive — Control Theory Jobs NL</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: #f0f2f5; color: #2c3e50;
+}
+header {
+  background: #1a3a5c; color: white; padding: 22px 32px;
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 10px;
+}
+header h1 { font-size: 21px; font-weight: 600; }
+header p  { font-size: 12px; opacity: 0.65; margin-top: 5px; }
+.nav-link {
+  color: rgba(255,255,255,0.85); font-size: 13px; font-weight: 500;
+  text-decoration: none; border: 1px solid rgba(255,255,255,0.4);
+  padding: 6px 14px; border-radius: 6px; white-space: nowrap;
+}
+.nav-link:hover { background: rgba(255,255,255,0.15); }
+.section-header {
+  padding: 20px 32px 8px;
+  font-size: 16px; font-weight: 700; color: #1a3a5c;
+  border-left: 4px solid #2e86ab;
+  margin: 24px 32px 0;
+  background: white;
+  border-radius: 8px 8px 0 0;
+  border-top: 1px solid #e8e8e8;
+  border-right: 1px solid #e8e8e8;
+}
+.grid {
+  padding: 0 32px 32px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+  gap: 16px;
+  background: white;
+  border-radius: 0 0 8px 8px;
+  border: 1px solid #e8e8e8;
+  border-top: none;
+  margin: 0 32px 8px;
+  padding-top: 16px;
+}
+.card {
+  background: #f8fafc; border-radius: 10px; padding: 18px 20px;
+  border: 1px solid #e8e8e8; display: flex; flex-direction: column; gap: 8px;
+}
+.card:hover { box-shadow: 0 4px 18px rgba(0,0,0,0.09); }
+.target-card { border-left: 4px solid #f39c12; }
+.applied-card { border-left: 4px solid #166534; }
+.card-header {
+  display: flex; justify-content: space-between;
+  align-items: flex-start; gap: 8px;
+}
+.card-header h3 { font-size: 14px; font-weight: 600; line-height: 1.35; }
+.card-header h3 a { color: #1a3a5c; text-decoration: none; }
+.card-header h3 a:hover { text-decoration: underline; }
+.badges { display: flex; flex-direction: column; gap: 3px; flex-shrink: 0; align-items: flex-end; }
+.badge {
+  font-size: 10px; padding: 2px 7px; border-radius: 10px;
+  white-space: nowrap; font-weight: 500;
+}
+.badge-target   { background: #fef3cd; color: #856404; }
+.badge-linkedin { background: #e8f4fd; color: #0a66c2; }
+.badge-indeed   { background: #e8f8f0; color: #2e7d32; }
+.badge-expired  { background: #f3f4f6; color: #6b7280; }
+.badge-applied  { background: #dcfce7; color: #166534; font-weight: 700; }
+.badge-desired  { background: #fde8e8; color: #c0392b; border: 1px solid #e74c3c; font-weight: 700; }
+.card-meta {
+  display: flex; flex-wrap: wrap; gap: 10px;
+  font-size: 12px; color: #666;
+}
+.score-row {
+  display: flex; align-items: center; gap: 8px; font-size: 12px;
+}
+.score-label { color: #888; flex-shrink: 0; }
+.score-num   { font-weight: 700; flex-shrink: 0; min-width: 36px; }
+.score-high  { color: #1e7e34; }
+.score-mid   { color: #856404; }
+.score-low   { color: #721c24; }
+.score-bar {
+  flex: 1; height: 6px; background: #e8e8e8;
+  border-radius: 4px; overflow: hidden;
+}
+.bar-fill {
+  height: 100%; border-radius: 4px;
+}
+.bar-fill.score-high { background: #28a745; }
+.bar-fill.score-mid  { background: #ffc107; }
+.bar-fill.score-low  { background: #dc3545; }
+.keywords { font-size: 11px; color: #999; }
+.undo-btn {
+  display: inline-block; margin-top: 4px;
+  padding: 5px 12px; background: #166534;
+  color: white; border-radius: 6px; font-size: 11px;
+  border: none; cursor: pointer; font-weight: 500;
+}
+.undo-btn:hover { background: #14532d; }
+.view-btn {
+  display: inline-block; margin-top: 4px;
+  padding: 5px 12px; background: #1a3a5c;
+  color: white; border-radius: 6px; font-size: 12px;
+  text-decoration: none; font-weight: 500; align-self: flex-start;
+}
+.view-btn:hover { background: #2e6da4; }
+.empty-state {
+  padding: 40px 32px; text-align: center; color: #888; font-size: 14px;
+  font-style: italic;
+}
+footer {
+  text-align: center; padding: 24px; font-size: 11px; color: #bbb;
+}
+@media (max-width: 600px) {
+  .grid { padding: 12px 16px; grid-template-columns: 1fr; margin: 0 16px 8px; }
+  header, .section-header { padding-left: 16px; padding-right: 16px; }
+  .section-header { margin: 16px 16px 0; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>Archive — Control Theory Jobs NL</h1>
+    <p>Updated: 26 May 2026 at 13:17 UTC</p>
+  </div>
+  <div style="display:flex; gap:8px; flex-wrap:wrap;">
+    <a class="nav-link" href="index.html">Live Job Board</a>
+    <a class="nav-link" href="analytics.html">Analytics</a>
+    <a class="nav-link" href="settings.html">&#9881; Settings</a>
+  </div>
+</header>
+
+<div id="appliedSection">
+  <div class="section-header">Applied Jobs (<span id="appliedSectionCount">0</span>)</div>
+  <div class="grid" id="appliedGrid">
+    <div class="empty-state" id="appliedEmpty">No applied jobs yet. Mark jobs as Applied on the Live Job Board.</div>
+  </div>
+</div>
+
+<div id="expiredSection">
+  <div class="section-header">Expired Jobs (<span id="expiredSectionCount">0</span>)</div>
+  <div class="grid" id="expiredGrid">
+    <div class="empty-state" id="expiredEmpty">No expired jobs yet.</div>
+  </div>
+</div>
+
+<footer>
+  Auto-generated by job_searcher.py &nbsp;&middot;&nbsp;
+  Applied state is stored in your browser&apos;s localStorage &nbsp;&middot;&nbsp;
+  Expired = older than 14 days
+</footer>
+
+<script>
+const ARCHIVE_DATA = {"jobs": [], "score_ref": 615.0, "desired_score": 90, "applied_ids": []};
+const LS_KEY = 'jss_applied';
+
+// Seed appliedSet from server-embedded applied_ids merged with localStorage
+let appliedSet = new Set(ARCHIVE_DATA.applied_ids || []);
+try {
+  const local = JSON.parse(localStorage.getItem(LS_KEY) || '[]');
+  local.forEach(id => appliedSet.add(id));
+} catch(e) {}
+
+function getApplied() {
+  return Array.from(appliedSet);
+}
+
+function saveApplied(arr) {
+  appliedSet = new Set(arr);
+  localStorage.setItem(LS_KEY, JSON.stringify(arr));
+}
+
+function scoreClass(score, ref) {
+  if (score >= 0.6 * ref) return 'score-high';
+  if (score >= 0.3 * ref) return 'score-mid';
+  return 'score-low';
+}
+
+function buildCard(job, isApplied) {
+  const ref     = ARCHIVE_DATA.score_ref || 1;
+  const desired = ARCHIVE_DATA.desired_score || 0;
+  const sc      = job.score;
+  const cls     = scoreClass(sc, ref);
+  const barPct  = Math.min(sc / ref * 100, 100).toFixed(1);
+  const kws     = (job.keywords || []).join(', ');
+  const dateLbl = job.date_posted ? job.date_posted.slice(0, 10) : (job.first_seen ? job.first_seen.slice(0, 10) : 'Date unknown');
+  const siteBadge  = job.site ? `<span class="badge badge-${job.site}">${job.site.toUpperCase()}</span>` : '';
+  const targetBadge = job.is_target ? `<span class="badge badge-target">Target company</span>` : '';
+  const desiredBadge = (desired > 0 && sc >= desired) ? `<span class="badge badge-desired">&#9733; Match</span>` : '';
+  const statusBadge = isApplied ? `<span class="badge badge-applied">&#10003; Applied</span>` : `<span class="badge badge-expired">Expired</span>`;
+  const actionBtn = isApplied
+    ? `<button class="undo-btn" onclick="undoApplied('${job.id}', this)">&#8617; Undo Applied</button>`
+    : '';
+  const cardCls = isApplied ? 'card applied-card' : (job.is_target ? 'card target-card' : 'card');
+
+  return `<div class="${cardCls}" data-jobid="${job.id}">
+  <div class="card-header">
+    <h3><a href="${job.url}" target="_blank" rel="noopener">${job.title}</a></h3>
+    <div class="badges">${desiredBadge}${targetBadge}${statusBadge}${siteBadge}</div>
+  </div>
+  <div class="card-meta">
+    <span>${job.company}</span>
+    <span>${job.location}</span>
+    <span>${dateLbl}</span>
+  </div>
+  <div class="score-row">
+    <span class="score-label">Fit:</span>
+    <span class="score-num ${cls}">${sc}</span>
+    <div class="score-bar"><div class="bar-fill ${cls}" style="width:${barPct}%"></div></div>
+  </div>
+  <div class="keywords">Keywords: ${kws || '—'}</div>
+  <div style="display:flex; gap:8px; align-items:center; margin-top:4px; flex-wrap:wrap;">
+    <a class="view-btn" href="${job.url}" target="_blank" rel="noopener">View posting</a>
+    ${actionBtn}
+  </div>
+</div>`;
+}
+
+function undoApplied(jid, btn) {
+  appliedSet.delete(jid);
+  saveApplied(Array.from(appliedSet));
+  // Remove card from applied section
+  const card = btn.closest('[data-jobid]');
+  if (card) card.remove();
+  // Move to expired section if job is expired
+  const job = (ARCHIVE_DATA.jobs || []).find(j => j.id === jid);
+  if (job && job.is_expired) {
+    const expiredGrid = document.getElementById('expiredGrid');
+    const emptyEl = document.getElementById('expiredEmpty');
+    if (emptyEl) emptyEl.remove();
+    expiredGrid.insertAdjacentHTML('beforeend', buildCard(job, false));
+  }
+  updateCounts();
+}
+
+function updateCounts() {
+  const appliedGrid  = document.getElementById('appliedGrid');
+  const expiredGrid  = document.getElementById('expiredGrid');
+  const appliedCards = appliedGrid.querySelectorAll('[data-jobid]').length;
+  const expiredCards = expiredGrid.querySelectorAll('[data-jobid]').length;
+  document.getElementById('appliedSectionCount').textContent = appliedCards;
+  document.getElementById('expiredSectionCount').textContent = expiredCards;
+  if (appliedCards === 0 && !document.getElementById('appliedEmpty')) {
+    appliedGrid.innerHTML = '<div class="empty-state" id="appliedEmpty">No applied jobs yet. Mark jobs as Applied on the Live Job Board.</div>';
+  }
+  if (expiredCards === 0 && !document.getElementById('expiredEmpty')) {
+    expiredGrid.innerHTML = '<div class="empty-state" id="expiredEmpty">No expired jobs yet.</div>';
+  }
+}
+
+// ── Boot ─────────────────────────────────────────────────────────
+(function init() {
+  const jobs        = ARCHIVE_DATA.jobs || [];
+  const appliedGrid = document.getElementById('appliedGrid');
+  const expiredGrid = document.getElementById('expiredGrid');
+
+  let appliedHtml = '';
+  let expiredHtml = '';
+
+  for (const job of jobs) {
+    const isApp = appliedSet.has(job.id);
+    if (isApp) {
+      appliedHtml += buildCard(job, true);
+    } else if (job.is_expired) {
+      expiredHtml += buildCard(job, false);
+    }
+  }
+
+  if (appliedHtml) {
+    appliedGrid.innerHTML = appliedHtml;
+  }
+  if (expiredHtml) {
+    expiredGrid.innerHTML = expiredHtml;
+  }
+
+  updateCounts();
+})();
+</script>
+</body>
+</html>

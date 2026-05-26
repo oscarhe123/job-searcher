@@ -81,6 +81,16 @@ header p  { font-size: 12px; opacity: 0.65; margin-top: 5px; }
 .badge-desired { background: #fde8e8; color: #c0392b; border: 1px solid #e74c3c; font-weight: 700; }
 .returning-card { background: #f0fff4 !important; border-left: 4px solid #28a745; }
 .target-card.returning-card { border-left: 4px solid #f39c12; }
+.applied-card { opacity: 0.5; border-left: 4px solid #adb5bd !important; }
+.applied-card h3 a { text-decoration: line-through; color: #888 !important; }
+.apply-toggle-btn {
+  display: inline-block; margin-top: 4px; margin-left: 6px;
+  padding: 5px 12px; background: #e2e8f0;
+  color: #334155; border-radius: 6px; font-size: 11px;
+  border: none; cursor: pointer; font-weight: 500;
+}
+.apply-toggle-btn:hover { background: #cbd5e1; }
+.apply-toggle-btn.applied { background: #166534; color: white; }
 
 .top-match-banner {
   background: #fde8e8; border-bottom: 2px solid #e74c3c;
@@ -141,21 +151,32 @@ footer { text-align: center; padding: 24px; font-size: 11px; color: #bbb; }
 <header>
   <div>
     <h1>Control Theory Jobs NL</h1>
-    <p>Updated: 26 May 2026 at 10:38 UTC</p>
+    <p>Updated: 26 May 2026 at 13:17 UTC</p>
   </div>
   <div style="display:flex; gap:8px; flex-wrap:wrap;">
     <a class="nav-link" href="analytics.html">Analytics Dashboard</a>
+    <a class="nav-link" href="archive.html">Archive</a>
     <a class="nav-link" href="settings.html">&#9881; Settings</a>
   </div>
 </header>
 
-<div class="top-match-banner">&#128293; 3 new top matches today (score &ge; 90)</div>
+<div class="top-match-banner">&#128293; 1 new top match today (score &ge; 90)</div>
 
 <div class="stats">
-  <div><strong>24</strong> jobs found</div>
+  <div><strong>10</strong> jobs found</div>
   <div><strong>0</strong> target companies</div>
-  <div><strong>0</strong> high fit (score &ge; 1144)</div>
+  <div><strong>0</strong> high fit (score &ge; 246)</div>
   <div style="font-size:12px;">Sources: Indeed NL + LinkedIn</div>
+  <div style="margin-left:auto;">
+    <a id="appliedToggle" href="#" onclick="toggleApplied(event)"
+       style="font-size:12px; color:#1a3a5c; font-weight:500; text-decoration:none;">
+      Show applied (<span id="appliedCount">0</span>)
+    </a>
+  </div>
+</div>
+
+<div id="patNotice" style="font-size:12px;color:#aaa;padding:2px 32px 6px;display:none;">
+  Applied jobs saved locally only — <a href="settings.html" style="color:#2e86ab;">connect GitHub in Settings</a> to sync to repo.
 </div>
 
 <div class="controls">
@@ -177,86 +198,126 @@ footer { text-align: center; padding: 24px; font-size: 11px; color: #bbb; }
 
 <div class="grid" id="jobGrid">
 
-<div class="card returning-card" data-score="304.0" data-site="linkedin" data-target="false" data-new="false" data-desired="true">
+<div class="card" data-score="188.0" data-site="linkedin" data-target="false" data-new="true" data-desired="true" data-jobid="cc3048e7407a9856fd764238491118f0">
   <div class="card-header">
-    <h3><a href="https://www.linkedin.com/jobs/view/4382480078" target="_blank" rel="noopener">Control Systems Engineer</a></h3>
-    <div class="badges"><span class="badge badge-desired">&#9733; Match</span><span class="badge badge-seen">Seen</span><span class="badge badge-linkedin">LINKEDIN</span></div>
-  </div>
-  <div class="card-meta">
-    <span>Source.ag</span>
-    <span>Amsterdam, North Holland, Netherlands</span>
-    <span>22 May 2026</span>
-  </div>
-  <div class="score-row">
-    <span class="score-label">Fit:</span>
-    <span class="score-num score-low">304.0</span>
-    <div class="score-bar"><div class="bar-fill score-low" style="width:10.6%"></div></div>
-  </div>
-  <p class="summary">At Source.ag, we're on a mission to power a sustainable future by leveraging cutting\-edge A.I. in greenhouse technology to deliver more fresh produce to the world. Our values drive everything we do to support this mission; they shape how we work, collaborate, and achieve our goa...</p>
-  <div class="keywords">Keywords: model predictive control, robust control, kalman filter, control theory, feedback control, mechatronics</div>
-  <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4382480078" target="_blank" rel="noopener">View posting</a>
-</div>
-<div class="card" data-score="246.0" data-site="linkedin" data-target="false" data-new="true" data-desired="true">
-  <div class="card-header">
-    <h3><a href="https://www.linkedin.com/jobs/view/4413696538" target="_blank" rel="noopener">Mechatronics Integration Engineer</a></h3>
+    <h3><a href="https://www.linkedin.com/jobs/view/4419102368" target="_blank" rel="noopener">Embedded Systems (Flight Control & Sensor Integration) Intern</a></h3>
     <div class="badges"><span class="badge badge-desired">&#9733; Match</span><span class="badge badge-new">NEW</span><span class="badge badge-linkedin">LINKEDIN</span></div>
   </div>
   <div class="card-meta">
-    <span>KRUSH Labs</span>
-    <span>Eindhoven, North Brabant, Netherlands</span>
-    <span>21 May 2026</span>
+    <span>Airlift Systems</span>
+    <span>Rotterdam, South Holland, Netherlands</span>
+    <span>Date unknown</span>
   </div>
   <div class="score-row">
     <span class="score-label">Fit:</span>
-    <span class="score-num score-low">246.0</span>
-    <div class="score-bar"><div class="bar-fill score-low" style="width:8.6%"></div></div>
+    <span class="score-num score-mid">188.0</span>
+    <div class="score-bar"><div class="bar-fill score-mid" style="width:30.6%"></div></div>
   </div>
-  <p class="summary">****Job Summary****
- We are seeking a Mechatronics Integration Engineer to join the Autonomy Team at KRUSH Labs in Eindhoven. This role will play a key part in designing, prototyping, and integrating the adaptive mechanisms — morphing airframes, articulated propulsion, and reconf...</p>
-  <div class="keywords">Keywords: ekf, ukf, system identification, servo, mechatronics, mechatronic</div>
-  <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4413696538" target="_blank" rel="noopener">View posting</a>
+  <p class="summary">At
+ **Airlift Systems** 
+ , we are building advanced aerial robotic platforms designed to perform real\-world utility tasks in environments where traditional drones fall short.
+ 
+
+
+
+ Operating in stealth mode, we are developing next\-generation aerial systems that integrate mecha...</p>
+  <div class="keywords">Keywords: ekf, ukf, state estimation, flight control, controller, sensor fusion</div>
+  <div style="display:flex; gap:8px; align-items:center; margin-top:4px;">
+    <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4419102368" target="_blank" rel="noopener">View posting</a>
+    <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="cc3048e7407a9856fd764238491118f0">&#10003; Applied</button>
+  </div>
 </div>
-<div class="card" data-score="216.0" data-site="linkedin" data-target="false" data-new="true" data-desired="true">
+<div class="card" data-score="74.0" data-site="indeed" data-target="false" data-new="true" data-desired="false" data-jobid="2679280d98dfa37e5fe5ecf38fd8b489">
   <div class="card-header">
-    <h3><a href="https://www.linkedin.com/jobs/view/4411817549" target="_blank" rel="noopener">Controls Engineer</a></h3>
-    <div class="badges"><span class="badge badge-desired">&#9733; Match</span><span class="badge badge-new">NEW</span><span class="badge badge-linkedin">LINKEDIN</span></div>
+    <h3><a href="https://nl.indeed.com/viewjob?jk=fc35a716bf968360" target="_blank" rel="noopener">GNC-AOCS Sensors and Actuators Engineer [26102]</a></h3>
+    <div class="badges"><span class="badge badge-new">NEW</span><span class="badge badge-indeed">INDEED</span></div>
   </div>
   <div class="card-meta">
-    <span>TMC</span>
-    <span>Eindhoven, North Brabant, Netherlands</span>
-    <span>07 May 2026</span>
+    <span>Sopra Steria</span>
+    <span>Noordwijk, ZH, NL</span>
+    <span>26 May 2026</span>
   </div>
   <div class="score-row">
     <span class="score-label">Fit:</span>
-    <span class="score-num score-low">216.0</span>
-    <div class="score-bar"><div class="bar-fill score-low" style="width:7.6%"></div></div>
+    <span class="score-num score-low">74.0</span>
+    <div class="score-bar"><div class="bar-fill score-low" style="width:12.0%"></div></div>
   </div>
-  <p class="summary">**About This Vacancy**
- As a Control Engineer, you will focus on the design, modeling, and implementation of high\-precision control strategies for complex mechatronic systems in high\-tech, automotive, or industrial applications. You will operate at the intersection of mechanics...</p>
-  <div class="keywords">Keywords: robust control, system identification, observer design, matlab, simulink, control theory</div>
-  <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4411817549" target="_blank" rel="noopener">View posting</a>
+  <p class="summary">**Company Description**  
+
+HE Space is a successful international space company, specialised in providing managed services and human resources to the international space sector for over 40 years.  
+
+We hire space experts all over Europe across the whole spectrum of space\-related...</p>
+  <div class="keywords">Keywords: gnc, matlab, simulink, navigation, actuator</div>
+  <div style="display:flex; gap:8px; align-items:center; margin-top:4px;">
+    <a class="apply-btn" href="https://nl.indeed.com/viewjob?jk=fc35a716bf968360" target="_blank" rel="noopener">View posting</a>
+    <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="2679280d98dfa37e5fe5ecf38fd8b489">&#10003; Applied</button>
+  </div>
 </div>
-<div class="card" data-score="94.0" data-site="linkedin" data-target="false" data-new="true" data-desired="true">
+<div class="card" data-score="72.0" data-site="linkedin" data-target="false" data-new="true" data-desired="false" data-jobid="6c6b484a257eb95321bb311923c5146d">
   <div class="card-header">
-    <h3><a href="https://www.linkedin.com/jobs/view/4409417126" target="_blank" rel="noopener">Control System Engineer - Power Electronics</a></h3>
-    <div class="badges"><span class="badge badge-desired">&#9733; Match</span><span class="badge badge-new">NEW</span><span class="badge badge-linkedin">LINKEDIN</span></div>
+    <h3><a href="https://www.linkedin.com/jobs/view/4418681461" target="_blank" rel="noopener">Assistant Professor in Predictive Modelling and Simulation of Rotorcraft and VTOL Aircraft</a></h3>
+    <div class="badges"><span class="badge badge-new">NEW</span><span class="badge badge-linkedin">LINKEDIN</span></div>
   </div>
   <div class="card-meta">
-    <span>Inspiro</span>
-    <span>Arnhem, Gelderland, Netherlands</span>
-    <span>01 May 2026</span>
+    <span>Delft University of Technology</span>
+    <span>Delft, South Holland, Netherlands</span>
+    <span>24 May 2026</span>
   </div>
   <div class="score-row">
     <span class="score-label">Fit:</span>
-    <span class="score-num score-low">94.0</span>
-    <div class="score-bar"><div class="bar-fill score-low" style="width:3.3%"></div></div>
+    <span class="score-num score-low">72.0</span>
+    <div class="score-bar"><div class="bar-fill score-low" style="width:11.7%"></div></div>
   </div>
-  <p class="summary">**Control System Engineer Power Electronics** 
-
-
-
-
- Ter versterking van ons team zoekt Inspiro een enthousiaste en gedreven Control System Engineer Power Electronics met passie voor embedded systemen, energietechniek, power electronics en slimme regeltechniek.
+  <p class="summary">***Help shape the future of safe and sustainable vertical flight. At TU Delft, you will advance predictive modelling and simulation tools for rotorcraft and Vertical Take off and Landing (VTOL) aircraft developed within the future Advanced Air Mobility (AAM) while collaborating w...</p>
+  <div class="keywords">Keywords: flight control law, flight control, optimization, navigation</div>
+  <div style="display:flex; gap:8px; align-items:center; margin-top:4px;">
+    <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4418681461" target="_blank" rel="noopener">View posting</a>
+    <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="6c6b484a257eb95321bb311923c5146d">&#10003; Applied</button>
+  </div>
+</div>
+<div class="card" data-score="50.0" data-site="linkedin" data-target="false" data-new="true" data-desired="false" data-jobid="a4fa3970dd60c4df30840e99cf1c34d1">
+  <div class="card-header">
+    <h3><a href="https://www.linkedin.com/jobs/view/4379045100" target="_blank" rel="noopener">IoT & Virtual Modelling Expert</a></h3>
+    <div class="badges"><span class="badge badge-new">NEW</span><span class="badge badge-linkedin">LINKEDIN</span></div>
+  </div>
+  <div class="card-meta">
+    <span>Versuni</span>
+    <span>Drachten, Friesland, Netherlands</span>
+    <span>Date unknown</span>
+  </div>
+  <div class="score-row">
+    <span class="score-label">Fit:</span>
+    <span class="score-num score-low">50.0</span>
+    <div class="score-bar"><div class="bar-fill score-low" style="width:8.1%"></div></div>
+  </div>
+  <p class="summary">**About The Role**
+ As an IoT \& Virtual Modeling Expert you will join our Disruptive Innovation team, accelerating the digital transformation of next\-generation connected domestic appliances. This role combines research, simulation, and intelligent system modeling to unlock dat...</p>
+  <div class="keywords">Keywords: matlab, simulink, mechatronic</div>
+  <div style="display:flex; gap:8px; align-items:center; margin-top:4px;">
+    <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4379045100" target="_blank" rel="noopener">View posting</a>
+    <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="a4fa3970dd60c4df30840e99cf1c34d1">&#10003; Applied</button>
+  </div>
+</div>
+<div class="card" data-score="42.0" data-site="linkedin" data-target="false" data-new="true" data-desired="false" data-jobid="7c7294a7f6bb26274ad7bec4c7399518">
+  <div class="card-header">
+    <h3><a href="https://www.linkedin.com/jobs/view/4419156057" target="_blank" rel="noopener">MBSE Engineer</a></h3>
+    <div class="badges"><span class="badge badge-new">NEW</span><span class="badge badge-linkedin">LINKEDIN</span></div>
+  </div>
+  <div class="card-meta">
+    <span>Looper Engineering</span>
+    <span>Rotterdam, South Holland, Netherlands</span>
+    <span>Date unknown</span>
+  </div>
+  <div class="score-row">
+    <span class="score-label">Fit:</span>
+    <span class="score-num score-low">42.0</span>
+    <div class="score-bar"><div class="bar-fill score-low" style="width:6.8%"></div></div>
+  </div>
+  <p class="summary">Als
+ **Model Based Systems Engineer** 
+ werk je aan complexe high\-tech systemen waarin hardware, software en control samenkomen. Jij vertaalt klanteisen naar heldere systeemarchitecturen en modellen binnen een
+ **MBSE\-omgeving** 
+ .
  
 
 
@@ -267,149 +328,14 @@ footer { text-align: center; padding: 24px; font-size: 11px; color: #bbb; }
 
 
 
- Wil j...</p>
-  <div class="keywords">Keywords: regeltechniek, matlab, simulink, mechatronic, modellering, simulatie</div>
-  <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4409417126" target="_blank" rel="noopener">View posting</a>
+ Je werkt projectmatig voor inno...</p>
+  <div class="keywords">Keywords: matlab, simulink, mechatronic, simulatie</div>
+  <div style="display:flex; gap:8px; align-items:center; margin-top:4px;">
+    <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4419156057" target="_blank" rel="noopener">View posting</a>
+    <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="7c7294a7f6bb26274ad7bec4c7399518">&#10003; Applied</button>
+  </div>
 </div>
-<div class="card" data-score="64.0" data-site="indeed" data-target="false" data-new="true" data-desired="false">
-  <div class="card-header">
-    <h3><a href="https://nl.indeed.com/viewjob?jk=2e87921a07e54aca" target="_blank" rel="noopener">Computer Vision Engineer</a></h3>
-    <div class="badges"><span class="badge badge-new">NEW</span><span class="badge badge-indeed">INDEED</span></div>
-  </div>
-  <div class="card-meta">
-    <span>Xsens</span>
-    <span>Enschede, OV, NL</span>
-    <span>28 Apr 2026</span>
-  </div>
-  <div class="score-row">
-    <span class="score-label">Fit:</span>
-    <span class="score-num score-low">64.0</span>
-    <div class="score-bar"><div class="bar-fill score-low" style="width:2.2%"></div></div>
-  </div>
-  <p class="summary">Do you get excited about building cutting\-edge perception systems that work reliably in the real world? Do you have a strong foundation in computer vision, robotics, or sensor fusion? Are you interested in shaping new technology capabilities within a growing and innovative high\...</p>
-  <div class="keywords">Keywords: state estimation, sensor fusion, sensor fusion, inertial</div>
-  <a class="apply-btn" href="https://nl.indeed.com/viewjob?jk=2e87921a07e54aca" target="_blank" rel="noopener">View posting</a>
-</div>
-<div class="card" data-score="54.0" data-site="linkedin" data-target="false" data-new="true" data-desired="false">
-  <div class="card-header">
-    <h3><a href="https://www.linkedin.com/jobs/view/4411823259" target="_blank" rel="noopener">Control Systems Engineer</a></h3>
-    <div class="badges"><span class="badge badge-new">NEW</span><span class="badge badge-linkedin">LINKEDIN</span></div>
-  </div>
-  <div class="card-meta">
-    <span>TMC</span>
-    <span>Eindhoven, North Brabant, Netherlands</span>
-    <span>07 May 2026</span>
-  </div>
-  <div class="score-row">
-    <span class="score-label">Fit:</span>
-    <span class="score-num score-low">54.0</span>
-    <div class="score-bar"><div class="bar-fill score-low" style="width:1.9%"></div></div>
-  </div>
-  <p class="summary">**About This Vacancy**
- As a Control Systems Engineer, you will focus on the design, development, and optimization of advanced control systems for high\-tech and industrial applications. You will work at the interface of hardware and software, translating system requirements into...</p>
-  <div class="keywords">Keywords: matlab, simulink, control theory, precision, pid</div>
-  <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4411823259" target="_blank" rel="noopener">View posting</a>
-</div>
-<div class="card" data-score="52.0" data-site="indeed" data-target="false" data-new="true" data-desired="false">
-  <div class="card-header">
-    <h3><a href="https://nl.indeed.com/viewjob?jk=879c77fcef22ccc2" target="_blank" rel="noopener">Mechatronics Engineer</a></h3>
-    <div class="badges"><span class="badge badge-new">NEW</span><span class="badge badge-indeed">INDEED</span></div>
-  </div>
-  <div class="card-meta">
-    <span>TMC</span>
-    <span>Eindhoven, NB, NL</span>
-    <span>07 May 2026</span>
-  </div>
-  <div class="score-row">
-    <span class="score-label">Fit:</span>
-    <span class="score-num score-low">52.0</span>
-    <div class="score-bar"><div class="bar-fill score-low" style="width:1.8%"></div></div>
-  </div>
-  <p class="summary">Netherlands Mechatronics 2 \- 5 years Eindhoven Hybrid
-Grow your career as an employeneur at TMC!
-
-  
-
-
-About The Member Company
-We are a global high\-tech consultancy company with a team of entrepreneurial engineers, scientists, and digital experts from around the world. Togethe...</p>
-  <div class="keywords">Keywords: matlab, simulink, mechatronics, actuator</div>
-  <a class="apply-btn" href="https://nl.indeed.com/viewjob?jk=879c77fcef22ccc2" target="_blank" rel="noopener">View posting</a>
-</div>
-<div class="card" data-score="52.0" data-site="indeed" data-target="false" data-new="true" data-desired="false">
-  <div class="card-header">
-    <h3><a href="https://nl.indeed.com/viewjob?jk=a0e3746bd30cd8b8" target="_blank" rel="noopener">Mechatronics test-engineer</a></h3>
-    <div class="badges"><span class="badge badge-new">NEW</span><span class="badge badge-indeed">INDEED</span></div>
-  </div>
-  <div class="card-meta">
-    <span>TMC</span>
-    <span>Eindhoven, NB, NL</span>
-    <span>07 May 2026</span>
-  </div>
-  <div class="score-row">
-    <span class="score-label">Fit:</span>
-    <span class="score-num score-low">52.0</span>
-    <div class="score-bar"><div class="bar-fill score-low" style="width:1.8%"></div></div>
-  </div>
-  <p class="summary">Netherlands Mechatronics 2 \- 5 years Eindhoven Hybrid
-Test and validate advanced mechatronic systems to ensure peak vehicle performance.
-
-  
-
-
-About The Member Company
-We are a global high\-tech consultancy company with a team of entrepreneurial engineers, scientists, and digita...</p>
-  <div class="keywords">Keywords: matlab, simulink, mechatronics, actuator</div>
-  <a class="apply-btn" href="https://nl.indeed.com/viewjob?jk=a0e3746bd30cd8b8" target="_blank" rel="noopener">View posting</a>
-</div>
-<div class="card" data-score="46.0" data-site="indeed" data-target="false" data-new="true" data-desired="false">
-  <div class="card-header">
-    <h3><a href="https://nl.indeed.com/viewjob?jk=3b43e3c50cb7da33" target="_blank" rel="noopener">Production & Mechatronics Engineer</a></h3>
-    <div class="badges"><span class="badge badge-new">NEW</span><span class="badge badge-indeed">INDEED</span></div>
-  </div>
-  <div class="card-meta">
-    <span>ARC</span>
-    <span>Groningen, GR, NL</span>
-    <span>12 May 2026</span>
-  </div>
-  <div class="score-row">
-    <span class="score-label">Fit:</span>
-    <span class="score-num score-low">46.0</span>
-    <div class="score-bar"><div class="bar-fill score-low" style="width:1.6%"></div></div>
-  </div>
-  <p class="summary">**Arc**
-
-
-Arc is a rapidly growing luxury tech brand, known for designing the world's most minimalistic phone case, the Arc Pulse.
-
-
-We are inventors, makers, and dreamers from across the world, united by craftsmanship, precision, and ambition. We learn from one another, collabor...</p>
-  <div class="keywords">Keywords: motion control, servo, mechatronics, precision, pid, actuator</div>
-  <a class="apply-btn" href="https://nl.indeed.com/viewjob?jk=3b43e3c50cb7da33" target="_blank" rel="noopener">View posting</a>
-</div>
-<div class="card returning-card" data-score="42.0" data-site="indeed" data-target="false" data-new="false" data-desired="false">
-  <div class="card-header">
-    <h3><a href="https://nl.indeed.com/viewjob?jk=cecc082eca6fd8d1" target="_blank" rel="noopener">Development Engineer (Location: Eindhoven)</a></h3>
-    <div class="badges"><span class="badge badge-seen">Seen</span><span class="badge badge-indeed">INDEED</span></div>
-  </div>
-  <div class="card-meta">
-    <span>Intralox</span>
-    <span>Eindhoven, NB, NL</span>
-    <span>22 May 2026</span>
-  </div>
-  <div class="score-row">
-    <span class="score-label">Fit:</span>
-    <span class="score-num score-low">42.0</span>
-    <div class="score-bar"><div class="bar-fill score-low" style="width:1.5%"></div></div>
-  </div>
-  <p class="summary">Are you analytically strong, and do you enjoy working with MATLAB? Would you like to contribute to strengthening our R\&D department at one of the world’s leading innovators in conveyance solutions?  
-
-
-Join Intralox as a **Development Engineer** and help us turn innovative ideas...</p>
-  <div class="keywords">Keywords: matlab, simulink, mechatronics, signal processing</div>
-  <a class="apply-btn" href="https://nl.indeed.com/viewjob?jk=cecc082eca6fd8d1" target="_blank" rel="noopener">View posting</a>
-</div>
-<div class="card" data-score="42.0" data-site="linkedin" data-target="false" data-new="true" data-desired="false">
+<div class="card" data-score="42.0" data-site="linkedin" data-target="false" data-new="true" data-desired="false" data-jobid="3b6ba7c918d0897c06b32862d2148ae2">
   <div class="card-header">
     <h3><a href="https://www.linkedin.com/jobs/view/4419149165" target="_blank" rel="noopener">Control System Designer</a></h3>
     <div class="badges"><span class="badge badge-new">NEW</span><span class="badge badge-linkedin">LINKEDIN</span></div>
@@ -422,7 +348,7 @@ Join Intralox as a **Development Engineer** and help us turn innovative ideas...
   <div class="score-row">
     <span class="score-label">Fit:</span>
     <span class="score-num score-low">42.0</span>
-    <div class="score-bar"><div class="bar-fill score-low" style="width:1.5%"></div></div>
+    <div class="score-bar"><div class="bar-fill score-low" style="width:6.8%"></div></div>
   </div>
   <p class="summary">**Functieomschrijving** 
 
@@ -430,137 +356,13 @@ Join Intralox as a **Development Engineer** and help us turn innovative ideas...
 
 
  Wil jij werken aan next\-generation control systemen binnen semicon en robotics? Als Control Systems Designer ontwerp je geavanceerde control algoritmes en werk je aan complexe dynamische systemen waarbij precisie en performance centraal staan. Je sp...</p>
-  <div class="keywords">Keywords: motion control, mechatronics, mechatronic, simulatie</div>
-  <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4419149165" target="_blank" rel="noopener">View posting</a>
+  <div class="keywords">Keywords: motion control, mechatronic, mechatronics, simulatie</div>
+  <div style="display:flex; gap:8px; align-items:center; margin-top:4px;">
+    <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4419149165" target="_blank" rel="noopener">View posting</a>
+    <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="3b6ba7c918d0897c06b32862d2148ae2">&#10003; Applied</button>
+  </div>
 </div>
-<div class="card" data-score="42.0" data-site="linkedin" data-target="false" data-new="true" data-desired="false">
-  <div class="card-header">
-    <h3><a href="https://www.linkedin.com/jobs/view/4366221323" target="_blank" rel="noopener">Mechatronics Consultant [F/M/X]</a></h3>
-    <div class="badges"><span class="badge badge-new">NEW</span><span class="badge badge-linkedin">LINKEDIN</span></div>
-  </div>
-  <div class="card-meta">
-    <span>Amaris Consulting</span>
-    <span>Eindhoven, North Brabant, Netherlands</span>
-    <span>14 May 2026</span>
-  </div>
-  <div class="score-row">
-    <span class="score-label">Fit:</span>
-    <span class="score-num score-low">42.0</span>
-    <div class="score-bar"><div class="bar-fill score-low" style="width:1.5%"></div></div>
-  </div>
-  <p class="summary">**Job Description**
- We are seeking an experienced
- **Mechatronics Engineer** 
- to join our engineering team as a
- **consultant** 
- , bringing deep technical expertise to advanced development projects in high\-performance, multidisciplinary environments. In this role, you will ac...</p>
-  <div class="keywords">Keywords: matlab, simulink, mechatronics, precision</div>
-  <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4366221323" target="_blank" rel="noopener">View posting</a>
-</div>
-<div class="card" data-score="40.0" data-site="linkedin" data-target="false" data-new="true" data-desired="false">
-  <div class="card-header">
-    <h3><a href="https://www.linkedin.com/jobs/view/4411640720" target="_blank" rel="noopener">Vehicle Controls Engineer</a></h3>
-    <div class="badges"><span class="badge badge-new">NEW</span><span class="badge badge-linkedin">LINKEDIN</span></div>
-  </div>
-  <div class="card-meta">
-    <span>TMC</span>
-    <span>Eindhoven, North Brabant, Netherlands</span>
-    <span>07 May 2026</span>
-  </div>
-  <div class="score-row">
-    <span class="score-label">Fit:</span>
-    <span class="score-num score-low">40.0</span>
-    <div class="score-bar"><div class="bar-fill score-low" style="width:1.4%"></div></div>
-  </div>
-  <p class="summary">**About This Vacancy**
- As a Vehicle Controls Engineer, you will design, develop, and optimize control systems that manage the dynamic behavior of vehicles. You will work on advanced control strategies for systems such as steering, braking, chassis, powertrain integration, and st...</p>
-  <div class="keywords">Keywords: matlab, simulink, mechatronics</div>
-  <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4411640720" target="_blank" rel="noopener">View posting</a>
-</div>
-<div class="card" data-score="40.0" data-site="indeed" data-target="false" data-new="true" data-desired="false">
-  <div class="card-header">
-    <h3><a href="https://nl.indeed.com/viewjob?jk=aa90144a50c33e77" target="_blank" rel="noopener">Calibration Engineer</a></h3>
-    <div class="badges"><span class="badge badge-new">NEW</span><span class="badge badge-indeed">INDEED</span></div>
-  </div>
-  <div class="card-meta">
-    <span>TMC</span>
-    <span>Eindhoven, NB, NL</span>
-    <span>07 May 2026</span>
-  </div>
-  <div class="score-row">
-    <span class="score-label">Fit:</span>
-    <span class="score-num score-low">40.0</span>
-    <div class="score-bar"><div class="bar-fill score-low" style="width:1.4%"></div></div>
-  </div>
-  <p class="summary">Netherlands Mechatronics 2 \- 5 years Eindhoven Hybrid
-Optimize performance through precise calibration
-
-  
-
-
-About The Member Company
-We are a global high\-tech consultancy company with a team of entrepreneurial engineers, scientists, and digital experts from around the world. T...</p>
-  <div class="keywords">Keywords: matlab, simulink, mechatronics</div>
-  <a class="apply-btn" href="https://nl.indeed.com/viewjob?jk=aa90144a50c33e77" target="_blank" rel="noopener">View posting</a>
-</div>
-<div class="card" data-score="34.0" data-site="indeed" data-target="false" data-new="true" data-desired="false">
-  <div class="card-header">
-    <h3><a href="https://nl.indeed.com/viewjob?jk=5d9cb0f4787e6cd6" target="_blank" rel="noopener">QED EU Software and Controls Engineer</a></h3>
-    <div class="badges"><span class="badge badge-new">NEW</span><span class="badge badge-indeed">INDEED</span></div>
-  </div>
-  <div class="card-meta">
-    <span>QED Technologies International</span>
-    <span>Delft, ZH, NL</span>
-    <span>04 May 2026</span>
-  </div>
-  <div class="score-row">
-    <span class="score-label">Fit:</span>
-    <span class="score-num score-low">34.0</span>
-    <div class="score-bar"><div class="bar-fill score-low" style="width:1.2%"></div></div>
-  </div>
-  <p class="summary">**Software \& Controls Engineer** **at QED Technologies Europe**
-
-**Formerly Dutch United Instruments**
-
-**This position is located at:**
-
-
-Kleveringweg 4,
-
-
-2616 LZ Delft, Netherlands
-
-
-(m) \+31 6 1842 5652
-
-
-**Hours:** 32–40 per week **Education Level:** Master’s degree (WO)
-
-*...</p>
-  <div class="keywords">Keywords: control theory, mechatronics, mechatronic, precision, semiconductor</div>
-  <a class="apply-btn" href="https://nl.indeed.com/viewjob?jk=5d9cb0f4787e6cd6" target="_blank" rel="noopener">View posting</a>
-</div>
-<div class="card" data-score="32.0" data-site="linkedin" data-target="false" data-new="true" data-desired="false">
-  <div class="card-header">
-    <h3><a href="https://www.linkedin.com/jobs/view/4382094605" target="_blank" rel="noopener">R&D Engineer - Dronetechnologie</a></h3>
-    <div class="badges"><span class="badge badge-new">NEW</span><span class="badge badge-linkedin">LINKEDIN</span></div>
-  </div>
-  <div class="card-meta">
-    <span>NLR - Netherlands Aerospace Centre</span>
-    <span>Marknesse, Flevoland, Netherlands</span>
-    <span>15 May 2026</span>
-  </div>
-  <div class="score-row">
-    <span class="score-label">Fit:</span>
-    <span class="score-num score-low">32.0</span>
-    <div class="score-bar"><div class="bar-fill score-low" style="width:1.1%"></div></div>
-  </div>
-  <p class="summary">**Functieomschrijving**
-**Drones zijn een belangrijke factor voor innovatieve oplossingen om de steeds sneller veranderende maatschappelijke, economische en veiligheidsuitdagingen het hoofd te bieden. Wil je op het gebied van onbemande en autonome luchtvaart impact hebben binnen...</p>
-  <div class="keywords">Keywords: matlab, luchtvaart, ruimtevaart, drone</div>
-  <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4382094605" target="_blank" rel="noopener">View posting</a>
-</div>
-<div class="card" data-score="32.0" data-site="linkedin" data-target="false" data-new="true" data-desired="false">
+<div class="card" data-score="32.0" data-site="linkedin" data-target="false" data-new="true" data-desired="false" data-jobid="111d67a7776b32ffac03763d445c4728">
   <div class="card-header">
     <h3><a href="https://www.linkedin.com/jobs/view/4419152141" target="_blank" rel="noopener">Robotics Engineer</a></h3>
     <div class="badges"><span class="badge badge-new">NEW</span><span class="badge badge-linkedin">LINKEDIN</span></div>
@@ -573,56 +375,46 @@ Kleveringweg 4,
   <div class="score-row">
     <span class="score-label">Fit:</span>
     <span class="score-num score-low">32.0</span>
-    <div class="score-bar"><div class="bar-fill score-low" style="width:1.1%"></div></div>
+    <div class="score-bar"><div class="bar-fill score-low" style="width:5.2%"></div></div>
   </div>
   <p class="summary">Bij
  **Looper Engineering** 
  werk je als Robotics/Mechatronics Engineer aan projecten waar werktuigbouwkunde, elektrotechniek en software samenkomen. Jij bent de brug tussen disciplines en zorgt ervoor dat systemen niet alleen goed ontworpen worden, maar ook optimaal samenwerken...</p>
-  <div class="keywords">Keywords: mechatronics, mechatronic, mechatronica, besturing</div>
-  <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4419152141" target="_blank" rel="noopener">View posting</a>
+  <div class="keywords">Keywords: mechatronic, mechatronics, mechatronica, besturing</div>
+  <div style="display:flex; gap:8px; align-items:center; margin-top:4px;">
+    <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4419152141" target="_blank" rel="noopener">View posting</a>
+    <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="111d67a7776b32ffac03763d445c4728">&#10003; Applied</button>
+  </div>
 </div>
-<div class="card" data-score="26.0" data-site="indeed" data-target="false" data-new="true" data-desired="false">
+<div class="card" data-score="32.0" data-site="linkedin" data-target="false" data-new="true" data-desired="false" data-jobid="3fa31d7c1ca11568030a9ca125865ee5">
   <div class="card-header">
-    <h3><a href="https://nl.indeed.com/viewjob?jk=39352e98dfc11c42" target="_blank" rel="noopener">Service Engineer EHV</a></h3>
-    <div class="badges"><span class="badge badge-new">NEW</span><span class="badge badge-indeed">INDEED</span></div>
+    <h3><a href="https://www.linkedin.com/jobs/view/4419137336" target="_blank" rel="noopener">Robotics Design Engineer</a></h3>
+    <div class="badges"><span class="badge badge-new">NEW</span><span class="badge badge-linkedin">LINKEDIN</span></div>
   </div>
   <div class="card-meta">
-    <span>Shapeways</span>
-    <span>Eindhoven, NB, NL</span>
-    <span>22 Aug 2025</span>
+    <span>Uptec</span>
+    <span></span>
+    <span>Date unknown</span>
   </div>
   <div class="score-row">
     <span class="score-label">Fit:</span>
-    <span class="score-num score-low">26.0</span>
-    <div class="score-bar"><div class="bar-fill score-low" style="width:0.9%"></div></div>
+    <span class="score-num score-low">32.0</span>
+    <div class="score-bar"><div class="bar-fill score-low" style="width:5.2%"></div></div>
   </div>
-  <p class="summary">About Shapeways
-Shapeways is a global digital manufacturing company, serving customers worldwide from our state\-of\-the\-art production facility in Eindhoven, The Netherlands. We specialize in production\-grade additive manufacturing, with a focus on high quality, low\-volume pr...</p>
-  <div class="keywords">Keywords: mechatronics, mechatronic, high tech, precision, drone</div>
-  <a class="apply-btn" href="https://nl.indeed.com/viewjob?jk=39352e98dfc11c42" target="_blank" rel="noopener">View posting</a>
+  <p class="summary">Ben jij technisch onderlegd in
+ **robotica, mechatronica** 
+ of
+ **elektromechanica** 
+ ? Droom je ervan te werken aan hightech machines, geavanceerde robots of slimme voertuigsystemen? Of je nu starter bent of al ervaring hebt, wij bieden jou volop kansen om te groeien binnen in...</p>
+  <div class="keywords">Keywords: mechatronic, mechatronica, luchtvaart, besturing</div>
+  <div style="display:flex; gap:8px; align-items:center; margin-top:4px;">
+    <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4419137336" target="_blank" rel="noopener">View posting</a>
+    <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="3fa31d7c1ca11568030a9ca125865ee5">&#10003; Applied</button>
+  </div>
 </div>
-<div class="card returning-card" data-score="24.0" data-site="linkedin" data-target="false" data-new="false" data-desired="false">
+<div class="card" data-score="24.0" data-site="linkedin" data-target="false" data-new="true" data-desired="false" data-jobid="445476224d14de2f5dd8620844afa1bb">
   <div class="card-header">
-    <h3><a href="https://www.linkedin.com/jobs/view/4406067371" target="_blank" rel="noopener">Electrical Engineer</a></h3>
-    <div class="badges"><span class="badge badge-seen">Seen</span><span class="badge badge-linkedin">LINKEDIN</span></div>
-  </div>
-  <div class="card-meta">
-    <span>SMST Designers & Constructors</span>
-    <span>Friesland, Netherlands</span>
-    <span>20 May 2026</span>
-  </div>
-  <div class="score-row">
-    <span class="score-label">Fit:</span>
-    <span class="score-num score-low">24.0</span>
-    <div class="score-bar"><div class="bar-fill score-low" style="width:0.8%"></div></div>
-  </div>
-  <p class="summary">*SMST is een internationaal georiënteerde onderneming die innovatieve systemen bedenkt, ontwerpt en bouwt voor de offshore\- en maritieme industrie. We leveren o.a. systemen voor het veilig overbrengen van personeel en vracht vanaf schepen naar offshore installaties. Onze focus l...</p>
-  <div class="keywords">Keywords: mechatronic, mechatronica, bode, besturing</div>
-  <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4406067371" target="_blank" rel="noopener">View posting</a>
-</div>
-<div class="card" data-score="24.0" data-site="linkedin" data-target="false" data-new="true" data-desired="false">
-  <div class="card-header">
-    <h3><a href="https://www.linkedin.com/jobs/view/4375224617" target="_blank" rel="noopener">Electronics Engineer Driveline Systems</a></h3>
+    <h3><a href="https://www.linkedin.com/jobs/view/4375219820" target="_blank" rel="noopener">Electronics Engineer Driveline Systems</a></h3>
     <div class="badges"><span class="badge badge-new">NEW</span><span class="badge badge-linkedin">LINKEDIN</span></div>
   </div>
   <div class="card-meta">
@@ -633,116 +425,174 @@ Shapeways is a global digital manufacturing company, serving customers worldwide
   <div class="score-row">
     <span class="score-label">Fit:</span>
     <span class="score-num score-low">24.0</span>
-    <div class="score-bar"><div class="bar-fill score-low" style="width:0.8%"></div></div>
+    <div class="score-bar"><div class="bar-fill score-low" style="width:3.9%"></div></div>
   </div>
-  <p class="summary">Founded in 1948, Lely is committed to a sustainable, profitable, and enjoyable future in agriculture. Driven by the challenges faced by farmers and the needs of cows, we develop high\-quality robots and data systems that improve animal welfare, flexibility, and productivity on da...</p>
-  <div class="keywords">Keywords: motion control, controller, precision, microcontroller</div>
-  <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4375224617" target="_blank" rel="noopener">View posting</a>
+  <p class="summary">Lely, opgericht in 1948, zet zich in voor het creëren van een duurzame, winstgevende en plezierige toekomst in de landbouw. Gedreven door de uitdagingen waar boeren voor staan en de behoeften van koeien, ontwikkelen we hoogwaardige robots en datasystemen die het dierenwelzijn, de...</p>
+  <div class="keywords">Keywords: motion control, controller, regeling, microcontroller</div>
+  <div style="display:flex; gap:8px; align-items:center; margin-top:4px;">
+    <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4375219820" target="_blank" rel="noopener">View posting</a>
+    <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="445476224d14de2f5dd8620844afa1bb">&#10003; Applied</button>
+  </div>
 </div>
-<div class="card" data-score="24.0" data-site="indeed" data-target="false" data-new="true" data-desired="false">
+<div class="card" data-score="18.0" data-site="linkedin" data-target="false" data-new="true" data-desired="false" data-jobid="0fa45306e8a9cf0a6601d2cad4db664a">
   <div class="card-header">
-    <h3><a href="https://nl.indeed.com/viewjob?jk=23fd8e5d7010800a" target="_blank" rel="noopener">QED EU Software Engineer</a></h3>
-    <div class="badges"><span class="badge badge-new">NEW</span><span class="badge badge-indeed">INDEED</span></div>
-  </div>
-  <div class="card-meta">
-    <span>QED Technologies International</span>
-    <span>Delft, ZH, NL</span>
-    <span>04 May 2026</span>
-  </div>
-  <div class="score-row">
-    <span class="score-label">Fit:</span>
-    <span class="score-num score-low">24.0</span>
-    <div class="score-bar"><div class="bar-fill score-low" style="width:0.8%"></div></div>
-  </div>
-  <p class="summary">**Software Engineer at QED Technologies Europe**  
-
-  
-
-**Location:** Delft **Hours:** 32–40 per week **Education Level:** Master’s degree (WO)  
-
-  
-
-**Join QED Technologies Europe and work on software that powers some of the world’s most precise optical measurement systems. In...</p>
-  <div class="keywords">Keywords: mechatronics, mechatronic, precision, semiconductor</div>
-  <a class="apply-btn" href="https://nl.indeed.com/viewjob?jk=23fd8e5d7010800a" target="_blank" rel="noopener">View posting</a>
-</div>
-<div class="card" data-score="18.0" data-site="linkedin" data-target="false" data-new="true" data-desired="false">
-  <div class="card-header">
-    <h3><a href="https://www.linkedin.com/jobs/view/4409191840" target="_blank" rel="noopener">UAV Robotics Engineer</a></h3>
+    <h3><a href="https://www.linkedin.com/jobs/view/4375530208" target="_blank" rel="noopener">Electronics Engineer</a></h3>
     <div class="badges"><span class="badge badge-new">NEW</span><span class="badge badge-linkedin">LINKEDIN</span></div>
   </div>
   <div class="card-meta">
-    <span>Emergent Swarm Solutions</span>
-    <span>Delft, South Holland, Netherlands</span>
-    <span>01 May 2026</span>
+    <span>Lely</span>
+    <span>Maassluis, South Holland, Netherlands</span>
+    <span>25 May 2026</span>
   </div>
   <div class="score-row">
     <span class="score-label">Fit:</span>
     <span class="score-num score-low">18.0</span>
-    <div class="score-bar"><div class="bar-fill score-low" style="width:0.6%"></div></div>
+    <div class="score-bar"><div class="bar-fill score-low" style="width:2.9%"></div></div>
   </div>
-  <p class="summary">About Us: Emergent is a Delft\-based company dedicated to revolutionizing autonomous aerial systems for defense and emergency response. Our advanced technology leverages decentralized swarming algorithms to tackle real\-world challenges in large scale intelligence gathering. We h...</p>
-  <div class="keywords">Keywords: sensor fusion, sensor fusion, unmanned, uav</div>
-  <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4409191840" target="_blank" rel="noopener">View posting</a>
-</div>
-<div class="card" data-score="16.0" data-site="indeed" data-target="false" data-new="true" data-desired="false">
-  <div class="card-header">
-    <h3><a href="https://nl.indeed.com/viewjob?jk=aaafb66562a8fc83" target="_blank" rel="noopener">PhD in Physical control of a soft artificial heart</a></h3>
-    <div class="badges"><span class="badge badge-new">NEW</span><span class="badge badge-indeed">INDEED</span></div>
+  <p class="summary">Een duurzame, winstgevende en aangename toekomst voor een melkveehouder door robotisering, engineering en boerenkennis te combineren, daar geloven we in.
+   
+
+  
+
+ Dat begon 75 jaar geleden met een droom van twee broers in Maassluis, sindsdien zijn we innovatieve koploper in geau...</p>
+  <div class="keywords">Keywords: controller, bode, regeling, besturing</div>
+  <div style="display:flex; gap:8px; align-items:center; margin-top:4px;">
+    <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4375530208" target="_blank" rel="noopener">View posting</a>
+    <button class="apply-toggle-btn" onclick="toggleAppliedCard(this)" data-jobid="0fa45306e8a9cf0a6601d2cad4db664a">&#10003; Applied</button>
   </div>
-  <div class="card-meta">
-    <span>Eindhoven University of Technology</span>
-    <span>Eindhoven, NB, NL</span>
-    <span>20 May 2026</span>
-  </div>
-  <div class="score-row">
-    <span class="score-label">Fit:</span>
-    <span class="score-num score-low">16.0</span>
-    <div class="score-bar"><div class="bar-fill score-low" style="width:0.6%"></div></div>
-  </div>
-  <p class="summary">The Department of Mechanical Engineering department conducts world\-class research aligned with the technological interests of the high\-tech industry in the Netherlands, with a focus on the Brainport region. Our goal is to produce engineers who are both scientifically educated a...</p>
-  <div class="keywords">Keywords: controller, semiconductor, pid, dynamica</div>
-  <a class="apply-btn" href="https://nl.indeed.com/viewjob?jk=aaafb66562a8fc83" target="_blank" rel="noopener">View posting</a>
-</div>
-<div class="card" data-score="8.0" data-site="linkedin" data-target="false" data-new="true" data-desired="false">
-  <div class="card-header">
-    <h3><a href="https://www.linkedin.com/jobs/view/4416098373" target="_blank" rel="noopener">Project Engineer</a></h3>
-    <div class="badges"><span class="badge badge-new">NEW</span><span class="badge badge-linkedin">LINKEDIN</span></div>
-  </div>
-  <div class="card-meta">
-    <span>Destinus</span>
-    <span>Hengelo, Overijssel, Netherlands</span>
-    <span>18 May 2026</span>
-  </div>
-  <div class="score-row">
-    <span class="score-label">Fit:</span>
-    <span class="score-num score-low">8.0</span>
-    <div class="score-bar"><div class="bar-fill score-low" style="width:0.3%"></div></div>
-  </div>
-  <p class="summary">Imagine you are leading complex technical projects from concept to real world impact. You connect engineering operations and stakeholders, turning ambitious ideas into structured plans and delivered results. This role puts you right at the heart of fast\-moving aerospace programs...</p>
-  <div class="keywords">Keywords: precision, pid, unmanned</div>
-  <a class="apply-btn" href="https://www.linkedin.com/jobs/view/4416098373" target="_blank" rel="noopener">View posting</a>
 </div>
 </div>
 
 <footer>
   Auto-generated by job_searcher.py &nbsp;&middot;&nbsp;
   Runs daily at 09:00 NL time via GitHub Actions &nbsp;&middot;&nbsp;
-  Fit score = raw weighted keyword depth (max 2860)
+  Fit score = raw weighted keyword depth (all-time best: 615)
 </footer>
 
 <script>
   const DESIRED_SCORE = 90;
+  const SERVER_APPLIED = new Set([]);
   let activeSite   = 'all';
   let targetOnly   = false;
   let newOnly      = false;
   let activeSort   = 'score';
+  let showApplied  = false;
+
+  // ── Applied jobs — persisted to applied.json in the repo ──────────
+  const LS_KEY       = 'jss_applied';
+  const LS_PAT       = 'jss_gh_pat';
+  const LS_USER      = 'jss_gh_user';
+  const LS_REPO      = 'jss_gh_repo';
+  const APPLIED_FILE = 'applied.json';
+
+  let appliedSet = new Set(SERVER_APPLIED);  // seed from server-rendered set
+
+  async function loadApplied() {
+    // Fetch latest applied.json from GitHub Pages (cache-bust)
+    try {
+      const res = await fetch(APPLIED_FILE + '?_=' + Date.now());
+      if (res.ok) { const arr = await res.json(); arr.forEach(id => appliedSet.add(id)); }
+    } catch(e) {}
+    // Merge localStorage fallback
+    try {
+      const local = JSON.parse(localStorage.getItem(LS_KEY) || '[]');
+      local.forEach(id => appliedSet.add(id));
+    } catch(e) {}
+    initAppliedUI();
+  }
+
+  function initAppliedUI() {
+    document.querySelectorAll('[data-jobid]').forEach(card => {
+      if (appliedSet.has(card.dataset.jobid)) {
+        card.classList.add('applied-card');
+        if (!window._showApplied) card.style.display = 'none';
+        const btn = card.querySelector('.apply-toggle-btn');
+        if (btn) { btn.textContent = '↩ Undo'; btn.classList.add('applied'); }
+      }
+    });
+    refreshAppliedCounter();
+    checkPatNotice();
+  }
+
+  async function saveApplied() {
+    const arr = Array.from(appliedSet);
+    localStorage.setItem(LS_KEY, JSON.stringify(arr));   // always save locally too
+
+    const pat  = localStorage.getItem(LS_PAT);
+    const user = localStorage.getItem(LS_USER);
+    const repo = localStorage.getItem(LS_REPO);
+    if (!pat || !user || !repo) return;   // no PAT — localStorage only
+
+    try {
+      const apiUrl = `https://api.github.com/repos/${user}/${repo}/contents/${APPLIED_FILE}`;
+      let sha = null;
+      try {
+        const r = await fetch(apiUrl, { headers: { Authorization: `Bearer ${pat}` } });
+        if (r.ok) { const d = await r.json(); sha = d.sha; }
+      } catch(e) {}
+      const body = { message: 'Update applied.json', content: btoa(JSON.stringify(arr, null, 2)) };
+      if (sha) body.sha = sha;
+      await fetch(apiUrl, {
+        method: 'PUT',
+        headers: { Authorization: `Bearer ${pat}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+      });
+    } catch(e) { console.warn('Could not save applied.json:', e); }
+  }
+
+  function checkPatNotice() {
+    const el = document.getElementById('patNotice');
+    if (el) el.style.display = localStorage.getItem(LS_PAT) ? 'none' : 'block';
+  }
+
+  function refreshAppliedCounter() {
+    const count = document.querySelectorAll('[data-jobid].applied-card').length;
+    const el = document.getElementById('appliedCount');
+    if (el) el.textContent = count;
+  }
+
+  function toggleAppliedCard(btn) {
+    const jid  = btn.dataset.jobid;
+    const card = btn.closest('[data-jobid]');
+    if (appliedSet.has(jid)) {
+      appliedSet.delete(jid);
+      card.classList.remove('applied-card');
+      card.style.display = '';
+      btn.textContent = '✓ Applied';
+      btn.classList.remove('applied');
+    } else {
+      appliedSet.add(jid);
+      card.classList.add('applied-card');
+      if (!window._showApplied) card.style.display = 'none';
+      btn.textContent = '↩ Undo';
+      btn.classList.add('applied');
+    }
+    refreshAppliedCounter();
+    saveApplied();
+  }
+
+  function toggleApplied(e) {
+    e.preventDefault();
+    window._showApplied = !window._showApplied;
+    document.querySelectorAll('[data-jobid].applied-card').forEach(c => {
+      c.style.display = window._showApplied ? '' : 'none';
+    });
+    const link = document.getElementById('appliedToggle');
+    if (link) link.textContent = (window._showApplied ? 'Hide' : 'Show') + ' applied (' + document.getElementById('appliedCount').textContent + ')';
+  }
 
   function applyFilters() {
     const q = document.getElementById('searchBox').value.toLowerCase();
     const minScoreRaw = document.getElementById('minScoreBox').value;
     const minScore = minScoreRaw === '' ? null : parseFloat(minScoreRaw);
     document.querySelectorAll('.card').forEach(card => {
+      const jid      = card.dataset.jobid || '';
+      const isApp    = appliedSet.has(jid);
+      // Applied cards obey the showApplied toggle independently of filters
+      if (isApp) {
+        card.style.display = window._showApplied ? '' : 'none';
+        return;
+      }
       const text     = card.innerText.toLowerCase();
       const site     = card.dataset.site || '';
       const isTarget = card.dataset.target === 'true';
@@ -795,6 +645,9 @@ Shapeways is a global digital manufacturing company, serving customers worldwide
     });
     cards.forEach(c => grid.appendChild(c));
   }
+
+  // Run on page load
+  loadApplied();
 </script>
 </body>
 </html>
