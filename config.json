@@ -174,7 +174,7 @@
     "\\b1[0-9]\\+\\s*year"
   ],
   "target_companies": [],
-  "results_per_query": 30,
+  "results_per_query": 90,
   "hours_old": 48,
   "min_keywords": 2,
   "desired_score": 90,
