@@ -1,4 +1,6 @@
 {
+  "site_title": "Control Theory Jobs NL",
+  "country": "Netherlands",
   "search_queries": [
     "control systems engineer Netherlands",
     "GNC engineer Netherlands",
@@ -48,6 +50,12 @@
         "feedback linearization",
         "stochastic control",
         "control allocation",
+        "lyapunov",
+        "pole placement",
+        "root locus",
+        "transfer function",
+        "frequency response",
+        "bode",
         "regeltechniek",
         "regelsystemen",
         "geavanceerde regeltechniek",
@@ -65,7 +73,7 @@
         "baanoptimalisatie",
         "stabiliteitsanalyse",
         "control theory",
-        "filtering"
+        "signal filtering"
       ]
     },
     {
@@ -86,8 +94,9 @@
         "hardware-in-the-loop",
         "model-in-the-loop",
         "software-in-the-loop",
-        "controller",
         "sensor fusion",
+        "pid",
+        "pid control",
         "bewegingsbesturing",
         "bewegingsregeling",
         "servoregeling",
@@ -97,16 +106,15 @@
         "ruimtevaart",
         "autonome systemen",
         "precisiemechatronica",
-        "voertuigdynamica",
-        "pid",
-        "pid control",
-        "optimization",
-        "control"
+        "voertuigdynamica"
       ]
     },
     {
       "weight": 2,
       "keywords": [
+        "control",
+        "optimization",
+        "controller",
         "dynamical systems",
         "high-tech",
         "high tech",
@@ -157,7 +165,10 @@
     "codesys",
     "plc",
     "scada",
-    "hmi"
+    "hmi",
+    "financieel controller",
+    "project controller",
+    "financial controller"
   ],
   "senior_patterns": [
     "\\bsenior\\b",
