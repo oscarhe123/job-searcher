@@ -1,6 +1,4 @@
 {
-  "site_title": "Control Theory Jobs NL",
-  "country": "Netherlands",
   "search_queries": [
     "control systems engineer Netherlands",
     "GNC engineer Netherlands",
@@ -73,7 +71,17 @@
         "baanoptimalisatie",
         "stabiliteitsanalyse",
         "control theory",
-        "signal filtering"
+        "signal filtering",
+        "linear parameter varying",
+        "moving horizon estimation",
+        "disturbance observer",
+        "backstepping",
+        "iterative learning control",
+        "repetitive control",
+        "particle filter",
+        "impedance control",
+        "differential flatness",
+        "active disturbance rejection"
       ]
     },
     {
@@ -140,7 +148,14 @@
         "modellering",
         "simulatie",
         "microcontroller",
-        "actuator"
+        "actuator",
+        "loop shaping",
+        "multivariable control",
+        "mimo",
+        "acados",
+        "casadi",
+        "speedgoat",
+        "dspace"
       ]
     }
   ],
