@@ -159,7 +159,9 @@
         "acados",
         "casadi",
         "speedgoat",
-        "dspace"
+        "dspace",
+        "robust",
+        "non-linear"
       ]
     }
   ],
