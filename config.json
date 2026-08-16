@@ -172,7 +172,8 @@
     "electrical engineer",
     "postdoc",
     "phd",
-    "technician"
+    "technician",
+    "Business Controller"
   ],
   "blacklist_full": [
     "ladder logic",
@@ -186,7 +187,8 @@
     "hmi",
     "financieel controller",
     "project controller",
-    "financial controller"
+    "financial controller",
+    "Business Controller"
   ],
   "senior_patterns": [
     "\\bsenior\\b",
@@ -198,9 +200,7 @@
     "\\bvp\\b",
     "\\bhead of\\b",
     "\\bmanager\\b",
-    "\\barchitect\\b",
-    "\\b[5-9]\\+\\s*year",
-    "\\b1[0-9]\\+\\s*year"
+    "\\barchitect\\b"
   ],
   "target_companies": [],
   "results_per_query": 90,
