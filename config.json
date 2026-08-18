@@ -173,7 +173,7 @@
     "postdoc",
     "phd",
     "technician",
-    "Business Controller"
+    "business controller"
   ],
   "blacklist_full": [
     "ladder logic",
@@ -188,7 +188,7 @@
     "financieel controller",
     "project controller",
     "financial controller",
-    "Business Controller"
+    "business controller"
   ],
   "senior_patterns": [
     "\\bsenior\\b",
