@@ -12,6 +12,13 @@ on:
       - 'discarded.json'   # browser writes — must not re-trigger the workflow
       - 'maybe.json'       # browser writes — must not re-trigger the workflow
 
+# Only one search-and-publish run at a time. Overlapping runs race on the
+# data-branch ref and one of them loses its jobs.db. A queued duplicate scrape
+# is worthless anyway, so let GitHub drop it rather than run it.
+concurrency:
+  group: job-search
+  cancel-in-progress: false
+
 permissions:
   contents: write
   pages: write
@@ -71,7 +78,24 @@ jobs:
           cp $GITHUB_WORKSPACE/jobs.db jobs.db 2>/dev/null || true
           git add jobs.db
           git commit -m "Update jobs.db — run ${{ github.run_id }}" || echo "No changes to commit"
-          git push origin data-branch --force
+          # Retry on a ref-lock race: another push may have moved data-branch
+          # while we were scraping. Re-fetch so our old-OID matches, then retry.
+          pushed=0
+          for attempt in 1 2 3; do
+            if git push origin data-branch --force; then
+              echo "Pushed jobs.db on attempt $attempt"
+              pushed=1
+              break
+            fi
+            echo "Push rejected (attempt $attempt) — refetching data-branch"
+            git fetch origin data-branch || true
+            sleep $((attempt * 10))
+          done
+          # A lost jobs.db costs analytics history, not the site itself. Warn
+          # loudly but keep going so the Pages deploy below still publishes.
+          if [ "$pushed" -ne 1 ]; then
+            echo "::warning::Could not persist jobs.db to data-branch after 3 attempts; this run's DB rows are lost. Site deploy continues."
+          fi
           # Return to main so subsequent steps work correctly
           git checkout ${{ github.ref_name }} 2>/dev/null || git checkout main
 
