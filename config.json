@@ -175,10 +175,6 @@
     }
   ],
   "blacklist_title": [
-    "plc",
-    "scada",
-    "hmi",
-    "automation engineer",
     "welding",
     "project engineer",
     "electrical engineer",
@@ -188,15 +184,6 @@
     "business controller"
   ],
   "blacklist_full": [
-    "ladder logic",
-    "tia portal",
-    "siemens s7",
-    "step 7",
-    "beckhoff ads",
-    "codesys",
-    "plc",
-    "scada",
-    "hmi",
     "financieel controller",
     "project controller",
     "financial controller",
