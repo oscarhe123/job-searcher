@@ -187,13 +187,17 @@
     "postdoc",
     "phd",
     "technician",
-    "business controller"
+    "business controller",
+    "monteur",
+    "internship"
   ],
   "blacklist_full": [
     "financieel controller",
     "project controller",
     "financial controller",
-    "business controller"
+    "business controller",
+    "monteur",
+    "internship"
   ],
   "senior_patterns": [
     "\\bsenior\\b",
