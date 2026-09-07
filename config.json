@@ -189,7 +189,9 @@
     "technician",
     "business controller",
     "monteur",
-    "internship"
+    "internship",
+    "inbedrijfsteller",
+    "monteur"
   ],
   "blacklist_full": [
     "financieel controller",
