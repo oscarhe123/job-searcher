@@ -192,7 +192,8 @@
     "monteur",
     "internship",
     "inbedrijfsteller",
-    "monteur"
+    "monteur",
+    "jobster"
   ],
   "blacklist_full": [
     "financieel controller",
@@ -200,7 +201,8 @@
     "financial controller",
     "business controller",
     "monteur",
-    "internship"
+    "internship",
+    "jobster"
   ],
   "senior_patterns": [
     "\\bsenior\\b",
