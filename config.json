@@ -133,7 +133,8 @@
         "sensorfusion",
         "motion control",
         "motioncontrol",
-        "twincat"
+        "Beckhoff",
+        "TwinCAT"
       ]
     },
     {
