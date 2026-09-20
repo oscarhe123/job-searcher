@@ -93,7 +93,9 @@
         "particle filter",
         "impedance control",
         "differential flatness",
-        "active disturbance rejection"
+        "active disturbance rejection",
+        "Beckhoff",
+        "TwinCAT"
       ]
     },
     {
@@ -132,9 +134,7 @@
         "sensor fusion",
         "sensorfusion",
         "motion control",
-        "motioncontrol",
-        "Beckhoff",
-        "TwinCAT"
+        "motioncontrol"
       ]
     },
     {
