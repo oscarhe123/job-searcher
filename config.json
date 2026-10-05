@@ -20,7 +20,8 @@
     "Control Engineer industriële automatisering",
     "Software Engineer industriële automatisering",
     "Procesautomatisering engineer",
-    "industrial automation"
+    "industrial automation",
+    "deep learning"
   ],
   "scored_keywords": [
     {
@@ -95,7 +96,8 @@
         "differential flatness",
         "active disturbance rejection",
         "Beckhoff",
-        "TwinCAT"
+        "TwinCAT",
+        "deep learning"
       ]
     },
     {
@@ -135,7 +137,8 @@
         "sensorfusion",
         "motion control",
         "motioncontrol",
-        "dcs"
+        "dcs",
+        "computer vision"
       ]
     },
     {
